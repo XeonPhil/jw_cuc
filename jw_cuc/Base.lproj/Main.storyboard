@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tYm-iY-76v">
+                                <rect key="frame" x="16" y="60" width="343" height="175"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="343" id="6v5-43-1Ag"/>
+                                    <constraint firstAttribute="height" constant="175" id="Hxb-Z2-gLt"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IxX-YW-U1V">
+                                <rect key="frame" x="16" y="466" width="343" height="30"/>
+                                <state key="normal" title="登录"/>
+                                <connections>
+                                    <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nfB-2I-VaA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ZU-vL-cNw">
+                                <rect key="frame" x="16" y="504" width="343" height="30"/>
+                                <state key="normal" title="获取课表URL"/>
+                                <connections>
+                                    <action selector="getTable:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ej6-bT-uRI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8N-Me-nc9">
+                                <rect key="frame" x="16" y="318" width="343" height="30"/>
+                                <state key="normal" title="获取验证码"/>
+                                <connections>
+                                    <action selector="connect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YR6-gp-cQN"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lMk-sf-EpI">
+                                <rect key="frame" x="46" y="364" width="283" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="4ZU-vL-cNw" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="03c-kG-YRc"/>
+                            <constraint firstItem="tYm-iY-76v" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="238-5Y-3zx"/>
+                            <constraint firstItem="w8N-Me-nc9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="4pd-eb-fhQ"/>
+                            <constraint firstItem="w8N-Me-nc9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="61u-ei-boR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tYm-iY-76v" secondAttribute="trailing" id="GN9-6R-BPp"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="4ZU-vL-cNw" secondAttribute="bottom" constant="133" id="Kn5-C9-hNb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lMk-sf-EpI" secondAttribute="trailing" constant="30" id="NvY-wq-1CR"/>
+                            <constraint firstItem="tYm-iY-76v" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="Rfp-b9-S3F"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="w8N-Me-nc9" secondAttribute="trailing" id="adP-FT-oeq"/>
+                            <constraint firstItem="4ZU-vL-cNw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ggx-ru-Dmi"/>
+                            <constraint firstItem="4ZU-vL-cNw" firstAttribute="top" secondItem="IxX-YW-U1V" secondAttribute="bottom" constant="8" id="hg2-Ns-PK1"/>
+                            <constraint firstItem="lMk-sf-EpI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="30" id="kMD-ax-Pov"/>
+                            <constraint firstItem="IxX-YW-U1V" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="pOo-98-Wdb"/>
+                            <constraint firstItem="w8N-Me-nc9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vJ7-sd-lJP"/>
+                            <constraint firstItem="4ZU-vL-cNw" firstAttribute="centerX" secondItem="IxX-YW-U1V" secondAttribute="centerX" id="xIA-Wj-v4r"/>
+                            <constraint firstItem="IxX-YW-U1V" firstAttribute="top" secondItem="lMk-sf-EpI" secondAttribute="bottom" constant="72" id="yeO-bx-ydD"/>
+                            <constraint firstItem="IxX-YW-U1V" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="z6p-nc-oZ7"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="captchaField" destination="lMk-sf-EpI" id="0DY-Oc-Hf7"/>
+                        <outlet property="captchaImageView" destination="tYm-iY-76v" id="1Lj-sG-Dy6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1409" y="-24"/>
+        </scene>
+    </scenes>
+</document>

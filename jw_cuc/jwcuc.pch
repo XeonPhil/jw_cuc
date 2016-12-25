@@ -1,0 +1,24 @@
+//
+//  jwcuc.pch
+//  jw_cuc
+//
+//  Created by  Phil Guo on 16/12/24.
+//  Copyright © 2016年  Phil Guo. All rights reserved.
+//
+
+#ifndef jwcuc_pch
+#define jwcuc_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import <Foundation/Foundation.h>
+
+#define BASE_URL [NSURL URLWithString:@"http://jw.cuc.edu.cn/academic/"]
+#define INDEX_URL [NSURL URLWithString:@"index.jsp" relativeToURL:BASE_URL]
+#define CAPTCHA_URL [NSURL URLWithString:@"getCaptcha.do" relativeToURL:BASE_URL]
+#define LOGIN_CHALLENGE_URL [NSURL URLWithString:@"j_acegi_security_check" relativeToURL:BASE_URL]
+#define PRELOAD_COURSE_URL [NSURL URLWithString:@"student/currcourse/currcourse.jsdo" relativeToURL:BASE_URL]
+#define COURSE_URL [NSURL URLWithString:@"student/currcourse/studentWeeklyTimetable.do" relativeToURL:BASE_URL]
+//yearid=36&termid=3
+// 36 = 1980 + 36 = 2016
+#endif /* jwcuc_pch */
