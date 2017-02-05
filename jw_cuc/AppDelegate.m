@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Foundation/Foundation.h>
+#import "JWCollectionViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -16,6 +17,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    //JWCollectionViewController *vc = [JWCollectionViewController new];
+    //self.window.rootViewController = vc;
+    //[self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
 }

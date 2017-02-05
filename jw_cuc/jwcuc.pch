@@ -12,13 +12,54 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "UIColor+common.h"
+#import "NSArray+common.h"
 
 #define BASE_URL [NSURL URLWithString:@"http://jw.cuc.edu.cn/academic/"]
 #define INDEX_URL [NSURL URLWithString:@"index.jsp" relativeToURL:BASE_URL]
 #define CAPTCHA_URL [NSURL URLWithString:@"getCaptcha.do" relativeToURL:BASE_URL]
 #define LOGIN_CHALLENGE_URL [NSURL URLWithString:@"j_acegi_security_check" relativeToURL:BASE_URL]
-#define PRELOAD_COURSE_URL [NSURL URLWithString:@"student/currcourse/currcourse.jsdo" relativeToURL:BASE_URL]
-#define COURSE_URL [NSURL URLWithString:@"student/currcourse/studentWeeklyTimetable.do" relativeToURL:BASE_URL]
+#define PRELOAD_COURSE_URL_STRING @"http://jw.cuc.edu.cn/academic/student/currcourse/currcourse.jsdo"
+#define PRELOAD_COURSE_URL [NSURL URLWithString:PRELOAD_COURSE_URL_STRING]
+#define COURSE_URL_STRING @"manager/coursearrange/studentWeeklyTimetable.do"
 //yearid=36&termid=3
 // 36 = 1980 + 36 = 2016
-#endif /* jwcuc_pch */
+
+#define DOC_PATH [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
+
+#pragma mark - COLOR
+
+    #define kCellColorGrey   [UIColor colorWithHexString:@"0XB2B2B3"]
+    #define kCellColorGreen1 [UIColor colorWithHexString:@"0x13CA9A"]
+    #define kCellColorGreen2 [UIColor colorWithHexString:@"0x89C997"]
+    #define kCellColorOrange [UIColor colorWithHexString:@"0xFF8D41"]
+    #define kCellColorBlue   [UIColor colorWithHexString:@"0X01B3EE"]
+    #define kCellColorPurplr [UIColor colorWithHexString:@"0xBA8ADF"]
+    #define kCellColorYellow [UIColor colorWithHexString:@"0xFBCD89"]
+    #define kCellColorPink   [UIColor colorWithHexString:@"0xF87C89"]
+//    #define kCellColorBackGround [UIColor colorWithHexString:@"EBF0"]
+    #define kColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+    #define kRandomColor kColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+#pragma mark - layout
+    #define kScreen_Width [UIScreen mainScreen].bounds.size.width
+    #define kScreen_Height [UIScreen mainScreen].bounds.size.height
+    #define kStandardDefault [NSUserDefaults standardUserDefaults]
+    #define kDefaultNotificationCenter [NSNotificationCenter defaultCenter]
+    #define kNavgationBarHeight 64.0f
+    #define kTabBarHeight 49.0f
+    #define kHeightWithoutNavAndTab (kScreen_Height-kNavgationBarHeight-kTabBarHeight)
+    #define kcommonCellPaddingWidth 8.0
+    #define kInvisableHeight 0.5f
+
+#pragma mark - FONT
+    #define kSystenFont(size) [UIFont systemFontOfSize:size]
+
+#pragma mark - GLOBAL
+    #define DOC_PATH [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
+    #ifdef DEBUG
+    #define NSLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+    typedef void(^EmptyBlock)(void);
+#endif
+#endif

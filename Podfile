@@ -4,5 +4,6 @@ platform :ios, '10.2'
 target "jw_cuc" do
 
 pod 'Ono'
+pod 'TesseractOCRiOS'
 
 end

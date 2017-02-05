@@ -10,6 +10,9 @@
 
 @interface JWHTMLSniffer : NSObject
 +(instancetype) sharedSniffer;
--(void) getCaptchaWithCookie:( id)cookie andBlock:(void (^)(NSData * data))block;
--(void) requestCourseHTMLWithParameters:( NSDictionary *)parameters andBlock:(void (^)(NSData * data))block;
+-(void) getCaptchaWithBlock:(void (^)(NSData * data))block;
+-(void) requestLoginChallengeWithName:(NSString *)name andPassword:(NSString *)pass andCaptcha:(NSString *)captcha success:(void (^)(void))success failure:(void (^)(void))failure;
+-(void) requestCourseHTMLWithYear:(NSInteger)year term:(NSInteger)term andWeek:(NSInteger)week withBlock:(void (^)(NSArray<NSData *> *dataArray))block;
+-(void)getCourseWithBlock:(void (^)(void))block;
+
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface HTMLParser : NSObject
-
+#import <ONOXMLDocument.h>
+@interface HTMLParser : ONOXMLDocument
+-(NSArray *)parseHTML:(NSData *)data;
 @end
