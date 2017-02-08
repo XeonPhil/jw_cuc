@@ -16,20 +16,22 @@
 }
 -(NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSArray *array = [super layoutAttributesForElementsInRect:rect];
-    for (UICollectionViewLayoutAttributes *attribute in array) {
+    NSMutableArray *attributeArray = [NSMutableArray array];
+    for (UICollectionViewLayoutAttributes *theAttribute in array) {
+        UICollectionViewLayoutAttributes *attribute = [theAttribute copy];
         NSIndexPath *indexpath = attribute.indexPath;
         NSUInteger day = indexpath.section;
         if (day == 0) {
+            [attributeArray addObject:attribute];
             continue;
         }
         CGFloat magicNum = [[JWCourseStore sharedStore] cellPositionYOffsetAtIndexpath:attribute.indexPath];
         CGPoint origin = attribute.center;
         origin.y += magicNum;
         attribute.center = origin;
-        
-        [attribute copy];
+        [attributeArray addObject:attribute];
     }
-    return array;
+    return attributeArray;
 }
 -(void)awakeFromNib {
     [super awakeFromNib];

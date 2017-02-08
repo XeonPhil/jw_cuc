@@ -14,8 +14,8 @@
 @property (nonatomic)         NSUInteger end;
 @property (nonatomic,strong,readonly)NSString *courseName;
 @property (nonatomic,strong,readonly)NSString *classroom;
-@property (nonatomic,strong,readonly)NSString *date;
 @property (nonatomic,strong,readonly)NSString *building;
-@property (nonatomic,strong,readonly)NSArray<NSIndexPath *> *indexs;
+@property (nonatomic,strong,readonly,getter=dateString)NSString *dateString;
+@property (nonatomic,readonly,getter=courseDuration)NSUInteger duration;
 +(instancetype)courseWithDictionary:(NSDictionary *)dic;
 @end

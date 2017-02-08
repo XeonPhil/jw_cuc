@@ -24,21 +24,12 @@
 -(IBAction)settingButonTapped:(id)sender {
     
 }
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 7;
-}
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    JWWeekCollectionViewCell  *cell = [_weekCollectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier forIndexPath:indexPath];
-    cell.weekLabel.text = @"周一";
-    cell.dateLabel.text = @"12-21";
-    return cell;
-    
-}
+
 -(void)layoutSubviews {
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)_weekCollectionView.collectionViewLayout;
     layout.minimumInteritemSpacing = 0.0;
-    NSUInteger number = [_weekCollectionView numberOfItemsInSection:0];
-    layout.itemSize = CGSizeMake(339 / number, _weekCollectionView.frame.size.height);
+//    NSUInteger number = [_weekCollectionView numberOfItemsInSection:0];
+    layout.itemSize = CGSizeMake(339 / 7.0, _weekCollectionView.frame.size.height);
 }
 /*
 // Only override drawRect: if you perform custom drawing.

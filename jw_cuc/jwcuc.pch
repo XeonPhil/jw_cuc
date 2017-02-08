@@ -15,6 +15,7 @@
 #import <UIKit/UIKit.h>
 #import "UIColor+common.h"
 #import "NSArray+common.h"
+#import "NSString+Common.h"
 
 #define BASE_URL [NSURL URLWithString:@"http://jw.cuc.edu.cn/academic/"]
 #define INDEX_URL [NSURL URLWithString:@"index.jsp" relativeToURL:BASE_URL]

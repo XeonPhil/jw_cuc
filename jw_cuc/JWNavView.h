@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JWNavView : UIView <UICollectionViewDataSource>
+@interface JWNavView : UIView 
 @property (nonatomic,weak) IBOutlet UILabel *weekLabel;
 @property (nonatomic,weak) IBOutlet UICollectionView *weekCollectionView;
 @end

@@ -28,11 +28,12 @@
 }
 +(UIColor *)randomCellColor {
     static NSArray *colorArray;
+    static NSUInteger i = 0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         colorArray = @[kCellColorGrey,kCellColorGreen1,kCellColorGreen2,kCellColorOrange,kCellColorBlue,kCellColorPurplr,kCellColorYellow,kCellColorPink];
     });
-    NSUInteger i = arc4random() % 8;
-    return colorArray[i];
+    NSUInteger index = i++ % 8;
+    return colorArray[index];
 }
 @end

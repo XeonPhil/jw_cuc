@@ -6,13 +6,14 @@
 //  Copyright © 2017年  Phil Guo. All rights reserved.
 //
 
-#define kSingleRowHeight 48.5
+#define kSingleRowHeight 48.0
+@class JWCourse;
 @interface JWCourseStore : NSObject
-@property (nonatomic)        NSUInteger currentWeek;
-@property (nonatomic,strong) NSArray *courseArray;
 @property (nonatomic,strong) NSArray *totalCourseArray;
-@property (nonatomic)        NSArray<NSIndexPath *> *emptyIndex;
 +(instancetype)sharedStore;
++(instancetype)storeWithTerm:(NSUInteger)term;
 -(void)establishCourseStoreWithArray:(NSArray *)array;
-
+-(NSArray *)courseArrayForWeek:(NSUInteger)week;
+-(JWCourse *)courseForWeek:(NSUInteger)week atDay:(NSUInteger)day atIndex:(NSUInteger)index;
+-(NSUInteger)numberOfCourseAtWeek:(NSUInteger)week atDay:(NSUInteger)day;
 @end

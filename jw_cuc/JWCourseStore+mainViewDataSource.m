@@ -7,7 +7,9 @@
 //
 #import "JWCourseStore.h"
 #import "JWCourseStore+mainViewDataSource.h"
-
+#import "JWPeriodCollectionViewCell.h"
+#import "JWCourseCollectionViewCell.h"
+#import "JWCourse.h"
 @implementation JWCourseStore (mainViewDataSource) 
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -18,12 +20,8 @@
         if (section == 0) {
             return 12;
         }else {
-            NSInteger num = arc4random() % 4 + 1;
-            return num;
-            NSLog(@"%ld",(long)num);
-            //            NSUInteger day = section;
-            //            NSArray *arrayForWeek = [self courseArrayForWeek:_currentWeek];
-            //            return  [arrayForWeek[day - 1] count];;
+            NSUInteger day = section;
+            return [self numberOfCourseAtWeek:1 atDay:day];
         }
     }
     
@@ -31,17 +29,19 @@
 }
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger day = indexPath.section;
-    NSUInteger row = indexPath.row;
+    NSUInteger index = indexPath.row;
     if (day > 0) {
-        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kCell"forIndexPath:indexPath];
+        JWCourseCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kCell"forIndexPath:indexPath];
+        JWCourse *course = [self courseForWeek:1 atDay:day atIndex:index];
         cell.backgroundColor = [UIColor randomCellColor];
-        //        cell.layer.shadowRadius = 1.0;
-        //        cell.layer.shadowOpacity = 0.75;
-        //        CGColorRef shadowColor = [[UIColor colorWithHexString:@"FEFEBE"] CGColor];
-        //        cell.layer.shadowColor = shadowColor;
+        cell.height = course.end - course.start + 1;
+        cell.nameLabel.text = course.courseName;
+        cell.classRoomLabel.text = course.classroom;
         return cell;
     }else {
-        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kPeriodCell" forIndexPath:indexPath];
+        JWPeriodCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kPeriodCell" forIndexPath:indexPath];
+        NSString *numberString = [NSString stringWithFormat:@"%lu",(unsigned long)indexPath.row + 1];
+        cell.numberLabel.text = numberString;
         return cell;
     }
 }

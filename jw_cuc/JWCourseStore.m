@@ -13,7 +13,7 @@
 #import <CoreData/CoreData.h>
 
 @interface JWCourseStore()
-
+@property (nonatomic,readonly)NSUInteger term;
 @end
 @interface NSMutableArray(addCourse)
 -(void)addCourse:(JWCourse *)course;
@@ -32,38 +32,6 @@
 }
 @end
 @implementation JWCourseStore
-//@synthesize courseArray = _courseArray;
-@synthesize currentWeek = _currentWeek;
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        _currentWeek = 1;
-    }
-    return self;
-}
-//-(void)setCurrentWeek:(NSUInteger)currentWeek {
-//    _currentWeek = currentWeek;
-//    _totalCourseArray = _totalCourseArray[currentWeek - 1];
-//}
-//-(NSArray *)courseArrayForWeek:(NSUInteger)week {
-//    NSMutableArray *courses = [[NSMutableArray alloc] initWithObjectType:[NSMutableArray class] count:7];
-//    for (JWCourse *course in _totalCourseArray[week - 1]) {
-//        [courses[course.day - 1] addObject:course];
-//    }
-//    return courses;
-//}
-//-(NSUInteger)numberOfCourseAtWeek:(NSUInteger)week atDay:(NSUInteger)day {
-//    NSArray *coursesForWeek = _totalCourseArray[week];
-//    NSUInteger number = 0;
-//    for (JWCourse *course in coursesForWeek) {
-//        if (course.day == day) {
-//            number++;
-//        }
-//    }
-//    return number;
-//}
-
 +(instancetype)sharedStore {
     static JWCourseStore *store;
     static dispatch_once_t onceToken;
@@ -71,6 +39,28 @@
         store = [JWCourseStore new];
     });
     return store;
+}
++(instancetype)storeWithTerm:(NSUInteger)term {
+    JWCourseStore *store = [[JWCourseStore alloc] initWithTerm:term];
+    return store;
+}
+-(instancetype)initWithTerm:(NSUInteger)term {
+    self = [super init];
+    if (self) {
+        _term = term;
+    }
+    return self;
+}
+-(NSArray *)courseArrayForWeek:(NSUInteger)week {
+    return _totalCourseArray[week-1];
+}
+-(NSUInteger)numberOfCourseAtWeek:(NSUInteger)week atDay:(NSUInteger)day {
+    NSArray *coursesForWeek = _totalCourseArray[week-1];
+    NSUInteger num = [coursesForWeek[day-1] count];
+    return num;
+}
+-(JWCourse *)courseForWeek:(NSUInteger)week atDay:(NSUInteger)day atIndex:(NSUInteger)index {
+    return _totalCourseArray[week-1][day -1][index];
 }
 -(void)establishCourseStoreWithArray:(NSArray *)array {
     NSArray *courseArray = [self parseHTMLWithArray:array];
@@ -99,7 +89,7 @@
                 courseDic[@"end"] = courseDic[@"start"];
             }
             
-            courseDic[@"building"] = [element.children[9] stringValue];
+            courseDic[@"building"] = [element.children[9] stringValue];            
             courseDic[@"classroom"] = [element.children[10] stringValue];
             
             JWCourse *course = [JWCourse courseWithDictionary:courseDic];
@@ -108,7 +98,6 @@
             NSMutableArray *courseForDay = coursesArray[weekIndex][dayIndex];
             [courseForDay addCourse:course];
         }
-//        [coursesArray addObject:coursesForOneWeek];
     }];
     return coursesArray;
 }

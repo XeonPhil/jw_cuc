@@ -7,10 +7,14 @@
 //
 #import "JWCourse.h"
 @interface JWCourse()
+@property (nonatomic,strong,readonly)NSDateComponents *date;
+@end
+@interface NSDateComponents(string)
 
 @end
 @implementation JWCourse
-+(NSUInteger)dayNumForString:(NSString *)dayString{
+//@synthesize dateString = _dateString;
+-(NSUInteger)dayNumForString:(NSString *)dayString {
     static NSDictionary *dic;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -32,16 +36,36 @@
     self = [super init];
     if (self) {
         _courseName = dic[@"name"];
-        _classroom  = dic[@"classroom"];
-        _date       = dic[@"date"];
-        _day        = [JWCourse dayNumForString:dic[@"day"]];
+        _classroom  = [self shortenClassroomString:dic[@"classroom"]];
+        _date       = [self dateComponentsWithString:dic[@"date"]];
+        _day        = [self dayNumForString:dic[@"day"]];
         _building   = dic[@"building"];
-        _start      = (NSUInteger)[(NSString *)dic[@"start"] integerValue];
-        _end        = (NSUInteger)[(NSString *)dic[@"end"] integerValue];
+        _start      = [dic[@"start"] integerValue];
+        _end        = [dic[@"end"] integerValue];
     }
     return self;
 }
-//-(NSArray<NSIndexPath *> *)indexs {
-//    NSMutableArray *indexArray = [NSMutableArray array];
+-(NSString *)dateString {
+    return [NSString stringWithFormat:@"%ld-%ld",(long)_date.month,(unsigned long)_date.date];
+}
+-(NSUInteger)courseDuration {
+    return _end - _start + 1;
+}
+-(NSDateComponents *)dateComponentsWithString:(NSString *)dateString {
+    //字符格式 = @"2016-02-12"
+    NSInteger year = [[dateString substringToIndex:4] integerValue];
+    NSInteger month = [[dateString substringWithRange:NSMakeRange(6, 1)] integerValue];
+    NSInteger day = [[dateString substringWithRange:NSMakeRange(8, 2)] integerValue];
+    NSDateComponents *dateComponents = [NSDateComponents new];
+    dateComponents.year = year;
+    dateComponents.month = month;
+    dateComponents.day = day;
+    return dateComponents;
+}
+-(NSString *)shortenClassroomString:(NSString *)classroom {
+    return [classroom stringByReplacingOccurrencesOfString:@"四十八" withString:@"48"];
+}
+//-(NSUInteger)integerWithString:(NSString *)string {
+//    return (NSUInteger)[string integerValue];
 //}
 @end

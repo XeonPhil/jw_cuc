@@ -9,4 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @interface JWMainViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@property (nonatomic)NSUInteger currentWeek;
+
 @end

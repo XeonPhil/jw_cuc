@@ -12,6 +12,24 @@
 +(instancetype)stringWithNumber:(NSNumber *)num {
     return [NSString stringWithFormat:@"%@",num];
 }
++ (instancetype)chineseStringWithNumber:(NSUInteger)number {
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_Hans"];
+    formatter.locale = locale;
+    formatter.numberStyle = NSNumberFormatterRoundHalfDown;
+    NSNumber *numberObj = [NSNumber numberWithUnsignedInteger:number];
+    NSString *s = [formatter stringFromNumber:numberObj];
+    return s;
+}
++ (instancetype)chineseWeekStringWithNumber:(NSUInteger)number {
+    if (number >= 1 && number <=6) {
+        return [self chineseStringWithNumber:number];
+    }else if (number == 7) {
+        return @"日";
+    }else {
+        @throw [NSException exceptionWithName:@"JWInvalidArgumentException" reason:@"number not in 1-7" userInfo:nil];
+    }
+}
 - (CGSize)getSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size{
     CGSize resultSize = CGSizeZero;
     if (self.length <= 0) {
@@ -37,7 +55,7 @@
 - (BOOL)isEmpty {
     return [[self trimWhitespace] length] == 0;
 }
-- (NSString *)trimWhitespace {
+- (instancetype)trimWhitespace {
     NSMutableString *str = [self mutableCopy];
     CFStringTrimWhitespace((__bridge CFMutableStringRef)str);
     return str;
@@ -52,4 +70,5 @@
     return YES;
     
 }
+
 @end

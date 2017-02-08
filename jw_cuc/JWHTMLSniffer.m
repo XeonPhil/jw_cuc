@@ -12,6 +12,7 @@
 #import "HTMLParser.h"
 #import "TesseractOCR/TesseractOCR.h"
 #import "JWCourseStore.h"
+
 //#define JW_DISPATCH_QUENE 233
 @interface JWHTMLSniffer()
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
@@ -145,28 +146,16 @@
     NSURL *URL = [NSURL URLWithString:urlString relativeToURL:BASE_URL];
     NSData *data = [NSData dataWithContentsOfURL:URL];
     block(data,week);
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-//    
-//    request.HTTPMethod = @"GET";
-//    [request setValue:PRELOAD_COURSE_URL_STRING forHTTPHeaderField:@"Referer"];
-//    [request setAllHTTPHeaderFields:_cookieHeader];
-//    NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data,NSURLResponse *response,NSError *error){
-//        block(data);
-//    }];
-//    [task resume];
 }
 -(void)requestCourseHTMLWithYear:(NSInteger)year term:(NSInteger)term andWeek:(NSInteger)week withBlock:(void (^)(NSArray<NSData *> *dataArray))block {
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:16];
+    NSMutableArray *array = [NSMutableArray arrayWithObjectType:[NSData class] count:16];
     [self preloadCourseWithYear:year term:term andBlock:^(void){
-        for (NSInteger i = 0; i < 16; i++) {
-            [array addObject:[NSNull null]];
-        }
         dispatch_group_t group = dispatch_group_create();
-        dispatch_queue_t quene = dispatch_queue_create("course_download", DISPATCH_QUEUE_CONCURRENT);
-        for (NSUInteger i = 0; i < 16; i++) {
+        dispatch_queue_t quene = dispatch_queue_create("course_download", DISPATCH_QUEUE_SERIAL);
+        for (NSUInteger week = 1; week <= 16; week++) {
             dispatch_group_async(group, quene, ^{
-                [self requestSingleWeekCourseHTMLWithYear:year term:term andWeek:i+1 andBlock:^(NSData *data,NSInteger whichWeek){
-                    [array replaceObjectAtIndex:i withObject:data];
+                [self requestSingleWeekCourseHTMLWithYear:year term:term andWeek:week andBlock:^(NSData *data,NSInteger whichWeek){
+                    array[whichWeek-1] = data;
                     }];
             });
         }
