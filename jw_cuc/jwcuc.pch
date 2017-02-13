@@ -16,6 +16,8 @@
 #import "UIColor+common.h"
 #import "NSArray+common.h"
 #import "NSString+Common.h"
+#import "AppDelegate.h"
+#import "JWTerm.h"
 
 #define BASE_URL [NSURL URLWithString:@"http://jw.cuc.edu.cn/academic/"]
 #define INDEX_URL [NSURL URLWithString:@"index.jsp" relativeToURL:BASE_URL]
@@ -61,6 +63,7 @@
     #define DOC_PATH [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
     #ifdef DEBUG
     #define NSLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    typedef void(^EmptyBlock)(void);
+    typedef void(^CommonEmptyBlock)(void);
+    #define kCourseMOEntityName @"Course"
 #endif
 #endif

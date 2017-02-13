@@ -5,13 +5,13 @@
 //  Created by  Phil Guo on 16/12/24.
 //  Copyright © 2016年  Phil Guo. All rights reserved.
 //
-
-#import <UIKit/UIKit.h>
+#import "JWCourseDataController.h"
+@class JWCourseDataController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) JWCourseDataController *dataController;
 
 @end
 

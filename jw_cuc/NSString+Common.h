@@ -12,9 +12,12 @@
 +(instancetype)stringWithNumber:(NSNumber *)num;
 + (instancetype)chineseStringWithNumber:(NSUInteger)number;
 + (instancetype)chineseWeekStringWithNumber:(NSUInteger)number;
-- (CGSize)getSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
-- (CGFloat)getHeightWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
-- (CGFloat)getWidthWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
+- (NSNumber *)numberObject;
+//- (CGSize)getSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
+//- (CGFloat)getHeightWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
+//- (CGFloat)getWidthWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
+- (instancetype)trimWhitespace;
+- (instancetype)stringAtIndex:(NSUInteger)index;
 - (BOOL)isEmpty;
 - (BOOL)isAlphanumeric;
 @end

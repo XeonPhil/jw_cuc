@@ -30,28 +30,33 @@
         @throw [NSException exceptionWithName:@"JWInvalidArgumentException" reason:@"number not in 1-7" userInfo:nil];
     }
 }
-- (CGSize)getSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size{
-    CGSize resultSize = CGSizeZero;
-    if (self.length <= 0) {
-        return resultSize;
-    }
-    NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
-    style.lineBreakMode = NSLineBreakByWordWrapping;
-    resultSize = [self boundingRectWithSize:CGSizeMake(floor(size.width), floor(size.height))//用相对小的 width 去计算 height / 小 heigth 算 width
-                                    options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
-                                 attributes:@{NSFontAttributeName: font,
-                                              NSParagraphStyleAttributeName: style}
-                                    context:nil].size;
-    resultSize = CGSizeMake(floor(resultSize.width + 1), floor(resultSize.height + 1));//上面用的小 width（height） 来计算了，这里要 +1
-    return resultSize;
+- (NSNumber *)numberObject {
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    NSNumber *number = [formatter numberFromString:self];
+    return number;
 }
-
-- (CGFloat)getHeightWithFont:(UIFont *)font constrainedToSize:(CGSize)size{
-    return [self getSizeWithFont:font constrainedToSize:size].height;
-}
-- (CGFloat)getWidthWithFont:(UIFont *)font constrainedToSize:(CGSize)size{
-    return [self getSizeWithFont:font constrainedToSize:size].width;
-}
+//- (CGSize)getSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size{
+//    CGSize resultSize = CGSizeZero;
+//    if (self.length <= 0) {
+//        return resultSize;
+//    }
+//    NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
+//    style.lineBreakMode = NSLineBreakByWordWrapping;
+//    resultSize = [self boundingRectWithSize:CGSizeMake(floor(size.width), floor(size.height))//用相对小的 width 去计算 height / 小 heigth 算 width
+//                                    options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
+//                                 attributes:@{NSFontAttributeName: font,
+//                                              NSParagraphStyleAttributeName: style}
+//                                    context:nil].size;
+//    resultSize = CGSizeMake(floor(resultSize.width + 1), floor(resultSize.height + 1));//上面用的小 width（height） 来计算了，这里要 +1
+//    return resultSize;
+//}
+//
+//- (CGFloat)getHeightWithFont:(UIFont *)font constrainedToSize:(CGSize)size{
+//    return [self getSizeWithFont:font constrainedToSize:size].height;
+//}
+//- (CGFloat)getWidthWithFont:(UIFont *)font constrainedToSize:(CGSize)size{
+//    return [self getSizeWithFont:font constrainedToSize:size].width;
+//}
 - (BOOL)isEmpty {
     return [[self trimWhitespace] length] == 0;
 }
@@ -59,6 +64,9 @@
     NSMutableString *str = [self mutableCopy];
     CFStringTrimWhitespace((__bridge CFMutableStringRef)str);
     return str;
+}
+- (instancetype)stringAtIndex:(NSUInteger)index {
+    return [self substringWithRange:NSMakeRange(index, 1)];
 }
 - (BOOL)isAlphanumeric {
     NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-"];

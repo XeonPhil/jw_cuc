@@ -7,13 +7,17 @@
 //
 
 #import "JWMainViewController.h"
-#import "JWCollectionHeader.h"
+
 #import "JWNavView.h"
 #import "JWMainCollectionView.h"
 #import "JWCourseStore.h"
 #import "JWCourseStore+mainViewDataSource.h"
 #import "JWWeekCollectionViewCell.h"
 #import "JWHTMLSniffer.h"
+
+#import <CoreData/CoreData.h>
+#import "JWCourseMO+CoreDataProperties.h"
+#import "JWCourseDataController.h"
 #define kHeader @"kHeader"
 #define kWeekCellIdentifier @"collection-cell-week"
 @interface JWMainViewController()
@@ -29,19 +33,22 @@
     _navView.weekLabel.text = title;
 }
 -(void)viewDidLoad {
+//    [self test];
     self.currentWeek = 1;
     _navView.weekLabel.text = @"第一周";
-    _mainCollectionView.dataSource = [JWCourseStore sharedStore];
-    _mainCollectionView.delegate = _mainCollectionView;
-    [[JWHTMLSniffer sharedSniffer] getCourseWithBlock:^{
-        NSLog(@"sniffered");
-        [_mainCollectionView reloadData];
-    }];
+//    _mainCollectionView.dataSource = [JWCourseStore sharedStore];
+//    _mainCollectionView.delegate = _mainCollectionView;
+//    JWTerm *term = [JWTerm termWithYear:2017 termSeason:JWTermSeasonSpring];
+//    [[JWHTMLSniffer sharedSniffer] getCourseWithStudentID:@"201410513013" password:@"2014105130gc" term:term andBlock:^{
+//        NSLog(@"sniffered");
+//        [_mainCollectionView reloadData];
+//    }];
     
 }
 - (IBAction)fetchCourse:(id)sender {
-    [_mainCollectionView reloadData];
-    self.currentWeek +=1;
+//    [_mainCollectionView reloadData];
+//    self.currentWeek +=1;
+//    [self fetchObj];
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return 7;
@@ -58,4 +65,5 @@
     NSString *weekNumString = [NSString chineseWeekStringWithNumber:index+1];
     return [week stringByAppendingString:weekNumString];
 }
+
 @end
