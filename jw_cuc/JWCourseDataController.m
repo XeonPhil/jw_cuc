@@ -72,7 +72,9 @@
 }
 #pragma mark - private method
 - (void)insertCourseWithDOMElement:(ONOXMLElement *)element andSupplementDictionary:(NSDictionary *)dic {
+    
     JWCourseMO *course = [NSEntityDescription insertNewObjectForEntityForName:kCourseMOEntityName inManagedObjectContext:self.managedObjectiContext];
+    
     NSMutableDictionary *propertyDictionary = [dic mutableCopy];
     propertyDictionary[@"building"] = [element.children[9] stringValue];
     propertyDictionary[@"courseName"] = [element.children[1] stringValue];
@@ -88,12 +90,6 @@
     NSString *dayString = [element.children[5] stringValue];
     propertyDictionary[@"dayNum"] = [self dayNumForString:dayString];
     
-    NSArray *predictArray = @[propertyDictionary[@"building"],
-                              propertyDictionary[@"classroom"],
-                              propertyDictionary[@"courseName"],
-                              propertyDictionary[@"dateComponents"],
-                              propertyDictionary[@"dayNum"]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"" argumentArray:predictArray];
     
     NSString *duration = [element.children[6] stringValue];
     NSNumber *start   = [[duration stringAtIndex:1] numberObject];
@@ -103,13 +99,33 @@
     }
     propertyDictionary[@"start"] = start;
     propertyDictionary[@"end"] = end;
-    
-    for (NSString *key in propertyDictionary) {
-        [course setValue:propertyDictionary[key] forKey:key];
+    NSArray *continuousCourses = [self hasContinuousCourse:propertyDictionary];
+    if (continuousCourses) {
+        [self mergecCourse:propertyDictionary withContinuousCourse:continuousCourses];
+    }else {
+        [self insertCourseWithDic:propertyDictionary];
     }
     
 }
-
+- (NSArray *)hasContinuousCourse:(NSDictionary *)propertyDictionary {
+    NSArray *predictArray = @[propertyDictionary[@"year"],
+                             propertyDictionary[@"week"],
+                             propertyDictionary[@"dayNum"]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year == %@ and week == %@ and dayNum == %@ " argumentArray:predictArray];
+    NSFetchRequest *request = [JWCourseMO fetchRequest];
+    request.predicate = predicate;
+    NSError *err;
+    NSArray *continuousCourseArray = [self.managedObjectiContext executeFetchRequest:request error:&err];
+    NSAssert(err.code == 0, @"fetch request error");
+    if (continuousCourseArray.count != 0) {
+        return continuousCourseArray;
+    }else {
+        return nil;
+    }
+}
+- (void)mergecCourse:(NSDictionary *)propertyDictionary withContinuousCourse:(NSArray *)continuousCourses {
+    
+}
 - (void)deleteOldCoursesAtTerm:(JWTerm *)term {
     //    _request.predicate = [NSPredicate predicateWithFormat:@"placeholder"];
     NSArray *oldCoursesMOArray = [self.managedObjectiContext executeFetchRequest:[JWCourseMO fetchRequest] error:nil];

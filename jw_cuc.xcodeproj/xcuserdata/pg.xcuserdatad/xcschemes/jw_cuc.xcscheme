@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CF565C3C1E4E022800A7A5E8"
+               BlueprintIdentifier = "CFF77C691E51C4CB00C86648"
                BuildableName = "jw_cucTests.xctest"
                BlueprintName = "jw_cucTests"
                ReferencedContainer = "container:jw_cuc.xcodeproj">
@@ -74,7 +74,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-com.apple.CoreData.SQLDebug 1"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <EnvironmentVariables>

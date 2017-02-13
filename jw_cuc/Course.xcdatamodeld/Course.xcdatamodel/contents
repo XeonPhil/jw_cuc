@@ -4,6 +4,7 @@
         <attribute name="building" attributeType="String" syncable="YES"/>
         <attribute name="classroom" attributeType="String" syncable="YES"/>
         <attribute name="courseName" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dateComponents" attributeType="Transformable" syncable="YES"/>
         <attribute name="dayNum" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="end" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -13,6 +14,6 @@
         <attribute name="year" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Course" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="Course" positionX="-63" positionY="-18" width="128" height="210"/>
     </elements>
 </model>
