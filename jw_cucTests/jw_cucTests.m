@@ -40,7 +40,7 @@
     XCTAssertEqual(err.code,0);
     NSFetchRequest *f = [[NSFetchRequest alloc] initWithEntityName:@"Course"];
     NSArray *a = [_controller.managedObjectiContext executeFetchRequest:f error:nil];
-    XCTAssert(a.count != 0);
+    XCTAssert(a.count == 7);
     //    unsigned int count=0;
     //    JWCourseMO *mo = a[0];
     //    objc_property_t *props = class_copyPropertyList([mo class],&count);
@@ -52,7 +52,7 @@
     for (JWCourseMO *mo in a) {
         if ([mo.courseName isEqualToString:@"计算机网络协议基础"]) {
             XCTAssert(mo.start == 1);
-            XCTAssert(mo.end == 4);
+            XCTAssert(mo.end == 6);
         }
 //        unsigned int count=0;
 //        objc_property_t *props = class_copyPropertyList([mo class],&count);

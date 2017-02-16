@@ -780,6 +780,7 @@
 				CFF77C731E51C4CB00C86648 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

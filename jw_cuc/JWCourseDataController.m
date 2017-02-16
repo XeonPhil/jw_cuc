@@ -6,12 +6,16 @@
 //  Copyright © 2017年  Phil Guo. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
-#import "JWCourseMO+CoreDataClass.h"
-#import "JWCourseMO+CoreDataProperties.h"
-#import "JWCourseDataController.h"
 
+#import "JWCourseDataController.h"
+#import "JWCourseCollectionViewCell.h"
+#import "JWPeriodCollectionViewCell.h"
 #import <ONOXMLDocument.h>
+@interface JWCourseDataController()
+@property (nonatomic,readwrite)NSUInteger week;
+@property (nonatomic,strong,readwrite)JWTerm *term;
+@property (nonatomic,strong,readwrite)NSDictionary<NSNumber *,NSArray<JWCourseMO *> *> *courseDic;
+@end
 @implementation JWCourseDataController
 + (instancetype)defaultDateController {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -38,7 +42,6 @@
             NSPersistentStore *store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
             NSAssert(store != nil, @"Error initializing PSC: %@\n%@", [error localizedDescription], [error userInfo]);
         });
-       
     }
     return self;
 }
@@ -73,8 +76,6 @@
 #pragma mark - private method
 - (void)insertCourseWithDOMElement:(ONOXMLElement *)element andSupplementDictionary:(NSDictionary *)dic {
     
-    JWCourseMO *course = [NSEntityDescription insertNewObjectForEntityForName:kCourseMOEntityName inManagedObjectContext:self.managedObjectiContext];
-    
     NSMutableDictionary *propertyDictionary = [dic mutableCopy];
     propertyDictionary[@"building"] = [element.children[9] stringValue];
     propertyDictionary[@"courseName"] = [element.children[1] stringValue];
@@ -100,7 +101,7 @@
     propertyDictionary[@"start"] = start;
     propertyDictionary[@"end"] = end;
     NSArray *continuousCourses = [self hasContinuousCourse:propertyDictionary];
-    if (continuousCourses) {
+    if (continuousCourses.count != 0) {
         [self mergecCourse:propertyDictionary withContinuousCourse:continuousCourses];
     }else {
         [self insertCourseWithDic:propertyDictionary];
@@ -108,10 +109,12 @@
     
 }
 - (NSArray *)hasContinuousCourse:(NSDictionary *)propertyDictionary {
-    NSArray *predictArray = @[propertyDictionary[@"year"],
-                             propertyDictionary[@"week"],
-                             propertyDictionary[@"dayNum"]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year == %@ and week == %@ and dayNum == %@ " argumentArray:predictArray];
+    NSArray *predictArray = @[
+                              propertyDictionary[@"year"],
+                              propertyDictionary[@"week"],
+                              propertyDictionary[@"dayNum"],
+                              propertyDictionary[@"courseName"]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year == %@ and week == %@ and dayNum == %@ and courseName like %@ " argumentArray:predictArray];
     NSFetchRequest *request = [JWCourseMO fetchRequest];
     request.predicate = predicate;
     NSError *err;
@@ -124,6 +127,17 @@
     }
 }
 - (void)mergecCourse:(NSDictionary *)propertyDictionary withContinuousCourse:(NSArray *)continuousCourses {
+    NSMutableDictionary *properties = [propertyDictionary mutableCopy];
+    for (JWCourseMO *course in continuousCourses) {
+        if ([properties[@"end"] intValue] == course.start - 1) {
+            properties[@"end"] = @(course.end);
+            [self.managedObjectiContext deleteObject:course];
+        }else if ([properties[@"start"] intValue] == course.end + 1) {
+            properties[@"start"] = @(course.start);
+            [self.managedObjectiContext deleteObject:course];
+        }
+    }
+    [self insertCourseWithDic:properties];
     
 }
 - (void)deleteOldCoursesAtTerm:(JWTerm *)term {
@@ -189,5 +203,84 @@
 -(NSString *)shortenClassroomString:(NSString *)classroom {
     return [classroom stringByReplacingOccurrencesOfString:@"四十八" withString:@"48"];
 }
+#pragma mark - data source
+- (void)resetTerm:(JWTerm *)term andWeek:(NSUInteger)week {
+    if (term) {
+        self.term = term;
+    }
+    if (week) {
+        self.week = week;
+    }
+    
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    for (NSUInteger day = 1; day <=  5; day++) {
+        NSArray *predicateArray = @[
+                                    @(term.year),
+                                    @(term.season),
+                                    @(week),
+                                    @(day)
+                                    ];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year == %@ and term == %@ and week == %@ and dayNum == %@" argumentArray:predicateArray];
+        NSFetchRequest *request = [JWCourseMO fetchRequest];
+        request.predicate = predicate;
+        NSError *err;
+        NSArray *courses = [self.managedObjectiContext executeFetchRequest:request error:&err];
+        NSAssert(err.code == 0, @"fetch failed");
+        dictionary[@(day)] = courses;
+    }
+    NSAssert(dictionary.count == 5, @"fetch course data lost");
+    _courseDic = dictionary;
+}
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+#warning main view number of section to be done: 8 or 6
+    return 8;
+}
 
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    if (section == 0) {
+#warning main view number of course to be done: 12 or 8
+        return 12;
+    }
+    return [self.courseDic[@(section)] count];
+}
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger day = indexPath.section;
+    NSUInteger index = indexPath.row;
+    if (day > 0) {
+        JWCourseCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kCell"forIndexPath:indexPath];
+        JWCourseMO *course = self.courseDic[@(day)][index];
+        //        JWCourse *course = [self courseForWeek:1 atDay:day atIndex:index];
+        cell.backgroundColor = [UIColor randomCellColor];
+        cell.height = course.length;
+        cell.nameLabel.text = course.courseName;
+        cell.classRoomLabel.text = course.classroom;
+        return cell;
+    }else {
+        JWPeriodCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kPeriodCell" forIndexPath:indexPath];
+        NSString *numberString = [NSString stringWithFormat:@"%lu",(unsigned long)indexPath.row + 1];
+        cell.numberLabel.text = numberString;
+        return cell;
+    }
+    return nil;
+}
+#pragma mark - layout
+-(CGFloat)cellPositionYAtIndexpath:(NSIndexPath *)indexpath {
+    NSUInteger day = indexpath.section;
+    NSUInteger index = indexpath.row;
+    JWCourseMO *course = self.courseDic[@(day)][index];
+    CGFloat y = (course.start - 1) * kSingleRowHeight;
+    return y;
+}
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger day = indexPath.section;
+    NSUInteger index = indexPath.row;
+    if (day == 0) {
+        return CGSizeMake(25.0, kSingleRowHeight);
+    }else {
+        JWCourseMO *course = self.courseDic[@(day)][index];
+        CGFloat magicNum = course.length;
+        CGFloat height = magicNum * kSingleRowHeight;
+        return CGSizeMake(50.0, height);
+    }
+}
 @end

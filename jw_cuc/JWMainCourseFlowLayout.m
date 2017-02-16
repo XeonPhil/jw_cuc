@@ -7,8 +7,8 @@
 //
 
 #import "JWMainCourseFlowLayout.h"
-#import "JWCourseStore+mainViewLayout.h"
-@implementation JWMainCourseFlowLayout\
+
+@implementation JWMainCourseFlowLayout
 -(void)prepareLayout {
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.minimumLineSpacing = 0.0;
@@ -25,10 +25,10 @@
             [attributeArray addObject:attribute];
             continue;
         }
-        CGFloat magicNum = [[JWCourseStore sharedStore] cellPositionYOffsetAtIndexpath:attribute.indexPath];
-        CGPoint origin = attribute.center;
-        origin.y += magicNum;
-        attribute.center = origin;
+        CGSize size = attribute.frame.size;
+        CGPoint origin = attribute.frame.origin;
+        origin.y = [[JWCourseDataController defaultDateController] cellPositionYAtIndexpath:indexpath];
+        attribute.frame = CGRectMake(origin.x, origin.y, size.width, size.height);
         [attributeArray addObject:attribute];
     }
     return attributeArray;
