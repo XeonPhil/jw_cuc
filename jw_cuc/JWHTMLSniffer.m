@@ -12,6 +12,7 @@
 #import "TesseractOCR/TesseractOCR.h"
 #import "JWCourseStore.h"
 //#define JW_DISPATCH_QUENE 233
+
 @interface JWHTMLSniffer()
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic,strong)  NSDictionary     *cookieHeader;
@@ -38,7 +39,7 @@
     }
     return self;
 }
-- (void)getCourseWithStudentID:(NSString *)ID password:(NSString *)password term:(JWTerm *)term andBlock:(CommonEmptyBlock)block {
+- (void)getCourseWithStudentID:(NSString *)ID password:(NSString *)password term:(JWTerm *)term andBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
     [[JWHTMLSniffer sharedSniffer] checkCaptchaWithBlock:^(NSData *data){
         _image = [UIImage imageWithData:data];
         [self recognizeImage:_image withBlock:^(G8Tesseract *tesseract) {
@@ -49,8 +50,16 @@
                     [[JWCourseDataController defaultDateController] insertCoursesAtTerm:term withHTMLDataArray:array];
                     block();
                 }];
-            }failure:^(void){
-                [self getCourseWithStudentID:ID password:password term:term andBlock:block];
+            }failure:^(JWLoginFailure code){
+                NSLog(@"failure code as %ld",(unsigned long)code);
+                switch (code) {
+                    case JWLoginFailureErrorCaptcha:
+                        [self getCourseWithStudentID:ID password:password term:term andBlock:block failure:failure];
+                        break;
+                    default:
+                        failure(code);
+                        break;
+                };
             }];
         }];
     }];
@@ -109,7 +118,7 @@
     
 }
 #pragma mark - 3.request login challenge
--(void)requestLoginChallengeWithName:(NSString *)name andPassword:(NSString *)pass andCaptcha:(NSString *)captcha success:(void (^)(void))success failure:(void (^)(void))failure {
+-(void)requestLoginChallengeWithName:(NSString *)name andPassword:(NSString *)pass andCaptcha:(NSString *)captcha success:(void (^)(void))success failure:(void (^)(JWLoginFailure code))failure {
     NSString *postBody = [NSString stringWithFormat:@"j_username=%@&j_password=%@&j_captcha=%@",name,pass,captcha];
 //    NSString *postBody = [NSString stringWithFormat:@"j_username=201410513013&j_password=2014105130gc&j_captcha=%@",_captchaField.text];
     NSData *postData = [postBody dataUsingEncoding:NSASCIIStringEncoding];
@@ -121,8 +130,20 @@
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:postData];
     NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data,NSURLResponse *response,NSError *error){
-        if (response.URL.query) {
-            failure();
+        NSString *query = response.URL.query;
+        if (query) {
+            ONOXMLDocument *document = [ONOXMLDocument HTMLDocumentWithData:data error:nil];
+            NSString *xpath = @"//*[@id=\"error\"]";
+            NSString *error = [[document firstChildWithXPath:xpath] stringValue];
+            if ([error containsString:@"验证码"] ) {
+                failure(JWLoginFailureErrorCaptcha);
+            }else if ([error containsString:@"不存在"]) {
+                failure(JWLoginFailureUnexistUser);
+            }else if ([error containsString:@"不匹配"]) {
+                failure(JWLoginFailureWrongPassword);
+            }else {
+                failure(JWLoginFailureUnknown);
+            }
         }else {
             NSLog(@"login!");
             success();
@@ -132,7 +153,7 @@
 }
 #pragma mark - 4.preload course
 -(void)preloadCourseWithTerm:(JWTerm *)term andBlock:(void (^)(void))block {
-    NSString *queryString = [NSString stringWithFormat:@"?year=%ld&term=%ld",term.year-1980,term.season];
+    NSString *queryString = [NSString stringWithFormat:@"?year=%ld&term=%ld",(unsigned long)term.year-1980,(unsigned long)term.season];
     NSString *urlString = [PRELOAD_COURSE_URL_STRING stringByAppendingString:queryString];
     NSURL *URL = [NSURL URLWithString:urlString relativeToURL:BASE_URL];
     NSMutableURLRequest *tableRequest = [NSMutableURLRequest requestWithURL:URL];
@@ -162,7 +183,7 @@
     }];
 }
 -(void)requestSingleWeekCourseHTMLWithTerm:(JWTerm *)term andWeek:(NSInteger)week andBlock:(void (^)(NSData *,NSInteger whichWeek))block {
-    NSString *queryString = [NSString stringWithFormat:@"?yearid=%ld&termid=%ld&whichWeek=%ld",term.year-1980,term.season,week];
+    NSString *queryString = [NSString stringWithFormat:@"?yearid=%ld&termid=%ld&whichWeek=%ld",(unsigned long)term.year-1980,(unsigned long)term.season,(unsigned long)week];
     NSString *urlString = [COURSE_URL_STRING stringByAppendingString:queryString];
     NSURL *URL = [NSURL URLWithString:urlString relativeToURL:BASE_URL];
     NSData *data = [NSData dataWithContentsOfURL:URL];

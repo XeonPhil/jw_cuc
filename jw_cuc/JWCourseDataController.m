@@ -63,7 +63,10 @@
             [self insertCourseWithDOMElement:element andSupplementDictionary:supplementDictionary];
         }
     }];
-    [self.managedObjectiContext save:nil];
+    BOOL success = [self.managedObjectiContext save:nil];
+    if (success) {
+        NSLog(@"course saved");
+    }
 }
 - (void)insertCourseWithDic:(NSDictionary *)dic {
     JWCourseMO *course = [NSEntityDescription insertNewObjectForEntityForName:kCourseMOEntityName inManagedObjectContext:self.managedObjectiContext];
@@ -215,9 +218,9 @@
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     for (NSUInteger day = 1; day <=  5; day++) {
         NSArray *predicateArray = @[
-                                    @(term.year),
-                                    @(term.season),
-                                    @(week),
+                                    @(self.term.year),
+                                    @(self.term.season),
+                                    @(self.week),
                                     @(day)
                                     ];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year == %@ and term == %@ and week == %@ and dayNum == %@" argumentArray:predicateArray];

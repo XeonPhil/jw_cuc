@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		730932E0F31F38D4F662CB58 /* libPods-jw_cuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C45859E87E26492CECA76F /* libPods-jw_cuc.a */; };
 		CF0862CE1E0FD799008ECFEF /* JWHTMLSniffer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF0862CD1E0FD799008ECFEF /* JWHTMLSniffer.m */; };
+		CF27C2931E5ABB9F00A9C003 /* JWTermPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF27C2921E5ABB9F00A9C003 /* JWTermPickerView.m */; };
 		CF2E2AA11E2393300036B4D9 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = CF2E2AA01E2393300036B4D9 /* tessdata */; };
 		CF33DC841E2F4AD800DD3E00 /* UIColor+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC751E2F4AD800DD3E00 /* UIColor+common.m */; };
 		CF33DC851E2F4AD800DD3E00 /* NSArray+Plist.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC771E2F4AD800DD3E00 /* NSArray+Plist.m */; };
@@ -30,6 +31,9 @@
 		CF637F731E2E5A6400862C48 /* JWWeekCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF637F711E2E5A6400862C48 /* JWWeekCollectionViewCell.m */; };
 		CF637F7A1E2E609F00862C48 /* JWNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF637F791E2E609F00862C48 /* JWNavView.m */; };
 		CF70C8491E3484CF00E25355 /* JWMainCourseFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CF70C8481E3484CF00E25355 /* JWMainCourseFlowLayout.m */; };
+		CF7199461E5ADE310074C69B /* JWTTermTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7199451E5ADE310074C69B /* JWTTermTest.m */; };
+		CF71996B1E5B120E0074C69B /* JWTNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = CF71996A1E5B120E0074C69B /* JWTNetwork.m */; };
+		CF71996D1E5B33530074C69B /* JWTPerformance.m in Sources */ = {isa = PBXBuildFile; fileRef = CF71996C1E5B33530074C69B /* JWTPerformance.m */; };
 		CF7C63CF1E0EA6290089F3E2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7C63CE1E0EA6290089F3E2 /* main.m */; };
 		CF7C63D21E0EA6290089F3E2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7C63D11E0EA6290089F3E2 /* AppDelegate.m */; };
 		CF7C63D81E0EA6290089F3E2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF7C63D61E0EA6290089F3E2 /* Main.storyboard */; };
@@ -44,6 +48,7 @@
 		CFB781761E3A4732008E438B /* NSArray+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB781751E3A4732008E438B /* NSArray+common.m */; };
 		CFB781791E3A4B0E008E438B /* NSMutableArray+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB781781E3A4B0E008E438B /* NSMutableArray+common.m */; };
 		CFC68DBB1E3F00CD000614FF /* Course.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CFC68DB91E3F00CD000614FF /* Course.xcdatamodeld */; };
+		CFCA74501E574BD7004218C2 /* JWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCA744F1E574BD7004218C2 /* JWLoginViewController.m */; };
 		CFCCEEA61E2BADFB009732E7 /* JWMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCCEEA51E2BADFB009732E7 /* JWMainViewController.m */; };
 		CFF77C6D1E51C4CB00C86648 /* jw_cucTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF77C6C1E51C4CB00C86648 /* jw_cucTests.m */; };
 /* End PBXBuildFile section */
@@ -63,6 +68,8 @@
 		93C45859E87E26492CECA76F /* libPods-jw_cuc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jw_cuc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF0862CC1E0FD799008ECFEF /* JWHTMLSniffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWHTMLSniffer.h; sourceTree = "<group>"; };
 		CF0862CD1E0FD799008ECFEF /* JWHTMLSniffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWHTMLSniffer.m; sourceTree = "<group>"; };
+		CF27C2911E5ABB9F00A9C003 /* JWTermPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWTermPickerView.h; sourceTree = "<group>"; };
+		CF27C2921E5ABB9F00A9C003 /* JWTermPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTermPickerView.m; sourceTree = "<group>"; };
 		CF2E2AA01E2393300036B4D9 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		CF33DC741E2F4AD800DD3E00 /* UIColor+common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+common.h"; sourceTree = "<group>"; };
 		CF33DC751E2F4AD800DD3E00 /* UIColor+common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+common.m"; sourceTree = "<group>"; };
@@ -102,6 +109,10 @@
 		CF637F791E2E609F00862C48 /* JWNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWNavView.m; sourceTree = "<group>"; };
 		CF70C8471E3484CF00E25355 /* JWMainCourseFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWMainCourseFlowLayout.h; sourceTree = "<group>"; };
 		CF70C8481E3484CF00E25355 /* JWMainCourseFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWMainCourseFlowLayout.m; sourceTree = "<group>"; };
+		CF7199451E5ADE310074C69B /* JWTTermTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTTermTest.m; sourceTree = "<group>"; };
+		CF7199621E5AE0930074C69B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CF71996A1E5B120E0074C69B /* JWTNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTNetwork.m; sourceTree = "<group>"; };
+		CF71996C1E5B33530074C69B /* JWTPerformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTPerformance.m; sourceTree = "<group>"; };
 		CF7C63CA1E0EA6290089F3E2 /* jw_cuc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jw_cuc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF7C63CE1E0EA6290089F3E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CF7C63D01E0EA6290089F3E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -134,6 +145,8 @@
 		CFB781771E3A4B0E008E438B /* NSMutableArray+common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+common.h"; sourceTree = "<group>"; };
 		CFB781781E3A4B0E008E438B /* NSMutableArray+common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+common.m"; sourceTree = "<group>"; };
 		CFC68DBA1E3F00CD000614FF /* Course.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Course.xcdatamodel; sourceTree = "<group>"; };
+		CFCA744E1E574BD7004218C2 /* JWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWLoginViewController.h; sourceTree = "<group>"; };
+		CFCA744F1E574BD7004218C2 /* JWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWLoginViewController.m; sourceTree = "<group>"; };
 		CFCCEEA41E2BADFB009732E7 /* JWMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWMainViewController.h; sourceTree = "<group>"; };
 		CFCCEEA51E2BADFB009732E7 /* JWMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWMainViewController.m; sourceTree = "<group>"; };
 		CFF77C6A1E51C4CB00C86648 /* jw_cucTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jw_cucTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +187,7 @@
 		B84BDAC823DCBC5E0B5C50E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CF7199621E5AE0930074C69B /* Foundation.framework */,
 				CFA434ED1E519D350081EB41 /* xmlversion.h */,
 				CFA434EB1E519CE10081EB41 /* libxml */,
 				CFA434E91E519C650081EB41 /* Public */,
@@ -218,6 +232,8 @@
 			children = (
 				CFCCEEA41E2BADFB009732E7 /* JWMainViewController.h */,
 				CFCCEEA51E2BADFB009732E7 /* JWMainViewController.m */,
+				CFCA744E1E574BD7004218C2 /* JWLoginViewController.h */,
+				CFCA744F1E574BD7004218C2 /* JWLoginViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -239,7 +255,8 @@
 				CF4C73041E4816A6004B19FE /* JWCourseCollectionViewCell.m */,
 				CF70C8471E3484CF00E25355 /* JWMainCourseFlowLayout.h */,
 				CF70C8481E3484CF00E25355 /* JWMainCourseFlowLayout.m */,
-				CF33DC6E1E2F492500DD3E00 /* controllers */,
+				CF27C2911E5ABB9F00A9C003 /* JWTermPickerView.h */,
+				CF27C2921E5ABB9F00A9C003 /* JWTermPickerView.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -305,6 +322,7 @@
 				CF33DC731E2F4A9900DD3E00 /* category */,
 				CF1A01171E2C9DED00C130E2 /* model */,
 				CF33DC701E2F496200DD3E00 /* view */,
+				CF33DC6E1E2F492500DD3E00 /* controllers */,
 				CFCCEEAC1E2BBE30009732E7 /* collection */,
 				CF7C63D01E0EA6290089F3E2 /* AppDelegate.h */,
 				CF7C63D11E0EA6290089F3E2 /* AppDelegate.m */,
@@ -339,6 +357,9 @@
 		CFF77C6B1E51C4CB00C86648 /* jw_cucTests */ = {
 			isa = PBXGroup;
 			children = (
+				CF71996C1E5B33530074C69B /* JWTPerformance.m */,
+				CF71996A1E5B120E0074C69B /* JWTNetwork.m */,
+				CF7199451E5ADE310074C69B /* JWTTermTest.m */,
 				CFF77C6C1E51C4CB00C86648 /* jw_cucTests.m */,
 				CFF77C6E1E51C4CB00C86648 /* Info.plist */,
 			);
@@ -526,6 +547,7 @@
 				CF33DC891E2F4AD800DD3E00 /* Common.m in Sources */,
 				CF4C1B8C1E2FA1FE00C91F45 /* JWCourse.m in Sources */,
 				CF637F7A1E2E609F00862C48 /* JWNavView.m in Sources */,
+				CFCA74501E574BD7004218C2 /* JWLoginViewController.m in Sources */,
 				CFA3CA0C1E472DC200C90DD0 /* JWCourseStore+mainViewDataSource.m in Sources */,
 				CFB781761E3A4732008E438B /* NSArray+common.m in Sources */,
 				CF70C8491E3484CF00E25355 /* JWMainCourseFlowLayout.m in Sources */,
@@ -534,6 +556,7 @@
 				CFC68DBB1E3F00CD000614FF /* Course.xcdatamodeld in Sources */,
 				CF565C281E4DA34800A7A5E8 /* JWTerm.m in Sources */,
 				CF33DC881E2F4AD800DD3E00 /* UITextView+View.m in Sources */,
+				CF27C2931E5ABB9F00A9C003 /* JWTermPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +565,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFF77C6D1E51C4CB00C86648 /* jw_cucTests.m in Sources */,
+				CF71996B1E5B120E0074C69B /* JWTNetwork.m in Sources */,
+				CF71996D1E5B33530074C69B /* JWTPerformance.m in Sources */,
+				CF7199461E5ADE310074C69B /* JWTTermTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,6 +758,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/jwcuc.pch";
 				INFOPLIST_FILE = jw_cucTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.empty.jw-cucTests";
@@ -744,6 +771,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/jwcuc.pch";
 				INFOPLIST_FILE = jw_cucTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.empty.jw-cucTests";

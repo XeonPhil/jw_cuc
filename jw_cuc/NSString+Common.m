@@ -62,7 +62,7 @@
 }
 - (instancetype)trimWhitespace {
     NSMutableString *str = [self mutableCopy];
-    CFStringTrimWhitespace((__bridge CFMutableStringRef)str);
+    [str replaceOccurrencesOfString:@" " withString:@"" options:(NSStringCompareOptions)0 range:NSMakeRange(0, str.length)];
     return str;
 }
 - (instancetype)stringAtIndex:(NSUInteger)index {

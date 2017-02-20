@@ -41,20 +41,22 @@
     _dataController = [JWCourseDataController defaultDateController];
     _mainCollectionView.dataSource = _dataController;
     _mainCollectionView.delegate = _dataController;
-    JWTerm *term = [JWTerm termWithYear:2017 termSeason:JWTermSeasonSpring];
     
-    [[JWHTMLSniffer sharedSniffer] getCourseWithStudentID:@"201410513013" password:@"2014105130gc" term:term andBlock:^{
-        NSLog(@"sniffered");
-        [_dataController resetTerm:term andWeek:1];
-        [_mainCollectionView reloadData];
-    }];
     
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [_mainCollectionView reloadData];
 }
 - (IBAction)fetchCourse:(id)sender {
     NSUInteger week = _dataController.week;
     [_dataController resetTerm:nil andWeek:week];
     [_mainCollectionView reloadData];
 //    [self fetchObj];
+}
+- (IBAction)settingPressed:(id)sender {
+    
 }
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return 7;

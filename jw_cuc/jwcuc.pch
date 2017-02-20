@@ -61,9 +61,9 @@
 
 #pragma mark - GLOBAL
     #define DOC_PATH [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]
-    #ifdef DEBUG
-    #define NSLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
-    typedef void(^CommonEmptyBlock)(void);
     #define kCourseMOEntityName @"Course"
+    typedef void(^CommonEmptyBlock)(void);
+    #ifdef DEBUG
+    #define NSLog(s, ...) NSLog(@"\n**********************************************************************************user log***************************************************************************\n%s(%d): %@\n \n", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #endif
 #endif

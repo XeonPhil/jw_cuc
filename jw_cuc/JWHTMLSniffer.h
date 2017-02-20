@@ -8,11 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-
+typedef NS_ENUM(NSUInteger, JWLoginFailure) {
+    JWLoginFailureUnknown,
+    JWLoginFailureErrorCaptcha,
+    JWLoginFailureWrongPassword,
+    JWLoginFailureUnexistUser,
+};
 @interface JWHTMLSniffer : NSObject
 + (instancetype) sharedSniffer;
 //-(void) getCaptchaWithBlock:(void (^)(NSData * data))block;
 //-(void) requestLoginChallengeWithName:(NSString *)name andPassword:(NSString *)pass andCaptcha:(NSString *)captcha success:(void (^)(void))success failure:(void (^)(void))failure;
 //-(void) requestCourseHTMLWithYear:(NSInteger)year term:(NSInteger)term andWeek:(NSInteger)week withBlock:(void (^)(NSArray<NSData *> *dataArray))block;
-- (void)getCourseWithStudentID:(NSString *)ID password:(NSString *)password term:(JWTerm *)term andBlock:(CommonEmptyBlock)block;
+- (void)getCourseWithStudentID:(NSString *)ID password:(NSString *)password term:(JWTerm *)term andBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure;
 @end

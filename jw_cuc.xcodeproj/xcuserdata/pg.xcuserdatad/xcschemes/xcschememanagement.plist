@@ -9,6 +9,16 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>jw_cucTests_logic.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>jw_cucTests_logical.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -18,6 +28,16 @@
 			<true/>
 		</dict>
 		<key>CF565C3C1E4E022800A7A5E8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF71994A1E5ADE820074C69B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CF7199591E5AE07C0074C69B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

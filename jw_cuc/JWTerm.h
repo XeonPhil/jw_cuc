@@ -8,11 +8,32 @@
 
 
 typedef NS_ENUM(NSUInteger, JWTermSeason) {
+    JWTermSeasonNil    = -1,
     JWTermSeasonSpring = 1,
-    JWTermSeasonAutumn = 3,
+    JWTermSeasonAutumn = 3
 };
-@interface JWTerm : NSIndexPath
-@property (nonatomic,readonly)NSUInteger year;
+typedef NS_ENUM(NSUInteger, JWTermGrade) {
+    JWTermGradeNil = -1,
+    JWTermGradeOne = 1,
+    JWTermGradeTwo,
+    JWTermGradeThree,
+    JWTermGradeFour
+};
+typedef NS_ENUM(NSUInteger, JWTermSemester) {
+    JWTermSemesterNil = -1,
+    JWTermSemesterOne = 1,
+    JWTermSemesterTwo
+};
+@interface JWTerm : NSObject
+@property (nonatomic,readonly)JWTermGrade grade;
+@property (nonatomic,readonly)JWTermSemester semester;
+
 @property (nonatomic,readonly)JWTermSeason season;
+@property (nonatomic)NSUInteger year;
+@property (nonatomic,readonly)NSUInteger enrolmentYear;
++ (instancetype)currentTerm;
 + (instancetype)termWithYear:(NSUInteger)year termSeason:(JWTermSeason)termSeason;
++ (instancetype)currentTermWithEnrolmentYear:(NSUInteger)enrolmentYear;
+- (void)jw_setGrade:(JWTermGrade)grade andSemester:(JWTermSemester)semester;
+- (instancetype)initWithYear:(NSUInteger)year termSeason:(JWTermSeason)termSeason enrolmentYear:(NSUInteger)enrolmentyear;
 @end

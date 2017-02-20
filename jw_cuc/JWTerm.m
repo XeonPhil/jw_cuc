@@ -7,16 +7,103 @@
 //
 
 #import "JWTerm.h"
+@interface JWTerm()
+@property (nonatomic,readwrite)NSUInteger enrolmentYear;
+@property (nonatomic,readwrite)JWTermGrade grade;
+@property (nonatomic,readwrite)JWTermSemester semester;
 
+@end
 @implementation JWTerm
+@synthesize enrolmentYear = _enrolmentYear;
++ (instancetype)currentTerm {
+    return [self currentTermWithEnrolmentYear:0];
+}
 + (instancetype)termWithYear:(NSUInteger)year termSeason:(JWTermSeason)termSeason {
-    JWTerm *termObj = [JWTerm indexPathForRow:termSeason inSection:year];
+    JWTerm *termObj = [[JWTerm alloc] initWithYear:year
+                                        termSeason:termSeason
+                                     enrolmentYear:0];
     return termObj;
 }
-- (NSUInteger)year {
-    return self.section;
++ (instancetype)currentTermWithEnrolmentYear:(NSUInteger)enrolmentYear {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    unsigned unitflags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *dateComponents = [calendar components:unitflags fromDate:[NSDate date]];
+    
+    BOOL isTermSpring = dateComponents.month < 8 && dateComponents.month > 1;
+    
+    JWTermSeason season = isTermSpring ? JWTermSeasonSpring : JWTermSeasonAutumn;
+    JWTerm *termObj = [[JWTerm alloc] initWithYear:dateComponents.year
+                                        termSeason:season
+                                     enrolmentYear:enrolmentYear];
+    if (termObj.grade >= 1 && termObj.grade <= 4) {
+        return termObj;
+    }else {
+        return nil;
+    }
 }
-- (JWTermSeason)season {
-    return self.row;
+- (instancetype)initWithYear:(NSUInteger)year termSeason:(JWTermSeason)termSeason enrolmentYear:(NSUInteger)enrolmentyear {
+    self = [super init];
+    if (self) {
+        _year = year;
+        _season = termSeason;
+        _enrolmentYear = enrolmentyear;
+    }
+    return self;
 }
+- (void)jw_setGrade:(JWTermGrade)grade andSemester:(JWTermSemester)semester {
+    _season = semester == JWTermSemesterOne ? JWTermSeasonAutumn : JWTermSeasonSpring;
+
+    if (_enrolmentYear) {
+        switch (_season) {
+            case JWTermSeasonSpring:
+                _year = _enrolmentYear + grade;
+                break;
+            case JWTermSeasonAutumn:
+                _year = _enrolmentYear + grade - 1;
+                break;
+            case JWTermSeasonNil:
+                break;
+        }
+    }
+}
+- (JWTermGrade)grade {
+    if (_enrolmentYear) {
+        if (self.season == JWTermSeasonSpring) {
+            return (JWTermGrade)self.year - _enrolmentYear;
+        }else {
+            return (JWTermGrade)self.year - _enrolmentYear + 1;
+        }
+    }else {
+        return JWTermGradeNil;
+    }
+}
+//- (void)setGrade:(JWTermGrade)grade {
+//    if (_enrolmentYear) {
+//        switch (_season) {
+//            case JWTermSeasonSpring:
+//                _year = _enrolmentYear + grade;
+//                break;
+//            case JWTermSeasonAutumn:
+//                _year = _enrolmentYear + grade - 1;
+//                break;
+//            case JWTermSeasonNil:
+//                break;
+//        }
+//    }
+//}
+- (JWTermSemester)semester {
+    if (self.season != JWTermSeasonNil) {
+        if (self.season == JWTermSeasonSpring) {
+            return JWTermSemesterTwo;
+        }else {
+            return JWTermSemesterOne;
+        }
+    }else {
+        return JWTermSemesterNil;
+    }
+}
+//- (void)setSemester:(JWTermSemester)semester {
+//    _season = semester == JWTermSemesterOne ? JWTermSeasonAutumn : JWTermSeasonSpring;
+//}
+
 @end
