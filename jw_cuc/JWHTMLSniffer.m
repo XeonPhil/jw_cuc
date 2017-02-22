@@ -10,14 +10,14 @@
 #import "Ono.h"
 #import "JWHTMLSniffer.h"
 #import "TesseractOCR/TesseractOCR.h"
-#import "JWCourseStore.h"
+
 //#define JW_DISPATCH_QUENE 233
 
 @interface JWHTMLSniffer()
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic,strong)  NSDictionary     *cookieHeader;
 @property (nonatomic,strong)  NSURLSession     *session;
-@property (strong,nonatomic)  UIImage          *image;
+@property (nonatomic,readonly)dispatch_queue_t quene;
 @end
 @implementation JWHTMLSniffer
 #pragma mark - constuction
@@ -29,74 +29,81 @@
     });
     return sniffer;
 }
+- (void)requestDataWithUrl:(NSURL *)url andCompletionHandler:(void (^)(NSData *data,NSURLResponse *response,NSError *error))handler {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setAllHTTPHeaderFields:_cookieHeader];
+    NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:handler];
+    [task resume];
+}
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        configuration.timeoutIntervalForRequest = 2.0;
         _session = [NSURLSession sessionWithConfiguration:configuration];
         _operationQueue = [NSOperationQueue new];
     }
     return self;
 }
 - (void)getCourseWithStudentID:(NSString *)ID password:(NSString *)password term:(JWTerm *)term andBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
-    [[JWHTMLSniffer sharedSniffer] checkCaptchaWithBlock:^(NSData *data){
-        _image = [UIImage imageWithData:data];
-        [self recognizeImage:_image withBlock:^(G8Tesseract *tesseract) {
-            NSString *recognizedText = [tesseract.recognizedText trimWhitespace];
-            NSLog(@"captcha recognized as %@",recognizedText);
-            [[JWHTMLSniffer sharedSniffer] requestLoginChallengeWithName:ID andPassword:password andCaptcha:recognizedText success:^{
-                [[JWHTMLSniffer sharedSniffer] requestCourseHTMLWithTerm:term andBlock:^(NSArray<NSData *> *array){
+    void (^failureBlock)(JWLoginFailure) = ^(JWLoginFailure code){
+        switch (code) {
+            case JWLoginFailureErrorCaptcha:
+                [self getCourseWithStudentID:ID password:password term:term andBlock:block failure:failure];
+                break;
+            default:
+                NSLog(@"failure code as %lu",(unsigned long)code);
+                failure(code);
+                break;
+        };
+    };
+    
+    [self requestCaptchaWithBlock:^(NSData *data){
+        [self recognizeImage:[UIImage imageWithData:data] withBlock:^(G8Tesseract *tesseract) {
+            [self requestLoginChallengeWithName:ID andPassword:password andCaptcha:tesseract.recognizedText success:^{
+                [self requestCourseHTMLWithTerm:term andBlock:^(NSArray<NSData *> *array){
                     [[JWCourseDataController defaultDateController] insertCoursesAtTerm:term withHTMLDataArray:array];
+                    _cookieHeader = nil;
                     block();
-                }];
-            }failure:^(JWLoginFailure code){
-                NSLog(@"failure code as %ld",(unsigned long)code);
-                switch (code) {
-                    case JWLoginFailureErrorCaptcha:
-                        [self getCourseWithStudentID:ID password:password term:term andBlock:block failure:failure];
-                        break;
-                    default:
-                        failure(code);
-                        break;
-                };
-            }];
+                }failure:failureBlock];
+            }failure:failureBlock];
         }];
-    }];
+    }failure:failureBlock];
 }
 #pragma mark - private method
 #pragma mark - 1.construct cookie and get captcha image
--(void)checkCaptchaWithBlock:(void (^)(NSData *))block {
-    if (!_cookieHeader) {
-        [self getCookieWithBlock:^{
-            [self requestCaptchaWithBlock:block];
-        }];
-    }else {
-        [self requestCaptchaWithBlock:block];
-    }
-    
-}
--(void)getCookieWithBlock:(void (^)(void))block {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),^{
-        NSData *temp = [NSData dataWithContentsOfURL:INDEX_URL];
-        if (temp.length) {
+
+-(void)getCookieWithBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
+    [self requestDataWithUrl:INDEX_URL andCompletionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error.code) {
+            NSLog(@"occur as %@",[error description]);
+            failure(JWLoginFailureUnknown);
+        }
+        if (data.length) {
             NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:INDEX_URL];
             _cookieHeader = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-            NSLog(@"%@\n%lu",_cookieHeader,(unsigned long)temp.length);
+            NSLog(@"%@\n%lu",_cookieHeader,(unsigned long)data.length);
             block();
         }
-    });
-}
--(void)requestCaptchaWithBlock:(void (^)(NSData *))block {
-    NSAssert(_cookieHeader != nil, @"_header nil");
-    NSMutableURLRequest *captchaRequest = [NSMutableURLRequest requestWithURL:CAPTCHA_URL];
-    [captchaRequest setAllHTTPHeaderFields:_cookieHeader];
-    NSURLSessionDataTask *task = [_session dataTaskWithRequest:captchaRequest completionHandler:^(NSData *data,NSURLResponse *response,NSError *error){
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            block(data);
-        });
     }];
-    [task resume];
+}
+-(void)requestCaptchaWithBlock:(void (^)(NSData *))block failure:(void (^)(JWLoginFailure code))failure{
+    void (^requestCaptchaBlock)(void) = ^{
+        NSAssert(_cookieHeader != nil, @"_header nil");
+        [self requestDataWithUrl:CAPTCHA_URL andCompletionHandler:^(NSData *data,NSURLResponse *response,NSError *error){
+            if (error.code) {
+                failure(JWLoginFailureUnknown);
+            }
+            block(data);
+        }];
+    };
+    
+    if (!_cookieHeader) {
+        [self getCookieWithBlock:requestCaptchaBlock failure:failure];
+    }else {
+        requestCaptchaBlock();
+    }
 }
 #pragma mark - 2.OCR recognize captcha
 -(void)recognizeImage:(UIImage *)image withBlock:(void (^)(G8Tesseract *tesseract))block {
@@ -113,6 +120,8 @@
     operation.tesseract.rect = CGRectMake(0, 0, 70, 16);
     operation.recognitionCompleteBlock = ^(G8Tesseract *tesseract) {
         block(tesseract);
+        NSString *recognizedText = [tesseract.recognizedText trimWhitespace];
+        NSLog(@"captcha recognized as %@",recognizedText);
     };
     [_operationQueue addOperation:operation];
     
@@ -120,9 +129,9 @@
 #pragma mark - 3.request login challenge
 -(void)requestLoginChallengeWithName:(NSString *)name andPassword:(NSString *)pass andCaptcha:(NSString *)captcha success:(void (^)(void))success failure:(void (^)(JWLoginFailure code))failure {
     NSString *postBody = [NSString stringWithFormat:@"j_username=%@&j_password=%@&j_captcha=%@",name,pass,captcha];
-//    NSString *postBody = [NSString stringWithFormat:@"j_username=201410513013&j_password=2014105130gc&j_captcha=%@",_captchaField.text];
     NSData *postData = [postBody dataUsingEncoding:NSASCIIStringEncoding];
     NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)postBody.length];
+    //post request
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:LOGIN_CHALLENGE_URL];
     NSAssert(_cookieHeader != nil, @"cookie header nil");
     [request setAllHTTPHeaderFields:_cookieHeader];
@@ -130,6 +139,9 @@
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:postData];
     NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data,NSURLResponse *response,NSError *error){
+        if (error.code) {
+            failure(JWLoginFailureUnknown);
+        }
         NSString *query = response.URL.query;
         if (query) {
             ONOXMLDocument *document = [ONOXMLDocument HTMLDocumentWithData:data error:nil];
@@ -152,41 +164,52 @@
     [task resume];
 }
 #pragma mark - 4.preload course
--(void)preloadCourseWithTerm:(JWTerm *)term andBlock:(void (^)(void))block {
+-(void)preloadCourseWithTerm:(JWTerm *)term andBlock:(void (^)(void))block failure:(void (^)(JWLoginFailure code))failure{
     NSString *queryString = [NSString stringWithFormat:@"?year=%ld&term=%ld",(unsigned long)term.year-1980,(unsigned long)term.season];
     NSString *urlString = [PRELOAD_COURSE_URL_STRING stringByAppendingString:queryString];
     NSURL *URL = [NSURL URLWithString:urlString relativeToURL:BASE_URL];
-    NSMutableURLRequest *tableRequest = [NSMutableURLRequest requestWithURL:URL];
-    tableRequest.HTTPMethod = @"GET";
-    [tableRequest setAllHTTPHeaderFields:_cookieHeader];
-    NSURLSessionDataTask *task = [_session dataTaskWithRequest:tableRequest completionHandler:^(NSData *data,NSURLResponse *response,NSError *error){
+    [self requestDataWithUrl:URL andCompletionHandler:^(NSData *data,NSURLResponse *response,NSError *error){
+        if (error.code) {
+            failure(JWLoginFailureUnknown);
+        }
         block();
     }];
-    [task resume];
 }
 #pragma mark - 5.download course
--(void)requestCourseHTMLWithTerm:(JWTerm *)term andBlock:(void (^)(NSArray<NSData *> *dataArray))block {
+-(void)requestCourseHTMLWithTerm:(JWTerm *)term andBlock:(void (^)(NSArray<NSData *> *dataArray))block failure:(void (^)(JWLoginFailure code))failure{
     NSMutableArray *array = [NSMutableArray arrayWithObjectType:[NSData class] count:16];
     [self preloadCourseWithTerm:term andBlock:^(void){
         dispatch_group_t group = dispatch_group_create();
-        dispatch_queue_t quene = dispatch_queue_create("course_download", DISPATCH_QUEUE_SERIAL);
+        _quene = dispatch_queue_create("course_download", DISPATCH_QUEUE_SERIAL);
+#warning make quene concurrent
         for (NSUInteger week = 1; week <= 16; week++) {
-            dispatch_group_async(group, quene, ^{
-                [self requestSingleWeekCourseHTMLWithTerm:term andWeek:week andBlock:^(NSData *data,NSInteger whichWeek){
-                    array[whichWeek-1] = data;
-                    }];
+            dispatch_group_enter(group);
+            void (^handle)(NSData *data,NSInteger whichWeek) = ^(NSData *data,NSInteger whichWeek){
+                array[whichWeek-1] = data;
+                dispatch_group_leave(group);
+            };
+            dispatch_async(_quene, ^{
+                [self requestSingleWeekCourseHTMLWithTerm:term andWeek:week andBlock:[handle copy] failure:failure];
             });
         }
         dispatch_group_notify(group,dispatch_get_main_queue(), ^{
             block(array);
         });
-    }];
+    }failure:failure];
 }
--(void)requestSingleWeekCourseHTMLWithTerm:(JWTerm *)term andWeek:(NSInteger)week andBlock:(void (^)(NSData *,NSInteger whichWeek))block {
+-(void)requestSingleWeekCourseHTMLWithTerm:(JWTerm *)term andWeek:(NSInteger)week andBlock:(void (^)(NSData *,NSInteger whichWeek))block failure:(void (^)(JWLoginFailure code))failure{
     NSString *queryString = [NSString stringWithFormat:@"?yearid=%ld&termid=%ld&whichWeek=%ld",(unsigned long)term.year-1980,(unsigned long)term.season,(unsigned long)week];
     NSString *urlString = [COURSE_URL_STRING stringByAppendingString:queryString];
     NSURL *URL = [NSURL URLWithString:urlString relativeToURL:BASE_URL];
+//    dispatch_barrier_sync(_quene, ^{
+//    });
     NSData *data = [NSData dataWithContentsOfURL:URL];
     block(data,week);
+//    [self ggg:data sd:week];
 }
+//- (void)ggg:(NSData *)data sd:(NSUInteger)whichWeek{
+//    ONOXMLDocument *document = [ONOXMLDocument HTMLDocumentWithData:data error:nil];
+//    ONOXMLElement *elr = [[[document firstChildWithXPath:@"/html/body/table"] children] objectAtIndex:1];
+//    NSLog(@"array element %ld:%@",whichWeek,[elr.children[0] stringValue]);
+//}
 @end

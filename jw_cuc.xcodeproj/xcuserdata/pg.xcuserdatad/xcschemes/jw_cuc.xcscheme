@@ -59,7 +59,7 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "JWTNetwork">
+                  Identifier = "JWTPerformance">
                </Test>
                <Test
                   Identifier = "JWTTermTest">

@@ -1,0 +1,440 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<head>
+    <title>
+        课表输出
+    </title>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+    <link href="/academic/styles/css/view_new.css" rel="stylesheet"
+          type="text/css">
+    <link href="/academic/styles/default/css/text.css" rel="stylesheet"
+          type="text/css">
+    <link href="/academic/styles/default/css/main.css" rel="stylesheet"
+          type="text/css">
+    <link href="/academic/styles/default/css/popwin.css" rel="stylesheet"
+          type="text/css">
+ 
+
+    <script type="text/javascript" language="javascript"
+            src="/academic/styles/default/js/function.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="/academic/styles/default/js/page.js"></script>
+    <script type="text/javascript" language="javascript"
+            src="/academic/styles/default/js/ajax.js"></script>
+    <script type="text/javascript" language="javascript" src="/academic/styles/js/jquery.js" ></script>
+
+    <script type="text/javascript" language="javascript" src="/academic/styles/js/selectTime.js" ></script>
+    <script type="text/javascript" language="javascript" src="/academic/styles/js/selectDateTime.js" ></script>
+     <script type="text/javascript" language="javascript" src="/academic/styles/js/selectDate.js" ></script>
+
+  <script type="text/javascript" language="javascript" src="/academic/styles/js/common.js" ></script>
+
+    <script type="text/javascript" language="javascript" src="/academic/styles/js/export.js" ></script>
+
+    <script type="text/javascript" language="javascript" src="/academic/styles/js/depCommon.js" ></script>
+</head>
+
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<center>
+    <table cellpadding="0" cellspacing="0" class="logo_tab">
+        <tr>
+            <td class="logo"></td>
+        </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0" class="content_tab">
+        <tr>
+            <td class="content">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    function submitSelect(){
+        document.getElementById("form1").submit();
+    }
+    $(function(){
+        hideNoContentTdByIndex(11);
+        hideNoContentTdByIndex(4);
+    });
+
+    function hideNoContentTdByIndex(index_){
+        var tds= $("td[name=td"+index_+"]");
+        var td_count=tds.length;
+        var i=0;
+        tds.each(function(){
+            if($(this).text()=="")
+                i=i+1;
+        });
+        if(td_count==i)
+            $("[name=td"+index_+"]").remove();
+    }
+</script>
+<form name="form1" id="form1" action="studentWeeklyTimetable.do" method="post">
+    <div class="title">
+        <span class="left"><em>
+                <input type="hidden" name="yearid" value="37"/>
+                <input type="hidden" name="termid" value="1"/>
+                2017春
+
+            第
+            <select name="whichWeek" onchange="submitSelect()">
+                    
+                        <option value="1" selected>1</option>
+                    
+                        <option value="2" >2</option>
+                    
+                        <option value="3" >3</option>
+                    
+                        <option value="4" >4</option>
+                    
+                        <option value="5" >5</option>
+                    
+                        <option value="6" >6</option>
+                    
+                        <option value="7" >7</option>
+                    
+                        <option value="8" >8</option>
+                    
+                        <option value="9" >9</option>
+                    
+                        <option value="10" >10</option>
+                    
+                        <option value="11" >11</option>
+                    
+                        <option value="12" >12</option>
+                    
+                        <option value="13" >13</option>
+                    
+                        <option value="14" >14</option>
+                    
+                        <option value="15" >15</option>
+                    
+                        <option value="16" >16</option>
+                    
+                        <option value="17" >17</option>
+                    
+                        <option value="18" >18</option>
+                    
+            </select>
+            周
+
+            周次课表
+        </em></span>
+    </div>
+</form>
+
+<table cellpadding="0" cellspacing="0" class="datalist">
+    <tr>
+        
+            <th name="td0">日期</th>
+        
+            <th name="td1">课程名</th>
+        
+            <th name="td2">选课属性</th>
+        
+            <th name="td3">考试性质</th>
+        
+            <th name="td4">课节名称</th>
+        
+            <th name="td5">星期</th>
+        
+            <th name="td6">节次</th>
+        
+            <th name="td7">开始时间</th>
+        
+            <th name="td8">结束时间</th>
+        
+            <th name="td9">教学楼</th>
+        
+            <th name="td10">教室</th>
+        
+            <th name="td11"></th>
+        
+    </tr>
+    
+        <tr>
+            
+                <td name="td0">2017-02-27</td>
+            
+                <td name="td1">媒体网络与交互电视技术概论</td>
+            
+                <td name="td2">必修</td>
+            
+                <td name="td3">正常考试</td>
+            
+                <td name="td4"></td>
+            
+                <td name="td5">星期一</td>
+            
+                <td name="td6">第1-2节</td>
+            
+                <td name="td7">08:00</td>
+            
+                <td name="td8">09:50</td>
+            
+                <td name="td9">一号教学楼</td>
+            
+                <td name="td10">一教405*(F)</td>
+            
+                <td name="td11"></td>
+            
+        </tr>
+    
+        <tr>
+            
+                <td name="td0">2017-02-27</td>
+            
+                <td name="td1">数字图像处理A</td>
+            
+                <td name="td2">必修</td>
+            
+                <td name="td3">正常考试</td>
+            
+                <td name="td4"></td>
+            
+                <td name="td5">星期一</td>
+            
+                <td name="td6">第3-4节</td>
+            
+                <td name="td7">10:10</td>
+            
+                <td name="td8">12:00</td>
+            
+                <td name="td9">一号教学楼</td>
+            
+                <td name="td10">一教507</td>
+            
+                <td name="td11"></td>
+            
+        </tr>
+    
+        <tr>
+            
+                <td name="td0">2017-02-27</td>
+            
+                <td name="td1">数字语音技术（A）</td>
+            
+                <td name="td2">必修</td>
+            
+                <td name="td3">正常考试</td>
+            
+                <td name="td4"></td>
+            
+                <td name="td5">星期一</td>
+            
+                <td name="td6">第5-6节</td>
+            
+                <td name="td7">13:30</td>
+            
+                <td name="td8">15:10</td>
+            
+                <td name="td9">主楼</td>
+            
+                <td name="td10">主楼803</td>
+            
+                <td name="td11"></td>
+            
+        </tr>
+    
+        <tr>
+            
+                <td name="td0">2017-02-28</td>
+            
+                <td name="td1">媒体内容安全技术</td>
+            
+                <td name="td2">必修</td>
+            
+                <td name="td3">正常考试</td>
+            
+                <td name="td4"></td>
+            
+                <td name="td5">星期二</td>
+            
+                <td name="td6">第1-2节</td>
+            
+                <td name="td7">08:00</td>
+            
+                <td name="td8">09:50</td>
+            
+                <td name="td9">一号教学楼</td>
+            
+                <td name="td10">一教513</td>
+            
+                <td name="td11"></td>
+            
+        </tr>
+    
+        <tr>
+            
+                <td name="td0">2017-02-28</td>
+            
+                <td name="td1">媒体内容安全技术</td>
+            
+                <td name="td2">必修</td>
+            
+                <td name="td3">正常考试</td>
+            
+                <td name="td4"></td>
+            
+                <td name="td5">星期二</td>
+            
+                <td name="td6">第3-4节</td>
+            
+                <td name="td7">10:10</td>
+            
+                <td name="td8">12:00</td>
+            
+                <td name="td9">一号教学楼</td>
+            
+                <td name="td10">一教513</td>
+            
+                <td name="td11"></td>
+            
+        </tr>
+    
+        <tr>
+            
+                <td name="td0">2017-02-28</td>
+            
+                <td name="td1">大学生就业指导</td>
+            
+                <td name="td2">必修</td>
+            
+                <td name="td3">正常考试</td>
+            
+                <td name="td4"></td>
+            
+                <td name="td5">星期二</td>
+            
+                <td name="td6">第5-6节</td>
+            
+                <td name="td7">13:30</td>
+            
+                <td name="td8">15:10</td>
+            
+                <td name="td9">四十八号教学楼</td>
+            
+                <td name="td10">四十八教A303</td>
+            
+                <td name="td11"></td>
+            
+        </tr>
+    
+        <tr>
+            
+                <td name="td0">2017-03-01</td>
+            
+                <td name="td1">多媒体系统设计</td>
+            
+                <td name="td2">必修</td>
+            
+                <td name="td3">正常考试</td>
+            
+                <td name="td4"></td>
+            
+                <td name="td5">星期三</td>
+            
+                <td name="td6">第3-4节</td>
+            
+                <td name="td7">10:10</td>
+            
+                <td name="td8">12:00</td>
+            
+                <td name="td9">一号教学楼</td>
+            
+                <td name="td10">一教401-分屏</td>
+            
+                <td name="td11"></td>
+            
+        </tr>
+    
+        <tr>
+            
+                <td name="td0">2017-03-02</td>
+            
+                <td name="td1">自然人机交互技术</td>
+            
+                <td name="td2">必修</td>
+            
+                <td name="td3">正常考试</td>
+            
+                <td name="td4"></td>
+            
+                <td name="td5">星期四</td>
+            
+                <td name="td6">第5-6节</td>
+            
+                <td name="td7">13:30</td>
+            
+                <td name="td8">15:10</td>
+            
+                <td name="td9">一号教学楼</td>
+            
+                <td name="td10">一教504</td>
+            
+                <td name="td11"></td>
+            
+        </tr>
+    
+</table>
+<br>
+<input type="button" class="button" onclick="window.close();" value="关闭" />
+<br>
+            </td>
+        </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0" class="foot_tab">
+        <tr>
+            <td class="foot_left"></td>
+            <td class="foot_right"></td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>

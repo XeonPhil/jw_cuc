@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "JWCalendar.h"
 @interface AppDelegate ()
 
 @end
@@ -16,6 +17,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.dataController = [JWCourseDataController new];
+    
+    [_dataController resetTerm:[[JWCalendar defaultCalendar] currentTerm] andWeek:1];
+    if (_dataController.courseDic) {
+        for (NSUInteger i = 1; i <= 5; i++) {
+            JWCourseMO * course = [_dataController.courseDic[@(i)] firstObject];
+            if (course) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"JWFetchCourseNotification"
+                                                                    object:nil
+                                                                  userInfo:@{
+                                                                             @"date":course.dateComponents,
+                                                                             @"day":@(course.dayNum)
+                                                                             }];
+                break;
+            }
+        }
+    }
 #warning "By initializing a separate controller object with a completion block, you have moved the Core Data stack out of the application delegate, but you still allow a callback to the application delegate so that the user interface can know when to begin requesting data."
     return YES;
 }

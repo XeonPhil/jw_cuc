@@ -20,9 +20,7 @@
 		CF33DC8A1E2F4AD800DD3E00 /* UIImage+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC811E2F4AD800DD3E00 /* UIImage+common.m */; };
 		CF33DC8B1E2F4AD800DD3E00 /* UIView+size.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC831E2F4AD800DD3E00 /* UIView+size.m */; };
 		CF33DC8E1E2F519500DD3E00 /* JWMainCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC8D1E2F519500DD3E00 /* JWMainCollectionView.m */; };
-		CF33DC911E2F5C8200DD3E00 /* JWCourseStore.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC901E2F5C8200DD3E00 /* JWCourseStore.m */; };
 		CF4C1B891E2F780100C91F45 /* JWPeriodCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4C1B881E2F780100C91F45 /* JWPeriodCollectionViewCell.m */; };
-		CF4C1B8C1E2FA1FE00C91F45 /* JWCourse.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4C1B8B1E2FA1FE00C91F45 /* JWCourse.m */; };
 		CF4C73051E4816A6004B19FE /* JWCourseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4C73041E4816A6004B19FE /* JWCourseCollectionViewCell.m */; };
 		CF4DD6B61E10DC0900505976 /* 900.html in Resources */ = {isa = PBXBuildFile; fileRef = CF4DD6B51E10DC0900505976 /* 900.html */; };
 		CF4DD6BB1E114E9D00505976 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4DD6BA1E114E9D00505976 /* Reveal.framework */; };
@@ -43,12 +41,12 @@
 		CF7EF1281E4C5828004EE007 /* JWCourseMO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7EF1261E4C5828004EE007 /* JWCourseMO+CoreDataProperties.m */; };
 		CF9C59F41E2FC30F005FD285 /* REFSAN.TTF in Resources */ = {isa = PBXBuildFile; fileRef = CF9C59F31E2FC30F005FD285 /* REFSAN.TTF */; };
 		CF9C59F71E2FC4F4005FD285 /* JWMainWeekCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9C59F61E2FC4F4005FD285 /* JWMainWeekCollectionView.m */; };
-		CFA3CA0C1E472DC200C90DD0 /* JWCourseStore+mainViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA3CA0B1E472DC200C90DD0 /* JWCourseStore+mainViewDataSource.m */; };
-		CFA3CA0F1E47307B00C90DD0 /* JWCourseStore+mainViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CFA3CA0E1E47307B00C90DD0 /* JWCourseStore+mainViewLayout.m */; };
 		CFB781761E3A4732008E438B /* NSArray+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB781751E3A4732008E438B /* NSArray+common.m */; };
 		CFB781791E3A4B0E008E438B /* NSMutableArray+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB781781E3A4B0E008E438B /* NSMutableArray+common.m */; };
 		CFC68DBB1E3F00CD000614FF /* Course.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CFC68DB91E3F00CD000614FF /* Course.xcdatamodeld */; };
 		CFCA74501E574BD7004218C2 /* JWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCA744F1E574BD7004218C2 /* JWLoginViewController.m */; };
+		CFCBEBA61E5C2CB6001B3BB3 /* JWCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCBEBA51E5C2CB6001B3BB3 /* JWCalendar.m */; };
+		CFCBEBA81E5C4211001B3BB3 /* 201701.html in Resources */ = {isa = PBXBuildFile; fileRef = CFCBEBA71E5C4211001B3BB3 /* 201701.html */; };
 		CFCCEEA61E2BADFB009732E7 /* JWMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFCCEEA51E2BADFB009732E7 /* JWMainViewController.m */; };
 		CFF77C6D1E51C4CB00C86648 /* jw_cucTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF77C6C1E51C4CB00C86648 /* jw_cucTests.m */; };
 /* End PBXBuildFile section */
@@ -89,12 +87,8 @@
 		CF33DC831E2F4AD800DD3E00 /* UIView+size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+size.m"; sourceTree = "<group>"; };
 		CF33DC8C1E2F519500DD3E00 /* JWMainCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWMainCollectionView.h; sourceTree = "<group>"; };
 		CF33DC8D1E2F519500DD3E00 /* JWMainCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWMainCollectionView.m; sourceTree = "<group>"; };
-		CF33DC8F1E2F5C8200DD3E00 /* JWCourseStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWCourseStore.h; sourceTree = "<group>"; };
-		CF33DC901E2F5C8200DD3E00 /* JWCourseStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWCourseStore.m; sourceTree = "<group>"; };
 		CF4C1B871E2F780100C91F45 /* JWPeriodCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWPeriodCollectionViewCell.h; sourceTree = "<group>"; };
 		CF4C1B881E2F780100C91F45 /* JWPeriodCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWPeriodCollectionViewCell.m; sourceTree = "<group>"; };
-		CF4C1B8A1E2FA1FE00C91F45 /* JWCourse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWCourse.h; sourceTree = "<group>"; };
-		CF4C1B8B1E2FA1FE00C91F45 /* JWCourse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWCourse.m; sourceTree = "<group>"; };
 		CF4C73031E4816A6004B19FE /* JWCourseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWCourseCollectionViewCell.h; sourceTree = "<group>"; };
 		CF4C73041E4816A6004B19FE /* JWCourseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWCourseCollectionViewCell.m; sourceTree = "<group>"; };
 		CF4DD6B51E10DC0900505976 /* 900.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 900.html; sourceTree = "<group>"; };
@@ -129,10 +123,6 @@
 		CF9C59F31E2FC30F005FD285 /* REFSAN.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = REFSAN.TTF; sourceTree = "<group>"; };
 		CF9C59F51E2FC4F4005FD285 /* JWMainWeekCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWMainWeekCollectionView.h; sourceTree = "<group>"; };
 		CF9C59F61E2FC4F4005FD285 /* JWMainWeekCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWMainWeekCollectionView.m; sourceTree = "<group>"; };
-		CFA3CA0A1E472DC200C90DD0 /* JWCourseStore+mainViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JWCourseStore+mainViewDataSource.h"; sourceTree = "<group>"; };
-		CFA3CA0B1E472DC200C90DD0 /* JWCourseStore+mainViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JWCourseStore+mainViewDataSource.m"; sourceTree = "<group>"; };
-		CFA3CA0D1E47307B00C90DD0 /* JWCourseStore+mainViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JWCourseStore+mainViewLayout.h"; sourceTree = "<group>"; };
-		CFA3CA0E1E47307B00C90DD0 /* JWCourseStore+mainViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JWCourseStore+mainViewLayout.m"; sourceTree = "<group>"; };
 		CFA434D31E5199510081EB41 /* libOno.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOno.a; path = "../../Library/Developer/Xcode/DerivedData/jw_cuc-faixypckjzdnbrcuvxffxbdalznx/Build/Products/Debug-iphonesimulator/Ono/libOno.a"; sourceTree = "<group>"; };
 		CFA434DD1E519AF30081EB41 /* libPods-jw_cuc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-jw_cuc.a"; path = "../../Library/Developer/Xcode/DerivedData/jw_cuc-faixypckjzdnbrcuvxffxbdalznx/Build/Products/Debug-iphonesimulator/libPods-jw_cuc.a"; sourceTree = "<group>"; };
 		CFA434E21E519B770081EB41 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
@@ -147,6 +137,9 @@
 		CFC68DBA1E3F00CD000614FF /* Course.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Course.xcdatamodel; sourceTree = "<group>"; };
 		CFCA744E1E574BD7004218C2 /* JWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWLoginViewController.h; sourceTree = "<group>"; };
 		CFCA744F1E574BD7004218C2 /* JWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWLoginViewController.m; sourceTree = "<group>"; };
+		CFCBEBA41E5C2CB6001B3BB3 /* JWCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWCalendar.h; sourceTree = "<group>"; };
+		CFCBEBA51E5C2CB6001B3BB3 /* JWCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWCalendar.m; sourceTree = "<group>"; };
+		CFCBEBA71E5C4211001B3BB3 /* 201701.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 201701.html; sourceTree = "<group>"; };
 		CFCCEEA41E2BADFB009732E7 /* JWMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWMainViewController.h; sourceTree = "<group>"; };
 		CFCCEEA51E2BADFB009732E7 /* JWMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWMainViewController.m; sourceTree = "<group>"; };
 		CFF77C6A1E51C4CB00C86648 /* jw_cucTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jw_cucTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -211,18 +204,12 @@
 				CFC68DB91E3F00CD000614FF /* Course.xcdatamodeld */,
 				CF0862CC1E0FD799008ECFEF /* JWHTMLSniffer.h */,
 				CF0862CD1E0FD799008ECFEF /* JWHTMLSniffer.m */,
-				CF33DC8F1E2F5C8200DD3E00 /* JWCourseStore.h */,
-				CF33DC901E2F5C8200DD3E00 /* JWCourseStore.m */,
-				CFA3CA0A1E472DC200C90DD0 /* JWCourseStore+mainViewDataSource.h */,
-				CFA3CA0B1E472DC200C90DD0 /* JWCourseStore+mainViewDataSource.m */,
-				CFA3CA0D1E47307B00C90DD0 /* JWCourseStore+mainViewLayout.h */,
-				CFA3CA0E1E47307B00C90DD0 /* JWCourseStore+mainViewLayout.m */,
-				CF4C1B8A1E2FA1FE00C91F45 /* JWCourse.h */,
-				CF4C1B8B1E2FA1FE00C91F45 /* JWCourse.m */,
 				CF604BFC1E4AC15600F05296 /* JWCourseDataController.h */,
 				CF604BFD1E4AC15600F05296 /* JWCourseDataController.m */,
 				CF565C261E4DA34800A7A5E8 /* JWTerm.h */,
 				CF565C271E4DA34800A7A5E8 /* JWTerm.m */,
+				CFCBEBA41E5C2CB6001B3BB3 /* JWCalendar.h */,
+				CFCBEBA51E5C2CB6001B3BB3 /* JWCalendar.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -340,6 +327,7 @@
 				CF33DC721E2F49F400DD3E00 /* fonts */,
 				CF7C63DB1E0EA6290089F3E2 /* LaunchScreen.storyboard */,
 				CF4DD6B51E10DC0900505976 /* 900.html */,
+				CFCBEBA71E5C4211001B3BB3 /* 201701.html */,
 				CF7C63DE1E0EA6290089F3E2 /* Info.plist */,
 				CF7C63CE1E0EA6290089F3E2 /* main.m */,
 				CF7C63D91E0EA6290089F3E2 /* Assets.xcassets */,
@@ -467,6 +455,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFCBEBA81E5C4211001B3BB3 /* 201701.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,8 +516,6 @@
 			files = (
 				CF33DC871E2F4AD800DD3E00 /* UITableViewCell+View.m in Sources */,
 				CF604BFE1E4AC15600F05296 /* JWCourseDataController.m in Sources */,
-				CFA3CA0F1E47307B00C90DD0 /* JWCourseStore+mainViewLayout.m in Sources */,
-				CF33DC911E2F5C8200DD3E00 /* JWCourseStore.m in Sources */,
 				CF33DC8B1E2F4AD800DD3E00 /* UIView+size.m in Sources */,
 				CF637F731E2E5A6400862C48 /* JWWeekCollectionViewCell.m in Sources */,
 				CFB781791E3A4B0E008E438B /* NSMutableArray+common.m in Sources */,
@@ -545,10 +532,9 @@
 				CF7C63CF1E0EA6290089F3E2 /* main.m in Sources */,
 				CF33DC8E1E2F519500DD3E00 /* JWMainCollectionView.m in Sources */,
 				CF33DC891E2F4AD800DD3E00 /* Common.m in Sources */,
-				CF4C1B8C1E2FA1FE00C91F45 /* JWCourse.m in Sources */,
 				CF637F7A1E2E609F00862C48 /* JWNavView.m in Sources */,
+				CFCBEBA61E5C2CB6001B3BB3 /* JWCalendar.m in Sources */,
 				CFCA74501E574BD7004218C2 /* JWLoginViewController.m in Sources */,
-				CFA3CA0C1E472DC200C90DD0 /* JWCourseStore+mainViewDataSource.m in Sources */,
 				CFB781761E3A4732008E438B /* NSArray+common.m in Sources */,
 				CF70C8491E3484CF00E25355 /* JWMainCourseFlowLayout.m in Sources */,
 				CF9C59F71E2FC4F4005FD285 /* JWMainWeekCollectionView.m in Sources */,

@@ -11,6 +11,7 @@
 #import "JWHTMLSniffer.h"
 #import "JWTerm.h"
 #import "JWTermPickerView.h"
+#import "JWCalendar.h"
 @interface JWLoginViewController ()
 @property (nonatomic,strong)JWTerm *customTerm;
 @property (nonatomic,strong)JWTerm *currentTerm;
@@ -24,7 +25,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(studentIDTextChange) name:UITextFieldTextDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(studentIDTextChange) name:UITextFieldTextDidChangeNotification object:nil];
+}
+- (void)viewDidLoad {
+    [_studentID addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
+    [_password addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -49,7 +54,7 @@
         _pickerView.semester = currentTerm.semester;
         
         _termLabel.hidden = NO;
-        _changeTermButton.hidden = NO;
+//        _changeTermButton.hidden = NO;
         [self refreshTermLabel];
     }
 }
@@ -75,17 +80,20 @@
             NSLog(@"stop request and success");
             JWTerm *term = _customTerm ? _customTerm : _currentTerm;
             [self.navigationController popViewControllerAnimated:YES];
-            [[JWCourseDataController defaultDateController] resetTerm:term andWeek:1];
-#warning get week
+            NSUInteger week = [[JWCalendar defaultCalendar] currentWeek];
+            if (!week) {
+                week = 1;
+            }
+            [[JWCourseDataController defaultDateController] resetTerm:term andWeek:week];
         }failure:^(JWLoginFailure code) {
             NSLog(@"failure with code %lu",(unsigned long)code);
         }];
     }
 }
 #pragma mark - others
-- (void)studentIDTextChange {
+- (void)textChanged:(id)sender {
     if (_studentID.text.length >= 4) {
-        NSInteger enrolmentYear = [_studentID.text integerValue];
+        NSInteger enrolmentYear = [[_studentID.text substringToIndex:4] integerValue];
         if (enrolmentYear) {
             self.currentTerm = [JWTerm currentTermWithEnrolmentYear:enrolmentYear];
         }

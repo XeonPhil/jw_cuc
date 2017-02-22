@@ -73,6 +73,14 @@
     for (NSString *key in dic) {
         [course setValue:dic[key] forKey:key];
     }
+    if (course.week == 1) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"JWFetchCourseNotification"
+                                                            object:nil
+                                                          userInfo:@{
+                                                                     @"date":course.dateComponents,
+                                                                     @"day":@(course.dayNum)
+                                                                     }];
+    }
     
     
 }
@@ -215,24 +223,29 @@
         self.week = week;
     }
     
+    NSArray *predicateArray = @[
+                                @(self.term.year),
+                                @(self.term.season),
+                                @(self.week)
+                                ];
+    
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    for (NSUInteger day = 1; day <=  5; day++) {
-        NSArray *predicateArray = @[
-                                    @(self.term.year),
-                                    @(self.term.season),
-                                    @(self.week),
-                                    @(day)
-                                    ];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year == %@ and term == %@ and week == %@ and dayNum == %@" argumentArray:predicateArray];
-        NSFetchRequest *request = [JWCourseMO fetchRequest];
-        request.predicate = predicate;
-        NSError *err;
-        NSArray *courses = [self.managedObjectiContext executeFetchRequest:request error:&err];
-        NSAssert(err.code == 0, @"fetch failed");
-        dictionary[@(day)] = courses;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year == %@ and term == %@ and week == %@" argumentArray:predicateArray];
+    NSFetchRequest *request = [JWCourseMO fetchRequest];
+    request.predicate = predicate;
+    NSError *err;
+    NSArray *courses = [self.managedObjectiContext executeFetchRequest:request error:&err];
+    NSAssert(err.code == 0, @"fetch failed");
+    if (courses.count) {
+        for (NSUInteger day = 1; day <=  5; day++) {
+            NSPredicate *p = [NSPredicate predicateWithFormat:@"dayNum == %lu",(unsigned long)day];
+            dictionary[@(day)] = [courses filteredArrayUsingPredicate:p];
+        }
+        NSAssert(dictionary.count == 5, @"fetch course data lost");
+        _courseDic = dictionary;
+    }else {
+        return;
     }
-    NSAssert(dictionary.count == 5, @"fetch course data lost");
-    _courseDic = dictionary;
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 #warning main view number of section to be done: 8 or 6
@@ -262,10 +275,39 @@
         JWPeriodCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kPeriodCell" forIndexPath:indexPath];
         NSString *numberString = [NSString stringWithFormat:@"%lu",(unsigned long)indexPath.row + 1];
         cell.numberLabel.text = numberString;
+        static NSDictionary *timeDic;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            timeDic = @{
+                        @0: @"8:00",
+                        @1: @"9:00",
+                        @2: @"10:10",
+                        @3: @"11:10",
+                        @4: @"13:30",
+                        @5: @"14:20",
+                        @6: @"15:20",
+                        @7: @"16:10",
+                        @8: @"18:00",
+                        @9: @"19:00",
+                        @10:@"20:00",
+                        @11:@"21:00"
+                        };
+        });
+        cell.timeLabel.text = timeDic[@(indexPath.row)];
         return cell;
     }
     return nil;
 }
+//-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+//    return 7;
+//}
+//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    JWWeekCollectionViewCell  *cell = [_navView.weekCollectionView dequeueReusableCellWithReuseIdentifier:kWeekCellIdentifier forIndexPath:indexPath];
+//    cell.weekLabel.text = [self weekStringForIndex:indexPath.row];
+//    cell.dateLabel.text = @"12-21";
+//    return cell;
+//    
+//}
 #pragma mark - layout
 -(CGFloat)cellPositionYAtIndexpath:(NSIndexPath *)indexpath {
     NSUInteger day = indexpath.section;

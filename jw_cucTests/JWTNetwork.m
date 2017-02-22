@@ -40,8 +40,7 @@
         XCTAssert(false);
         [expectationTrue fulfill];
     }];
-    [self waitForExpectationsWithTimeout:120 handler:^(NSError * _Nullable error) {
-        NSLog(@"right");
+    [self waitForExpectationsWithTimeout:300 handler:^(NSError * _Nullable error) {
     }];
 }
 - (void)testWrong {
@@ -51,11 +50,9 @@
         [expectationFalse fulfill];
     }failure:^(JWLoginFailure code){
         XCTAssert(true);
-        NSLog(@"wrong pass");
         [expectationFalse fulfill];
     }];
-    [self waitForExpectationsWithTimeout:120 handler:^(NSError * _Nullable error) {
-        NSLog(@"wrong");
+    [self waitForExpectationsWithTimeout:300 handler:^(NSError * _Nullable error) {
     }];
 }
 

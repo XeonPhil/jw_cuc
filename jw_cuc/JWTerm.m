@@ -105,5 +105,8 @@
 //- (void)setSemester:(JWTermSemester)semester {
 //    _season = semester == JWTermSemesterOne ? JWTermSeasonAutumn : JWTermSeasonSpring;
 //}
-
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<JWTerm: %p>\n\tyear=%lu\n\tseason=%lu\n\tenrolmentYear=%lu\n\tgrade=%lu\n\tsemester=%lu\n", &self,(unsigned long)_year,(unsigned long)_season,(unsigned long)_enrolmentYear,(unsigned long)_grade,(unsigned long)_semester];
+}
 @end

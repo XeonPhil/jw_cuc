@@ -7,7 +7,7 @@
 //
 
 #import "JWMainCollectionView.h"
-#import "JWCourseStore+mainViewLayout.h"
+
 @interface JWMainCollectionView()<UICollectionViewDelegateFlowLayout>
 
 @end
@@ -21,7 +21,7 @@
 //    NSUInteger i = arc4random() % 8;
 //    return colorArray[i];
 //}
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [[JWCourseStore sharedStore] sizeForCellAtIndexPath:indexPath];
-}
+//-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    return [[JWCourseStore sharedStore] sizeForCellAtIndexPath:indexPath];
+//}
 @end

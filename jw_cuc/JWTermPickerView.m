@@ -7,7 +7,7 @@
 //
 
 #import "JWTermPickerView.h"
-@interface JWTermPickerView()<UIPickerViewDataSource,UIDocumentPickerDelegate>
+@interface JWTermPickerView()<UIPickerViewDataSource,UIPickerViewDelegate>
 
 @end
 @implementation JWTermPickerView
