@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JWCourseMO (CoreDataProperties)
 
 + (NSFetchRequest<JWCourseMO *> *)fetchRequest;
-
++ (NSFetchRequest<JWCourseMO *> *)fetchRequestWithPredicate:(NSPredicate *)predicate;
 @property (nullable, nonatomic, copy) NSString *building;
 @property (nullable, nonatomic, copy) NSString *classroom;
 @property (nullable, nonatomic, copy) NSString *courseName;

@@ -70,6 +70,10 @@
     XCTAssert([[JWCalendar defaultCalendar] currentWeek] == 0);
 }
 - (void)testExample {
+    JWTerm *st = [JWTerm termWithYear:2017 termSeason:JWTermSeasonSpring];
+    JWTerm *at = [JWTerm termWithYear:2017 termSeason:JWTermSeasonAutumn];
+    XCTAssert([_controller hasDownloadCourseInTerm:st]);
+    XCTAssert(![_controller hasDownloadCourseInTerm:at]);
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
 }

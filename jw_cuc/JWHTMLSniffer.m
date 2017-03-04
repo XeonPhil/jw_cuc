@@ -63,13 +63,24 @@
         [self recognizeImage:[UIImage imageWithData:data] withBlock:^(G8Tesseract *tesseract) {
             [self requestLoginChallengeWithName:ID andPassword:password andCaptcha:tesseract.recognizedText success:^{
                 [self requestCourseHTMLWithTerm:term andBlock:^(NSArray<NSData *> *array){
-                    [[JWCourseDataController defaultDateController] insertCoursesAtTerm:term withHTMLDataArray:array];
                     _cookieHeader = nil;
-                    block();
+                    BOOL success = [[JWCourseDataController defaultDateController] insertCoursesAtTerm:term withHTMLDataArray:array];
+                    if (success) {
+                        block();
+                    }else {
+                        failure(JWLoginFailureUnupdated);
+                    }
                 }failure:failureBlock];
             }failure:failureBlock];
         }];
     }failure:failureBlock];
+}
+-(void)getCourseAtTerm:(JWTerm *)term andBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure))failure {
+    [self getCourseWithStudentID:[JWKeyChainWrapper keyChainGetID]
+                        password:[JWKeyChainWrapper keyChainGetPass]
+                            term:term
+                        andBlock:block
+                         failure:failure];
 }
 #pragma mark - private method
 #pragma mark - 1.construct cookie and get captcha image

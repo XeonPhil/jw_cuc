@@ -7,7 +7,7 @@
 //
 
 #import "JWMainCourseFlowLayout.h"
-
+#import "JWMainViewController.h"
 @implementation JWMainCourseFlowLayout
 -(void)prepareLayout {
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -27,7 +27,10 @@
         }
         CGSize size = attribute.frame.size;
         CGPoint origin = attribute.frame.origin;
-        origin.y = [[JWCourseDataController defaultDateController] cellPositionYAtIndexpath:indexpath];
+        UINavigationController *rootNavVC = (UINavigationController *)[[[UIApplication sharedApplication] keyWindow] rootViewController];
+        JWMainViewController *mainVC = rootNavVC.viewControllers[0];
+#warning is here a leak?
+        origin.y = [mainVC cellPositionYAtIndexpath:indexpath];
         attribute.frame = CGRectMake(origin.x, origin.y, size.width, size.height);
         [attributeArray addObject:attribute];
     }

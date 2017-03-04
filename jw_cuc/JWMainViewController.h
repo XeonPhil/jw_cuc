@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @interface JWMainViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
-
+-(CGFloat)cellPositionYAtIndexpath:(NSIndexPath *)indexpath;
 @end

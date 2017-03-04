@@ -26,14 +26,41 @@
                             blue:B /255.0f
                            alpha:1.0f];
 }
-+(UIColor *)randomCellColor {
++ (UIColor *)randomColorWithString:(NSString *)string {
+    static NSMutableDictionary *indexsForColor;
+    static dispatch_once_t dicOnceToken;
+    dispatch_once(&dicOnceToken, ^{
+        indexsForColor = [NSMutableDictionary dictionary];
+    });
     static NSArray *colorArray;
-    static NSUInteger i = 0;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    static dispatch_once_t arrayOnceToken;
+    dispatch_once(&arrayOnceToken, ^{
         colorArray = @[kCellColorGrey,kCellColorGreen1,kCellColorGreen2,kCellColorOrange,kCellColorBlue,kCellColorPurplr,kCellColorYellow,kCellColorPink];
     });
-    NSUInteger index = i++ % 8;
-    return colorArray[index];
+    
+    static NSMutableSet *colorSet;
+    static dispatch_once_t setOnceToken;
+    dispatch_once(&setOnceToken, ^{
+        colorSet = [NSMutableSet set];
+    });
+    
+    UIColor *color = indexsForColor[string];
+    if (color) {
+        return color;
+    }else {
+        NSUInteger index = [string hash] % 8;
+        if ([colorSet count] == 8) {
+            [colorSet removeAllObjects];
+        }
+        while ([colorSet containsObject:colorArray[index]]) {
+            index = (index + 1) % 8;
+        }
+        UIColor *color = colorArray[index];
+        [colorSet addObject:color];
+        indexsForColor[string] = color;
+        return color;
+    }
+    
+    
 }
 @end

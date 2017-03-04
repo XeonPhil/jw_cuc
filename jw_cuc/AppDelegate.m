@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "JWCalendar.h"
+#import "JWLoginViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -16,9 +17,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     self.dataController = [JWCourseDataController new];
+//    UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"kRootNav"];
+//    self.window.rootViewController = rootNav;
     
-    [_dataController resetTerm:[[JWCalendar defaultCalendar] currentTerm] andWeek:1];
+//    [self.window makeKeyAndVisible];
+    
+    [_dataController resetTerm:[[JWCalendar defaultCalendar] currentTerm]
+                       andWeek:[[JWCalendar defaultCalendar] currentWeek]];
     if (_dataController.courseDic) {
         for (NSUInteger i = 1; i <= 5; i++) {
             JWCourseMO * course = [_dataController.courseDic[@(i)] firstObject];
@@ -33,6 +41,18 @@
             }
         }
     }
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *defaultSetting = @{
+                                     @"kShowWeekendCourse":@NO,
+                                     @"kCourseNumberShown":@(12)
+                                     };
+    for (NSString *key in defaultSetting) {
+        if (![defaults valueForKey:key]) {
+            [defaults setObject:defaultSetting[key] forKey:key];
+        }
+    }
+    [defaults synchronize];
 #warning "By initializing a separate controller object with a completion block, you have moved the Core Data stack out of the application delegate, but you still allow a callback to the application delegate so that the user interface can know when to begin requesting data."
     return YES;
 }

@@ -16,6 +16,11 @@
 + (NSFetchRequest<JWCourseMO *> *)fetchRequest {
 	return [[NSFetchRequest alloc] initWithEntityName:@"Course"];
 }
++ (NSFetchRequest<JWCourseMO *> *)fetchRequestWithPredicate:(NSPredicate *)predicate {
+    NSFetchRequest *obj = [[NSFetchRequest alloc] initWithEntityName:@"Course"];
+    obj.predicate = predicate;
+    return obj;
+}
 /**
  courseDic[@"date"] = @"2016-12-12";
  courseDic[@"day"] = @"星期四";

@@ -18,6 +18,7 @@
 #import "NSString+Common.h"
 #import "AppDelegate.h"
 #import "JWTerm.h"
+#import "JWKeyChainWrapper.h"
 
 #define BASE_URL [NSURL URLWithString:@"http://jw.cuc.edu.cn/academic/"]
 #define INDEX_URL [NSURL URLWithString:@"index.jsp" relativeToURL:BASE_URL]

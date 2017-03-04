@@ -9,8 +9,13 @@
 /* Begin PBXBuildFile section */
 		730932E0F31F38D4F662CB58 /* libPods-jw_cuc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C45859E87E26492CECA76F /* libPods-jw_cuc.a */; };
 		CF0862CE1E0FD799008ECFEF /* JWHTMLSniffer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF0862CD1E0FD799008ECFEF /* JWHTMLSniffer.m */; };
-		CF27C2931E5ABB9F00A9C003 /* JWTermPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF27C2921E5ABB9F00A9C003 /* JWTermPickerView.m */; };
+		CF21FE1E1E6A8DA10031AA6C /* JWCalendarTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CF21FE1D1E6A8DA10031AA6C /* JWCalendarTest.m */; };
+		CF21FE211E6AA9980031AA6C /* JWKeyChainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CF21FE201E6AA9980031AA6C /* JWKeyChainWrapper.m */; };
+		CF21FE231E6AAA860031AA6C /* JWTDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF21FE221E6AAA860031AA6C /* JWTDemo.m */; };
 		CF2E2AA11E2393300036B4D9 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = CF2E2AA01E2393300036B4D9 /* tessdata */; };
+		CF2EF8F31E5E7B4D00D82E7F /* JWSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2EF8F21E5E7B4D00D82E7F /* JWSettingViewController.m */; };
+		CF2EF8F91E5F1E5A00D82E7F /* cuc-calendar.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF2EF8F81E5F1E5A00D82E7F /* cuc-calendar.plist */; };
+		CF2EF8FA1E5F24AA00D82E7F /* cuc-calendar.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF2EF8F81E5F1E5A00D82E7F /* cuc-calendar.plist */; };
 		CF33DC841E2F4AD800DD3E00 /* UIColor+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC751E2F4AD800DD3E00 /* UIColor+common.m */; };
 		CF33DC851E2F4AD800DD3E00 /* NSArray+Plist.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC771E2F4AD800DD3E00 /* NSArray+Plist.m */; };
 		CF33DC861E2F4AD800DD3E00 /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC791E2F4AD800DD3E00 /* NSString+Common.m */; };
@@ -66,9 +71,14 @@
 		93C45859E87E26492CECA76F /* libPods-jw_cuc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jw_cuc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF0862CC1E0FD799008ECFEF /* JWHTMLSniffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWHTMLSniffer.h; sourceTree = "<group>"; };
 		CF0862CD1E0FD799008ECFEF /* JWHTMLSniffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWHTMLSniffer.m; sourceTree = "<group>"; };
-		CF27C2911E5ABB9F00A9C003 /* JWTermPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWTermPickerView.h; sourceTree = "<group>"; };
-		CF27C2921E5ABB9F00A9C003 /* JWTermPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTermPickerView.m; sourceTree = "<group>"; };
+		CF21FE1D1E6A8DA10031AA6C /* JWCalendarTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWCalendarTest.m; sourceTree = "<group>"; };
+		CF21FE1F1E6AA9980031AA6C /* JWKeyChainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWKeyChainWrapper.h; sourceTree = "<group>"; };
+		CF21FE201E6AA9980031AA6C /* JWKeyChainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWKeyChainWrapper.m; sourceTree = "<group>"; };
+		CF21FE221E6AAA860031AA6C /* JWTDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTDemo.m; sourceTree = "<group>"; };
 		CF2E2AA01E2393300036B4D9 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		CF2EF8F11E5E7B4D00D82E7F /* JWSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWSettingViewController.h; sourceTree = "<group>"; };
+		CF2EF8F21E5E7B4D00D82E7F /* JWSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWSettingViewController.m; sourceTree = "<group>"; };
+		CF2EF8F81E5F1E5A00D82E7F /* cuc-calendar.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "cuc-calendar.plist"; sourceTree = "<group>"; };
 		CF33DC741E2F4AD800DD3E00 /* UIColor+common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+common.h"; sourceTree = "<group>"; };
 		CF33DC751E2F4AD800DD3E00 /* UIColor+common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+common.m"; sourceTree = "<group>"; };
 		CF33DC761E2F4AD800DD3E00 /* NSArray+Plist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Plist.h"; sourceTree = "<group>"; };
@@ -210,6 +220,8 @@
 				CF565C271E4DA34800A7A5E8 /* JWTerm.m */,
 				CFCBEBA41E5C2CB6001B3BB3 /* JWCalendar.h */,
 				CFCBEBA51E5C2CB6001B3BB3 /* JWCalendar.m */,
+				CF21FE1F1E6AA9980031AA6C /* JWKeyChainWrapper.h */,
+				CF21FE201E6AA9980031AA6C /* JWKeyChainWrapper.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -221,6 +233,8 @@
 				CFCCEEA51E2BADFB009732E7 /* JWMainViewController.m */,
 				CFCA744E1E574BD7004218C2 /* JWLoginViewController.h */,
 				CFCA744F1E574BD7004218C2 /* JWLoginViewController.m */,
+				CF2EF8F11E5E7B4D00D82E7F /* JWSettingViewController.h */,
+				CF2EF8F21E5E7B4D00D82E7F /* JWSettingViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -242,8 +256,6 @@
 				CF4C73041E4816A6004B19FE /* JWCourseCollectionViewCell.m */,
 				CF70C8471E3484CF00E25355 /* JWMainCourseFlowLayout.h */,
 				CF70C8481E3484CF00E25355 /* JWMainCourseFlowLayout.m */,
-				CF27C2911E5ABB9F00A9C003 /* JWTermPickerView.h */,
-				CF27C2921E5ABB9F00A9C003 /* JWTermPickerView.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -331,6 +343,7 @@
 				CF7C63DE1E0EA6290089F3E2 /* Info.plist */,
 				CF7C63CE1E0EA6290089F3E2 /* main.m */,
 				CF7C63D91E0EA6290089F3E2 /* Assets.xcassets */,
+				CF2EF8F81E5F1E5A00D82E7F /* cuc-calendar.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -345,6 +358,8 @@
 		CFF77C6B1E51C4CB00C86648 /* jw_cucTests */ = {
 			isa = PBXGroup;
 			children = (
+				CF21FE221E6AAA860031AA6C /* JWTDemo.m */,
+				CF21FE1D1E6A8DA10031AA6C /* JWCalendarTest.m */,
 				CF71996C1E5B33530074C69B /* JWTPerformance.m */,
 				CF71996A1E5B120E0074C69B /* JWTNetwork.m */,
 				CF7199451E5ADE310074C69B /* JWTTermTest.m */,
@@ -444,6 +459,7 @@
 			files = (
 				CF4DD6B61E10DC0900505976 /* 900.html in Resources */,
 				CF9C59F41E2FC30F005FD285 /* REFSAN.TTF in Resources */,
+				CF2EF8F91E5F1E5A00D82E7F /* cuc-calendar.plist in Resources */,
 				CF7C63DD1E0EA6290089F3E2 /* LaunchScreen.storyboard in Resources */,
 				CF7C63DA1E0EA6290089F3E2 /* Assets.xcassets in Resources */,
 				CF7C63D81E0EA6290089F3E2 /* Main.storyboard in Resources */,
@@ -455,6 +471,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF2EF8FA1E5F24AA00D82E7F /* cuc-calendar.plist in Resources */,
 				CFCBEBA81E5C4211001B3BB3 /* 201701.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,8 +535,10 @@
 				CF604BFE1E4AC15600F05296 /* JWCourseDataController.m in Sources */,
 				CF33DC8B1E2F4AD800DD3E00 /* UIView+size.m in Sources */,
 				CF637F731E2E5A6400862C48 /* JWWeekCollectionViewCell.m in Sources */,
+				CF21FE211E6AA9980031AA6C /* JWKeyChainWrapper.m in Sources */,
 				CFB781791E3A4B0E008E438B /* NSMutableArray+common.m in Sources */,
 				CF33DC851E2F4AD800DD3E00 /* NSArray+Plist.m in Sources */,
+				CF2EF8F31E5E7B4D00D82E7F /* JWSettingViewController.m in Sources */,
 				CF7EF1271E4C5828004EE007 /* JWCourseMO+CoreDataClass.m in Sources */,
 				CFCCEEA61E2BADFB009732E7 /* JWMainViewController.m in Sources */,
 				CF4C73051E4816A6004B19FE /* JWCourseCollectionViewCell.m in Sources */,
@@ -542,7 +561,6 @@
 				CFC68DBB1E3F00CD000614FF /* Course.xcdatamodeld in Sources */,
 				CF565C281E4DA34800A7A5E8 /* JWTerm.m in Sources */,
 				CF33DC881E2F4AD800DD3E00 /* UITextView+View.m in Sources */,
-				CF27C2931E5ABB9F00A9C003 /* JWTermPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,7 +568,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF21FE1E1E6A8DA10031AA6C /* JWCalendarTest.m in Sources */,
 				CFF77C6D1E51C4CB00C86648 /* jw_cucTests.m in Sources */,
+				CF21FE231E6AAA860031AA6C /* JWTDemo.m in Sources */,
 				CF71996B1E5B120E0074C69B /* JWTNetwork.m in Sources */,
 				CF71996D1E5B33530074C69B /* JWTPerformance.m in Sources */,
 				CF7199461E5ADE310074C69B /* JWTTermTest.m in Sources */,

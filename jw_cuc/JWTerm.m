@@ -16,7 +16,18 @@
 @implementation JWTerm
 @synthesize enrolmentYear = _enrolmentYear;
 + (instancetype)currentTerm {
-    return [self currentTermWithEnrolmentYear:0];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    unsigned unitflags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+    NSDateComponents *dateComponents = [calendar components:unitflags fromDate:[NSDate date]];
+    
+    
+    BOOL isTermSpring = dateComponents.month <=6 && dateComponents.month >= 1;
+    
+    JWTermSeason season = isTermSpring ? JWTermSeasonSpring : JWTermSeasonAutumn;
+    JWTerm *termObj = [[JWTerm alloc] initWithYear:dateComponents.year
+                                        termSeason:season
+                                     enrolmentYear:0];
+    return termObj;
 }
 + (instancetype)termWithYear:(NSUInteger)year termSeason:(JWTermSeason)termSeason {
     JWTerm *termObj = [[JWTerm alloc] initWithYear:year
@@ -29,8 +40,9 @@
     unsigned unitflags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
     NSDateComponents *dateComponents = [calendar components:unitflags fromDate:[NSDate date]];
     
-    BOOL isTermSpring = dateComponents.month < 8 && dateComponents.month > 1;
     
+    BOOL isTermSpring = dateComponents.month <=6 && dateComponents.month >= 1;
+
     JWTermSeason season = isTermSpring ? JWTermSeasonSpring : JWTermSeasonAutumn;
     JWTerm *termObj = [[JWTerm alloc] initWithYear:dateComponents.year
                                         termSeason:season
@@ -77,20 +89,6 @@
         return JWTermGradeNil;
     }
 }
-//- (void)setGrade:(JWTermGrade)grade {
-//    if (_enrolmentYear) {
-//        switch (_season) {
-//            case JWTermSeasonSpring:
-//                _year = _enrolmentYear + grade;
-//                break;
-//            case JWTermSeasonAutumn:
-//                _year = _enrolmentYear + grade - 1;
-//                break;
-//            case JWTermSeasonNil:
-//                break;
-//        }
-//    }
-//}
 - (JWTermSemester)semester {
     if (self.season != JWTermSeasonNil) {
         if (self.season == JWTermSeasonSpring) {
@@ -102,11 +100,11 @@
         return JWTermSemesterNil;
     }
 }
-//- (void)setSemester:(JWTermSemester)semester {
-//    _season = semester == JWTermSemesterOne ? JWTermSeasonAutumn : JWTermSeasonSpring;
-//}
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<JWTerm: %p>\n\tyear=%lu\n\tseason=%lu\n\tenrolmentYear=%lu\n\tgrade=%lu\n\tsemester=%lu\n", &self,(unsigned long)_year,(unsigned long)_season,(unsigned long)_enrolmentYear,(unsigned long)_grade,(unsigned long)_semester];
+    return [NSString stringWithFormat:@"<%@: %p>%@",[self class],&self,@{
+                                                                       @"year":@(self.year),
+                                                                       @"season":@(self.season)
+                                                                       }];
 }
 @end

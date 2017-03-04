@@ -57,17 +57,6 @@
                BlueprintName = "jw_cucTests"
                ReferencedContainer = "container:jw_cuc.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "JWTPerformance">
-               </Test>
-               <Test
-                  Identifier = "JWTTermTest">
-               </Test>
-               <Test
-                  Identifier = "jw_cucTests">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
@@ -121,6 +110,16 @@
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
+         <AdditionalOption
+            key = "MallocStackLogging"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "PrefersMallocStackLoggingLite"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction

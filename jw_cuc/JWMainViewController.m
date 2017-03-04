@@ -20,54 +20,96 @@
 #import "JWCourseDataController.h"
 #import "JWCalendar.h"
 
-#define kHeader @"kHeader"
+static NSString *kHeader = @"kHeader";
 
 @interface JWMainViewController()
 @property (strong, nonatomic) IBOutlet JWMainCollectionView     *mainCollectionView;
 @property (strong, nonatomic) IBOutlet JWNavView                *navView;
-@property (nonatomic,strong,readonly)  JWCourseDataController *dataController;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
+@property (nonatomic,readonly)  JWCourseDataController *dataController;
+@property (nonatomic,readonly) JWCalendar *calendar;
 @end
 @implementation JWMainViewController
 
 -(void)viewDidLoad {
     _dataController = [JWCourseDataController defaultDateController];
+    _calendar = [JWCalendar defaultCalendar];
+    [_indicator stopAnimating];
+    
     _mainCollectionView.dataSource = _dataController;
     _mainCollectionView.delegate = _dataController;
     _navView.weekCollectionView.dataSource = [JWCalendar defaultCalendar];
-    
-
+    _navView.weekCollectionView.delegate = [JWCalendar defaultCalendar];
     
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];\
-    NSString *titleString;
-    NSUInteger currentWeekNum = [[JWCalendar defaultCalendar] currentWeek];
-    if (currentWeekNum) {
-        titleString = [NSString stringWithFormat:@"第%@周",[NSString chineseStringWithNumber:currentWeekNum]];
-    }else {
-        NSUInteger days = [[JWCalendar defaultCalendar] daysRemain];
-        if (!days) {
-            titleString = @"未添加课程";
-        }else {
-            titleString = [NSString stringWithFormat:@"第一周(距离开学%lu天)",(unsigned long)days];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [_navView.weekCollectionView reloadData];
+    [_mainCollectionView reloadData];
+    if (![JWKeyChainWrapper hasSavedStudentID]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        [self presentViewController:[storyboard instantiateViewControllerWithIdentifier:@"kJWLoginViewController"] animated:NO completion:nil];
+        return;
+    }
+    if (!_indicator.isAnimating) {
+        
+        switch ([_calendar currentStage]) {
+            case JWStageSpringTerm:
+            case JWStageAutumnTerm:{
+                if (![_dataController hasDownloadCourseInTerm: _calendar.currentTerm]) {
+                    [self fetchCourseUsingBlock:^{
+                        _navView.weekLabel.text = [NSString stringWithFormat:@"第%@周",[NSString chineseStringWithNumber:_calendar.currentWeek]];
+                    } failure:^(JWLoginFailure code) {
+                        
+                    }];
+                }else {
+                    _navView.weekLabel.text = [NSString stringWithFormat:@"第%@周",[NSString chineseStringWithNumber:_calendar.currentWeek]];
+                }
+                break;
+            }
+            case JWStageAutumnExam:
+            case JWStageSpringExam:
+            case JWStageSummerVacation:
+            case JWStageWinterVacation:{
+                [self fetchCourseUsingBlock:^{
+                    _navView.weekLabel.text = [NSString stringWithFormat:@"第一周(距离开学%lu天)",(unsigned long)_calendar.daysRemain];
+                } failure:^(JWLoginFailure code) {
+                    _navView.weekLabel.text = @"教务未更新";
+                }];
+            }
+            case JWStageSummerTerm:
+                break;
         }
     }
-    _navView.weekLabel.text = titleString;
-    [_mainCollectionView reloadData];
-    [_navView.weekCollectionView reloadData];
 }
-- (IBAction)fetchCourse:(id)sender {
-    NSUInteger week = _dataController.week;
-    [_dataController resetTerm:nil andWeek:week];
-    [_mainCollectionView reloadData];
-//    [self fetchObj];
+- (void)fetchCourseUsingBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
+    [_indicator startAnimating];
+    _navView.weekLabel.text = @"获取课程中...";
+    [[JWHTMLSniffer sharedSniffer] getCourseAtTerm:_calendar.currentTerm andBlock:^{
+        [_dataController resetTerm:_calendar.currentTerm andWeek:_calendar.currentWeek];
+        [_indicator stopAnimating];
+        block();
+        [_mainCollectionView reloadData];
+    } failure:^(JWLoginFailure code) {
+        [_indicator stopAnimating];
+        failure(code);
+    }];
+}
+- (IBAction)unwindToMainViewController:(UIStoryboardSegue*)unwindSegue {
+    [self fetchCourseUsingBlock:^{
+         _navView.weekLabel.text = [NSString stringWithFormat:@"第%@周",[NSString chineseStringWithNumber:_calendar.currentWeek]];
+    } failure:nil];
 }
 - (IBAction)settingPressed:(id)sender {
-    static NSUInteger week = 0;
-    [[JWCourseDataController defaultDateController] resetTerm:[[JWCalendar defaultCalendar] currentTerm] andWeek:++week];
-    [_mainCollectionView reloadData];
 }
-
+-(CGFloat)cellPositionYAtIndexpath:(NSIndexPath *)indexpath {
+    NSUInteger day = indexpath.section;
+    NSUInteger index = indexpath.row;
+    JWCourseMO *course = _dataController.courseDic[@(day)][index];
+    CGFloat singleRowHeight = _mainCollectionView.frame.size.height / [_mainCollectionView numberOfItemsInSection:0];
+    CGFloat y = (course.start - 1) * singleRowHeight;
+    return y;
+}
 
 @end

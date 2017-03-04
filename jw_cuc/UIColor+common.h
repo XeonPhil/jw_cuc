@@ -7,6 +7,6 @@
 //
 
 @interface UIColor (UIColor_Expanded)
-+(UIColor *)colorWithHexString:(NSString *)hexColor;
-+(UIColor *)randomCellColor;
++ (UIColor *)colorWithHexString:(NSString *)hexColor;
++ (UIColor *)randomColorWithString:(NSString *)string;
 @end

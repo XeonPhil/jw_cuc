@@ -1,25 +1,22 @@
 //
-//  JWTTermTest.m
+//  JWCalendarTest.m
 //  jw_cuc
 //
-//  Created by  Phil Guo on 17/2/20.
+//  Created by  Phil Guo on 17/3/4.
 //  Copyright © 2017年  Phil Guo. All rights reserved.
 //
-
-#import <XCTest/XCTest.h>
-#import "JWTerm.h"
 #import "JWCalendar.h"
-@interface JWTTermTest : XCTestCase
-@property (nonatomic,strong)JWTerm *curTerm;
-@property (nonatomic,strong)JWTerm *term;
+#import <XCTest/XCTest.h>
+
+@interface JWCalendarTest : XCTestCase
+@property JWCalendar *c;
 @end
 
-@implementation JWTTermTest
+@implementation JWCalendarTest
 
 - (void)setUp {
     [super setUp];
-    _curTerm = [JWTerm currentTermWithEnrolmentYear:2014];
-    _term = [JWTerm termWithYear:2017 termSeason:JWTermSeasonSpring];
+    _c = [JWCalendar defaultCalendar];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
@@ -27,17 +24,12 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
-- (void)testTerm {
-    [_curTerm jw_setGrade:JWTermGradeTwo andSemester:JWTermSemesterOne];
-    
-    XCTAssert(_curTerm != nil);
-    XCTAssert(_curTerm.year == 2015);
-    XCTAssert(_curTerm.season == JWTermSeasonAutumn);
-}
-- (void)testCalendar {
-}
 
 - (void)testExample {
+    XCTAssert(_c.currentAcademicYear == 2016);
+    XCTAssert(_c.currentStage == JWStageSpringTerm);
+    XCTAssert(_c.currentWeek == 1);
+    NSLog(@"%ld",_c.daysRemain);
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
 }
