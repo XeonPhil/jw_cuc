@@ -53,6 +53,7 @@
         }
     }
     [defaults synchronize];
+    
 #warning "By initializing a separate controller object with a completion block, you have moved the Core Data stack out of the application delegate, but you still allow a callback to the application delegate so that the user interface can know when to begin requesting data."
     return YES;
 }

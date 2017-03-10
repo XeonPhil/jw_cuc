@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '626EC0CFF1FE564326ECE2FD2B84C356'
+               BlueprintIdentifier = '2D703D012519DE2987E03B93A71D88A5'
                BlueprintName = 'TesseractOCRiOS'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libTesseractOCRiOS.a'>
