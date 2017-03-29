@@ -6,7 +6,6 @@
 //  Copyright © 2017年  Phil Guo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
 @interface UIView (size)
 @property (nonatomic,readonly) CGFloat frameHeight;

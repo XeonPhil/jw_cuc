@@ -16,6 +16,7 @@
 #import "UIColor+common.h"
 #import "NSArray+common.h"
 #import "NSString+Common.h"
+#import "UIView+size.h"
 #import "AppDelegate.h"
 #import "JWTerm.h"
 #import "JWKeyChainWrapper.h"

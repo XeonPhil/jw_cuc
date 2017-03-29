@@ -8,7 +8,6 @@
 
 #import "JWMainCourseFlowLayout.h"
 #import "JWMainViewController.h"
-#import "MMDrawerController.h"
 @implementation JWMainCourseFlowLayout
 -(void)prepareLayout {
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;

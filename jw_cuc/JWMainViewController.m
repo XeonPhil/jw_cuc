@@ -24,6 +24,8 @@ static NSString *kHeader = @"kHeader";
 
 @interface JWMainViewController()
 @property (strong, nonatomic) IBOutlet JWMainCollectionView     *mainCollectionView;
+@property (strong, nonatomic) IBOutlet UIScrollView *rootView;
+
 @property (strong, nonatomic) IBOutlet JWNavView                *navView;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 @property (nonatomic,readonly)  JWCourseDataController *dataController;
@@ -32,6 +34,8 @@ static NSString *kHeader = @"kHeader";
 @implementation JWMainViewController
 
 -(void)viewDidLoad {
+    _rootView.contentSize = CGSizeMake(16*kScreen_Width, kScreen_Height-_navView.frame.size.height);
+    
     _dataController = [JWCourseDataController defaultDateController];
     _calendar = [JWCalendar defaultCalendar];
     [_indicator stopAnimating];
@@ -92,6 +96,8 @@ static NSString *kHeader = @"kHeader";
                 break;
         }
     }
+    self.mainCollectionView.frame = CGRectMake((_calendar.currentWeek-1)*(kScreen_Width+20), 0, _rootView.frameWidth, _rootView.frameHeight);
+    [self.rootView setContentOffset:CGPointMake((_calendar.currentWeek-1)*(kScreen_Width+20), 0)];
 }
 - (void)fetchCourseUsingBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
     [_indicator startAnimating];
