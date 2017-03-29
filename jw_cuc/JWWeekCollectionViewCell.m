@@ -14,5 +14,10 @@
     [super awakeFromNib];
     // Initialization code
 }
-
+- (void)setActivitied:(BOOL)activitied {
+    _line.hidden = NO;
+}
+- (void)prepareForReuse {
+    _line.hidden = YES;
+}
 @end

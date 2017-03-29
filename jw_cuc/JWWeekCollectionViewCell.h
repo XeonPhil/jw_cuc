@@ -11,5 +11,6 @@
 @interface JWWeekCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UILabel *weekLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
-
+@property (strong, nonatomic) IBOutlet UIView *line;
+@property (nonatomic,getter=isActivitied) BOOL activitied;
 @end

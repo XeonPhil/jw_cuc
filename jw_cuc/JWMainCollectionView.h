@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "JWMainCourseFlowLayout.h"
 @interface JWMainCollectionView : UICollectionView<UICollectionViewDelegateFlowLayout>
+@property (nonatomic,readonly)JWMainCourseFlowLayout *myLayout;
 @end

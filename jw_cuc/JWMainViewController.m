@@ -38,6 +38,16 @@ static NSString *kHeader = @"kHeader";
     
     _mainCollectionView.dataSource = _dataController;
     _mainCollectionView.delegate = _dataController;
+    _mainCollectionView.myLayout.cellPositionY = ^(NSIndexPath *indexpath) {
+        JWMainViewController *__weak weakself = self;
+        NSUInteger day = indexpath.section;
+        NSUInteger index = indexpath.row;
+        JWCourseMO *course = weakself.dataController.courseDic[@(day)][index];
+        CGFloat singleRowHeight = weakself.mainCollectionView.frame.size.height / [weakself.mainCollectionView numberOfItemsInSection:0];
+        CGFloat y = (course.start - 1) * singleRowHeight;
+        return y;
+    };
+
     _navView.weekCollectionView.dataSource = [JWCalendar defaultCalendar];
     _navView.weekCollectionView.delegate = [JWCalendar defaultCalendar];
     

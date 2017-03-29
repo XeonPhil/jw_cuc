@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface JWMainCourseFlowLayout : UICollectionViewFlowLayout
-
+@property (nonatomic,copy)CGFloat (^cellPositionY)(NSIndexPath *indexpath);
 @end

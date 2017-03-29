@@ -10,7 +10,8 @@
 
 static NSString *kJWFetchCourseNotification = @"JWFetchCourseNotification";
 static NSString *kWeekCellIdentifier = @"collection-cell-week";
-const static uint kUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay);
+const static uint kYearMonthDayUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay);
+const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday);
 @interface NSCalendar(jw_common)
 - (BOOL)isDateComponents:(NSDateComponents *)date earlierThanComponents:(NSDateComponents *)anotherDate;
 @end
@@ -52,7 +53,7 @@ const static uint kUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCal
     return calendar;
 }
 - (NSDateComponents *)currentDateComponents {
-    return [_calendar components:kUnitFlags fromDate:[NSDate date]];
+    return [_calendar components:kYearMonthDayWeekdayUnitFlags fromDate:[NSDate date]];
 }
 - (NSUInteger)daysRemain {
     if (!_beginDay) {
@@ -85,7 +86,7 @@ const static uint kUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCal
     self = [super init];
     if (self) {
         _calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        NSDateComponents *currentDate = [_calendar components:kUnitFlags fromDate:[NSDate date]];
+        NSDateComponents *currentDate = [_calendar components:kYearMonthDayWeekdayUnitFlags fromDate:[NSDate date]];
         NSUInteger year = currentDate.year;
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"cuc-calendar" ofType:@"plist"];
         NSDictionary *calendarPlistDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
@@ -137,18 +138,6 @@ const static uint kUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCal
                 break;
             }
         }
-        
-//        [[NSNotificationCenter defaultCenter] addObserverForName:@"JWFetchCourseNotification" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-//            if (!_beginDay) {
-//                NSDateComponents *dateComponents = note.userInfo[@"date"];
-//                NSDate *date = [_calendar dateFromComponents:dateComponents];
-//                NSUInteger dayNum = [note.userInfo[@"day"] integerValue];
-//                NSDate *beginDate = [_calendar dateByAddingUnit:NSCalendarUnitDay value:dayNum - 1 toDate:date options:0];
-//                _beginDay = [_calendar components:kUnitFlags fromDate:beginDate];
-//                NSLog(@"receive notification and begin day as %@",_beginDay);
-//            }
-//            
-//        }];
     }
     return self;
 }
@@ -174,6 +163,13 @@ const static uint kUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCal
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     JWWeekCollectionViewCell  *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kWeekCellIdentifier forIndexPath:indexPath];
     cell.weekLabel.text = [self weekStringForIndex:indexPath.row];
+    if (indexPath.row == 6 && self.currentDateComponents.weekday == 1) {
+        cell.activitied = YES;
+    }
+    
+    if (indexPath.row + 1 == self.currentDateComponents.weekday - 1) {
+        cell.activitied = YES;
+    }
     if (!_beginDay) {
         cell.dateLabel.text = @"12-21";
         return cell;
@@ -191,7 +187,7 @@ const static uint kUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCal
             components.day = indexPath.row;
         }
         NSDate *currentDate = [_calendar dateByAddingComponents:components toDate:beginDate options:0];
-        NSDateComponents *currentComponents = [_calendar components:kUnitFlags fromDate:currentDate];
+        NSDateComponents *currentComponents = [_calendar components:kYearMonthDayUnitFlags fromDate:currentDate];
         cell.dateLabel.text = [NSString stringWithFormat:@"%lu-%lu",(unsigned long)currentComponents.month,(unsigned long)currentComponents.day];
         cell.weekLabel.text = [self weekStringForIndex:indexPath.row];
         return cell;

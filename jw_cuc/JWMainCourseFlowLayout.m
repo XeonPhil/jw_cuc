@@ -8,6 +8,7 @@
 
 #import "JWMainCourseFlowLayout.h"
 #import "JWMainViewController.h"
+#import "MMDrawerController.h"
 @implementation JWMainCourseFlowLayout
 -(void)prepareLayout {
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -27,10 +28,8 @@
         }
         CGSize size = attribute.frame.size;
         CGPoint origin = attribute.frame.origin;
-        UINavigationController *rootNavVC = (UINavigationController *)[[[UIApplication sharedApplication] keyWindow] rootViewController];
-        JWMainViewController *mainVC = rootNavVC.viewControllers[0];
-#warning is here a leak?
-        origin.y = [mainVC cellPositionYAtIndexpath:indexpath];
+        
+        origin.y = self.cellPositionY(indexpath);
         attribute.frame = CGRectMake(origin.x, origin.y, size.width, size.height);
         [attributeArray addObject:attribute];
     }
