@@ -5,6 +5,5 @@ target "jw_cuc" do
 
 pod 'Ono'
 pod 'TesseractOCRiOS'
-pod 'MMDrawerController', '~> 0.5.7'
 
 end
