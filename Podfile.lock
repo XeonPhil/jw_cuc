@@ -1,29 +1,15 @@
 PODS:
-  - MMDrawerController (0.5.7):
-    - MMDrawerController/Core (= 0.5.7)
-    - MMDrawerController/MMDrawerBarButtonItem (= 0.5.7)
-    - MMDrawerController/MMDrawerVisualStates (= 0.5.7)
-    - MMDrawerController/Subclass (= 0.5.7)
-  - MMDrawerController/Core (0.5.7)
-  - MMDrawerController/MMDrawerBarButtonItem (0.5.7):
-    - MMDrawerController/Core
-  - MMDrawerController/MMDrawerVisualStates (0.5.7):
-    - MMDrawerController/Core
-  - MMDrawerController/Subclass (0.5.7):
-    - MMDrawerController/Core
   - Ono (1.2.2)
   - TesseractOCRiOS (4.0.0)
 
 DEPENDENCIES:
-  - MMDrawerController (~> 0.5.7)
   - Ono
   - TesseractOCRiOS
 
 SPEC CHECKSUMS:
-  MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
   Ono: 80b1c686777d3f6d5d5ce6fcac8a74afef4ca197
   TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
 
-PODFILE CHECKSUM: d7aabb0a2b308074613b9b0d1c1c80b2ce77cea1
+PODFILE CHECKSUM: 154939dc3ca0a72bb4904af78630228f7c482838
 
 COCOAPODS: 1.0.1

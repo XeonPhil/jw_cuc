@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>MMDrawerController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Ono.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2D703D012519DE2987E03B93A71D88A5</key>
+		<key>1DDEAC6A8D34B4EAD4E79B70289B91E1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>550F7EEAEEA17E3F92C873912E23B01C</key>
+		<key>626EC0CFF1FE564326ECE2FD2B84C356</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>EB64922B8DA93A5FBC3F62F2A1D8B14D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FEF4BC81D165265F40682806FD670643</key>
 		<dict>
 			<key>primary</key>
 			<true/>
