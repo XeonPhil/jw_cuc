@@ -117,15 +117,5 @@ static NSString *kHeader = @"kHeader";
          _navView.weekLabel.text = [NSString stringWithFormat:@"第%@周",[NSString chineseStringWithNumber:_calendar.currentWeek]];
     } failure:nil];
 }
-- (IBAction)settingPressed:(id)sender {
-}
--(CGFloat)cellPositionYAtIndexpath:(NSIndexPath *)indexpath {
-    NSUInteger day = indexpath.section;
-    NSUInteger index = indexpath.row;
-    JWCourseMO *course = _dataController.courseDic[@(day)][index];
-    CGFloat singleRowHeight = _mainCollectionView.frame.size.height / [_mainCollectionView numberOfItemsInSection:0];
-    CGFloat y = (course.start - 1) * singleRowHeight;
-    return y;
-}
 
 @end

@@ -38,14 +38,14 @@ static NSString *kKeyChainPassKey = @"com.jwcuc.kKeyChainPassKey";
         NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         moc.persistentStoreCoordinator = psc;
         self.managedObjectiContext = moc;
-        
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         NSURL *storeURL = [documentsURL URLByAppendingPathComponent:@"Course.sqlite"];
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSError *error;
             NSPersistentStoreCoordinator *psc = _managedObjectiContext.persistentStoreCoordinator;
-            NSPersistentStore *store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
+            [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
             NSAssert(store != nil, @"Error initializing PSC: %@\n%@", [error localizedDescription], [error userInfo]);
         });
     }
@@ -335,13 +335,6 @@ static NSString *kKeyChainPassKey = @"com.jwcuc.kKeyChainPassKey";
 //    
 //}
 #pragma mark - layout
--(CGFloat)cellPositionYAtIndexpath:(NSIndexPath *)indexpath {
-    NSUInteger day = indexpath.section;
-    NSUInteger index = indexpath.row;
-    JWCourseMO *course = self.courseDic[@(day)][index];
-    CGFloat y = (course.start - 1) * kSingleRowHeight;
-    return y;
-}
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger day = indexPath.section;
     NSUInteger index = indexPath.row;

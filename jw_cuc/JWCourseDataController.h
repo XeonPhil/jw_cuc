@@ -23,5 +23,4 @@
 @property (nonatomic,strong,readonly)NSDictionary<NSNumber *,NSArray<JWCourseMO *> *> *courseDic;
 - (void)resetTerm:(JWTerm *)term andWeek:(NSUInteger)week;
 #pragma mark - layout 
--(CGFloat)cellPositionYAtIndexpath:(NSIndexPath *)indexpath;
 @end
