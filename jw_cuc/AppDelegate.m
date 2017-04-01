@@ -25,22 +25,22 @@
     
 //    [self.window makeKeyAndVisible];
     
-    [_dataController resetTerm:[[JWCalendar defaultCalendar] currentTerm]
-                       andWeek:[[JWCalendar defaultCalendar] currentWeek]];
-    if (_dataController.courseDic) {
-        for (NSUInteger i = 1; i <= 5; i++) {
-            JWCourseMO * course = [_dataController.courseDic[@(i)] firstObject];
-            if (course) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"JWFetchCourseNotification"
-                                                                    object:nil
-                                                                  userInfo:@{
-                                                                             @"date":course.dateComponents,
-                                                                             @"day":@(course.dayNum)
-                                                                             }];
-                break;
-            }
-        }
-    }
+//    [_dataController resetTerm:[[JWCalendar defaultCalendar] currentTerm]
+//                       andWeek:[[JWCalendar defaultCalendar] currentWeek]];
+//    if (_dataController.courseDic) {
+//        for (NSUInteger i = 1; i <= 5; i++) {
+//            JWCourseMO * course = [_dataController.courseDic[@(i)] firstObject];
+//            if (course) {
+//                [[NSNotificationCenter defaultCenter] postNotificationName:@"JWFetchCourseNotification"
+//                                                                    object:nil
+//                                                                  userInfo:@{
+//                                                                             @"date":course.dateComponents,
+//                                                                             @"day":@(course.dayNum)
+//                                                                             }];
+//                break;
+//            }
+//        }
+//    }
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *defaultSetting = @{

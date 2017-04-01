@@ -11,6 +11,7 @@
 @property (nonatomic,strong)NSDateComponents *dateComponents;
 @end
 @implementation JWCourseMO
+@synthesize compareBlock = _compareBlock;
 @synthesize dateComponents = _dateComponents;
 @synthesize length = _length;
 @synthesize dateString = _dateString;
@@ -22,7 +23,7 @@
     }
     
 }
--(NSString *)dateString {
+- (NSString *)dateString {
     NSUInteger month = self.dateComponents.month;
     NSUInteger day   = self.dateComponents.day;
     if (month && day) {

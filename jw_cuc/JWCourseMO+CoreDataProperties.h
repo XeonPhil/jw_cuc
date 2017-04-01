@@ -29,5 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int16_t end;
 //- (void)fillPropertyWithDictionary:(NSDictionary *)dic;
 @end
-
+const NSComparator JWCourseMO_Comparator = ^NSComparisonResult(JWCourseMO *course1,JWCourseMO *course2) {
+    if (course1.start < course2.start) {
+        return NSOrderedAscending;
+    }else {
+        return NSOrderedDescending;
+    }
+};
 NS_ASSUME_NONNULL_END

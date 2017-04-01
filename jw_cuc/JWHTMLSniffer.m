@@ -58,12 +58,12 @@
                 break;
         };
     };
-    
+    typeof(self) __weak weakself = self;
     [self requestCaptchaWithBlock:^(NSData *data){
         [self recognizeImage:[UIImage imageWithData:data] withBlock:^(G8Tesseract *tesseract) {
             [self requestLoginChallengeWithName:ID andPassword:password andCaptcha:tesseract.recognizedText success:^{
                 [self requestCourseHTMLWithTerm:term andBlock:^(NSArray<NSData *> *array){
-                    _cookieHeader = nil;
+                    weakself.cookieHeader = nil;
                     BOOL success = [[JWCourseDataController defaultDateController] insertCoursesAtTerm:term withHTMLDataArray:array];
                     if (success) {
                         block();

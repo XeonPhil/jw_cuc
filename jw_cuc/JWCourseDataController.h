@@ -20,7 +20,7 @@
 #pragma mark - data source
 @property (nonatomic,readonly)NSUInteger week;
 @property (nonatomic,strong,readonly)JWTerm *term;
-@property (nonatomic,strong,readonly)NSDictionary<NSNumber *,NSArray<JWCourseMO *> *> *courseDic;
+@property (nonatomic,strong,readonly)NSDictionary *courseDic;
 - (void)resetTerm:(JWTerm *)term andWeek:(NSUInteger)week;
 #pragma mark - layout 
 @end

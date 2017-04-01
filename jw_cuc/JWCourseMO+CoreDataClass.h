@@ -10,10 +10,10 @@
 #import <CoreData/CoreData.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
 @interface JWCourseMO : NSManagedObject
 @property (nonatomic,readonly)NSUInteger length;
 @property (nonatomic,strong,readonly,getter=dateString)NSString *dateString;
+@property (nonatomic,copy,readonly)NSComparator compareBlock;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -39,11 +39,10 @@ static NSString *kHeader = @"kHeader";
     _dataController = [JWCourseDataController defaultDateController];
     _calendar = [JWCalendar defaultCalendar];
     [_indicator stopAnimating];
-    
     _mainCollectionView.dataSource = _dataController;
     _mainCollectionView.delegate = _dataController;
+    typeof(self) __weak weakself = self;
     _mainCollectionView.myLayout.cellPositionY = ^(NSIndexPath *indexpath) {
-        JWMainViewController *__weak weakself = self;
         NSUInteger day = indexpath.section;
         NSUInteger index = indexpath.row;
         JWCourseMO *course = weakself.dataController.courseDic[@(day)][index];
@@ -102,19 +101,21 @@ static NSString *kHeader = @"kHeader";
 - (void)fetchCourseUsingBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
     [_indicator startAnimating];
     _navView.weekLabel.text = @"获取课程中...";
+    typeof(self) __weak weakself = self;
     [[JWHTMLSniffer sharedSniffer] getCourseAtTerm:_calendar.currentTerm andBlock:^{
-        [_dataController resetTerm:_calendar.currentTerm andWeek:_calendar.currentWeek];
-        [_indicator stopAnimating];
+        [weakself.dataController resetTerm:_calendar.currentTerm andWeek:_calendar.currentWeek];
+        [weakself.indicator stopAnimating];
         block();
-        [_mainCollectionView reloadData];
+        [weakself.mainCollectionView reloadData];
     } failure:^(JWLoginFailure code) {
-        [_indicator stopAnimating];
+        [weakself.indicator stopAnimating];
         failure(code);
     }];
 }
 - (IBAction)unwindToMainViewController:(UIStoryboardSegue*)unwindSegue {
+    typeof(self) __weak weakself = self;
     [self fetchCourseUsingBlock:^{
-         _navView.weekLabel.text = [NSString stringWithFormat:@"第%@周",[NSString chineseStringWithNumber:_calendar.currentWeek]];
+         weakself.navView.weekLabel.text = [NSString stringWithFormat:@"第%@周",[NSString chineseStringWithNumber:_calendar.currentWeek]];
     } failure:nil];
 }
 
