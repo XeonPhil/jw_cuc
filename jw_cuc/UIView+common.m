@@ -6,9 +6,9 @@
 //  Copyright © 2017年  Phil Guo. All rights reserved.
 //
 
-#import "UIView+size.h"
+#import "UIView+common.h"
 
-@implementation UIView (size)
+@implementation UIView (common)
 -(CGFloat)jw_frameWidth {
     return self.frame.size.width;
 }
@@ -32,5 +32,12 @@
 }
 - (void)setJw_frameY:(CGFloat)jw_frameY {
     self.frame = CGRectMake(self.jw_frameX, jw_frameY, self.jw_frameWidth, self.jw_frameHeight);
+}
+- (UIView *)jw_superSuperView {
+    UIView *view = self.superview;
+    while (view.superview != nil) {
+        view = view.superview;
+    }
+    return view;
 }
 @end

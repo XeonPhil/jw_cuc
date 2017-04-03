@@ -14,6 +14,7 @@
 @implementation JWMainCollectionView
 + (instancetype)defaultCollectionView {
     JWMainCollectionView *view = [[self alloc] initWithFrame:CGRectZero collectionViewLayout:[JWMainCourseFlowLayout new]];
+    view.backgroundColor = [UIColor colorWithHexString:@"EFEFF4"];
     return view;
 }
 - (void)makeViewShown {
@@ -33,5 +34,23 @@
 }
 - (JWMainCourseFlowLayout *)myLayout {
     return (JWMainCourseFlowLayout *)self.collectionViewLayout;
+}
+- (void)layout {
+    NSLayoutConstraint *alignX = [NSLayoutConstraint constraintWithItem:self
+                                                              attribute:NSLayoutAttributeCenterX
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:self.jw_superSuperView
+                                                              attribute:NSLayoutAttributeCenterX
+                                                             multiplier:1.0
+                                                               constant:0.0];
+    NSLayoutConstraint *equthWidth = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.jw_superSuperView attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
+    NSLayoutConstraint *bottomSpace = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0];
+    NSLayoutConstraint *topSpace = [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.superview attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0];
+    
+    
+    [NSLayoutConstraint activateConstraints:@[alignX,equthWidth,bottomSpace,topSpace]];
+    [self updateConstraintsIfNeeded];
+    
+    
 }
 @end

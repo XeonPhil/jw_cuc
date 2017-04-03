@@ -23,7 +23,7 @@
 static NSString *kHeader = @"kHeader";
 
 @interface JWMainViewController()
-@property (strong, nonatomic) IBOutlet JWMainCollectionView     *mainCollectionView;
+@property (strong, nonatomic)JWMainCollectionView *mainCollectionView;
 @property (strong, nonatomic) IBOutlet UIScrollView *rootView;
 
 @property (strong, nonatomic) IBOutlet JWNavView                *navView;
@@ -33,31 +33,23 @@ static NSString *kHeader = @"kHeader";
 @property (nonatomic,strong,readwrite)NSArray<JWMainCollectionView *> *mainViews;
 @end
 @implementation JWMainViewController
-- (JWMainCollectionView *)loadMainView:(JWMainCollectionView *)view WithData:(NSDictionary *)courses {
-    if (!view) {
-        view = [JWMainCollectionView defaultCollectionView];
-    }
-    UINib *main = [UINib nibWithNibName:@"main" bundle:[NSBundle mainBundle]];
-    [view registerNib:main forCellWithReuseIdentifier:@"kCell"];
-    [view registerNib:main forCellWithReuseIdentifier:@"kPeriodCell"];
-    view.myLayout.cellPositionY = ^(NSIndexPath *indexpath) {
-        NSUInteger day = indexpath.section;
-        NSUInteger index = indexpath.row;
-        JWCourseMO *course = courses[@(day)][index];
-        CGFloat singleRowHeight = view.frame.size.height / [view numberOfItemsInSection:0];
-        CGFloat y = (course.start - 1) * singleRowHeight;
-        return y;
-    };
-    view.dataSource = _dataController;
-    view.delegate = _dataController;
-    [_rootView addSubview:view];
-    return view;
-}
 - (JWMainCollectionView *)loadMainView{
     JWMainCollectionView *view = [JWMainCollectionView defaultCollectionView];
+    [_rootView addSubview:view];
+    
+    [view layout];
+    
     view.dataSource = _dataController;
     view.delegate = _dataController;
-    [_rootView addSubview:view];
+    
+    UINib *courseCellNib = [UINib nibWithNibName:@"JWCourseCollectionViewCell" bundle:[NSBundle mainBundle]];
+    UINib *periodcellNib = [UINib nibWithNibName:@"JWPeriodCollectionViewCell" bundle:[NSBundle mainBundle]];
+    
+    [view registerNib:courseCellNib forCellWithReuseIdentifier:@"kCell"];
+    [view registerNib:periodcellNib forCellWithReuseIdentifier:@"kPeriodCell"];
+    
+    
+    
     return view;
 }
 -(void)viewDidLoad {
@@ -68,7 +60,6 @@ static NSString *kHeader = @"kHeader";
     _calendar = [JWCalendar defaultCalendar];
     for (NSUInteger week = 1; week <= 16; week++) {
         JWMainCollectionView *view = [self loadMainView];
-        view.frame = _mainCollectionView.frame;
         view.jw_frameX = ( week - 1 ) * _rootView.jw_frameWidth;
         view.week = week;
         
@@ -84,19 +75,6 @@ static NSString *kHeader = @"kHeader";
             return y;
         };
     }
-////    _mainCollectionView = [self mainViewWithData:_dataController.courseDic];
-//    _mainCollectionView.dataSource = _dataController;
-//    _mainCollectionView.delegate = _dataController;
-//    typeof(self) __weak weakself = self;
-//    _mainCollectionView.myLayout.cellPositionY = ^(NSIndexPath *indexpath) {
-//        NSUInteger day = indexpath.section;
-//        NSUInteger index = indexpath.row;
-//        JWCourseMO *course = weakself.dataController.courseDic[@(day)][index];
-//        CGFloat singleRowHeight = weakself.mainCollectionView.frame.size.height / [weakself.mainCollectionView numberOfItemsInSection:0];
-//        CGFloat y = (course.start - 1) * singleRowHeight;
-//        return y;
-//    };
-
     _navView.weekCollectionView.dataSource = [JWCalendar defaultCalendar];
     _navView.weekCollectionView.delegate = [JWCalendar defaultCalendar];
     
@@ -144,21 +122,6 @@ static NSString *kHeader = @"kHeader";
     self.mainCollectionView = self.rootView.subviews[_calendar.currentWeek-1];
     [self.mainCollectionView makeViewShown];
     [self.rootView setContentOffset:CGPointMake(self.mainCollectionView.jw_frameX, 0)];
-    
-//    if (!_mainCollectionView.leftView && _mainCollectionView.frame.origin.x != 0) {
-//        JWMainCollectionView *leftView = [JWMainCollectionView new];
-//        leftView.dataSource = _dataController;
-//        leftView.frame = _mainCollectionView.frame;
-//        leftView.jw_frameX = _mainCollectionView.jw_frameX - _rootView.jw_frameWidth;
-//        [_rootView addSubview:leftView];
-//    }
-//    if (!_mainCollectionView.rightView && _mainCollectionView.frame.origin.x != _rootView.contentSize.width - _rootView.jw_frameWidth) {
-//        JWMainCollectionView *rightView = [JWMainCollectionView new];
-//        rightView.dataSource = _dataController;
-//        rightView.frame = _mainCollectionView.frame;
-//        rightView.jw_frameX = _mainCollectionView.jw_frameX + _rootView.jw_frameWidth;
-//        [_rootView addSubview:rightView];
-//    }
 }
 - (void)fetchCourseUsingBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
     [_indicator startAnimating];

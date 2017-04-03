@@ -16,7 +16,7 @@
 #import "UIColor+common.h"
 #import "NSArray+common.h"
 #import "NSString+Common.h"
-#import "UIView+size.h"
+#import "UIView+common.h"
 #import "AppDelegate.h"
 #import "JWCourseDataController.h"
 #import "JWTerm.h"
