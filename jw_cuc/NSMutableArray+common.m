@@ -10,7 +10,6 @@
 
 @implementation NSMutableArray (common)
 +(instancetype)arrayWithObjectType:(Class)type count:(NSUInteger)count {
-    NSArray *array = [super arrayWithObjectType:type count:count];
-    return [array mutableCopy];
+    return [super arrayWithObjectType:type count:count];
 }
 @end

@@ -13,7 +13,9 @@
 @property (nonatomic,assign,readonly)BOOL isCurrentShownView;
 @property (nonatomic,assign,readonly)BOOL isLeftShownView;
 @property (nonatomic,assign,readonly)BOOL isRightShownView;
+@property (nonatomic,assign,readwrite)NSUInteger week;
 @property (nonatomic,weak,readwrite)JWMainCollectionView *leftView;
 @property (nonatomic,weak,readwrite)JWMainCollectionView *rightView;
++ (instancetype)defaultCollectionView;
 - (void)makeViewShown;
 @end

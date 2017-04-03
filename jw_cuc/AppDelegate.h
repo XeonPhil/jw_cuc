@@ -5,7 +5,7 @@
 //  Created by  Phil Guo on 16/12/24.
 //  Copyright © 2016年  Phil Guo. All rights reserved.
 //
-#import "JWCourseDataController.h"
+
 @class JWCourseDataController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

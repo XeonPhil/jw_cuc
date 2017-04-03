@@ -14,9 +14,17 @@
 @end
 
 @implementation AppDelegate
-
+#ifdef DEBUG
+void onUncaughtException(NSException *exception)
+{
+    NSLog(@"uncaught exception: %@", exception.description);
+}
+#endif
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+#ifdef DEBUG
+    NSSetUncaughtExceptionHandler(&onUncaughtException);
+#endif
 //    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     self.dataController = [JWCourseDataController new];

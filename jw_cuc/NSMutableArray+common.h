@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSMutableArray (common)
-//-(instancetype)initWithObjectType:(Class)type count:(NSUInteger)count;
++(instancetype)arrayWithObjectType:(Class)type count:(NSUInteger)count;
 @end

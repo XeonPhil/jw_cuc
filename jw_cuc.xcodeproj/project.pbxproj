@@ -19,7 +19,6 @@
 		CF33DC841E2F4AD800DD3E00 /* UIColor+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC751E2F4AD800DD3E00 /* UIColor+common.m */; };
 		CF33DC851E2F4AD800DD3E00 /* NSArray+Plist.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC771E2F4AD800DD3E00 /* NSArray+Plist.m */; };
 		CF33DC861E2F4AD800DD3E00 /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC791E2F4AD800DD3E00 /* NSString+Common.m */; };
-		CF33DC871E2F4AD800DD3E00 /* UITableViewCell+View.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC7B1E2F4AD800DD3E00 /* UITableViewCell+View.m */; };
 		CF33DC881E2F4AD800DD3E00 /* UITextView+View.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC7D1E2F4AD800DD3E00 /* UITextView+View.m */; };
 		CF33DC891E2F4AD800DD3E00 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC7F1E2F4AD800DD3E00 /* Common.m */; };
 		CF33DC8A1E2F4AD800DD3E00 /* UIImage+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CF33DC811E2F4AD800DD3E00 /* UIImage+common.m */; };
@@ -71,23 +70,21 @@
 		0202B819E59ABEF414C1C1C2 /* Pods-jw_cuc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jw_cuc.release.xcconfig"; path = "Pods/Target Support Files/Pods-jw_cuc/Pods-jw_cuc.release.xcconfig"; sourceTree = "<group>"; };
 		93C45859E87E26492CECA76F /* libPods-jw_cuc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-jw_cuc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF0862CC1E0FD799008ECFEF /* JWHTMLSniffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWHTMLSniffer.h; sourceTree = "<group>"; };
-		CF0862CD1E0FD799008ECFEF /* JWHTMLSniffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWHTMLSniffer.m; sourceTree = "<group>"; };
-		CF21FE1D1E6A8DA10031AA6C /* JWCalendarTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWCalendarTest.m; sourceTree = "<group>"; };
+		CF0862CD1E0FD799008ECFEF /* JWHTMLSniffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWHTMLSniffer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CF21FE1D1E6A8DA10031AA6C /* JWCalendarTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWCalendarTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CF21FE1F1E6AA9980031AA6C /* JWKeyChainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWKeyChainWrapper.h; sourceTree = "<group>"; };
 		CF21FE201E6AA9980031AA6C /* JWKeyChainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWKeyChainWrapper.m; sourceTree = "<group>"; };
-		CF21FE221E6AAA860031AA6C /* JWTDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTDemo.m; sourceTree = "<group>"; };
+		CF21FE221E6AAA860031AA6C /* JWTDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWTDemo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CF2E2AA01E2393300036B4D9 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		CF2EF8F11E5E7B4D00D82E7F /* JWSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWSettingViewController.h; sourceTree = "<group>"; };
 		CF2EF8F21E5E7B4D00D82E7F /* JWSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWSettingViewController.m; sourceTree = "<group>"; };
 		CF2EF8F81E5F1E5A00D82E7F /* cuc-calendar.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "cuc-calendar.plist"; sourceTree = "<group>"; };
 		CF33DC741E2F4AD800DD3E00 /* UIColor+common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+common.h"; sourceTree = "<group>"; };
-		CF33DC751E2F4AD800DD3E00 /* UIColor+common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+common.m"; sourceTree = "<group>"; };
+		CF33DC751E2F4AD800DD3E00 /* UIColor+common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIColor+common.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CF33DC761E2F4AD800DD3E00 /* NSArray+Plist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Plist.h"; sourceTree = "<group>"; };
 		CF33DC771E2F4AD800DD3E00 /* NSArray+Plist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Plist.m"; sourceTree = "<group>"; };
 		CF33DC781E2F4AD800DD3E00 /* NSString+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Common.h"; sourceTree = "<group>"; };
 		CF33DC791E2F4AD800DD3E00 /* NSString+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Common.m"; sourceTree = "<group>"; };
-		CF33DC7A1E2F4AD800DD3E00 /* UITableViewCell+View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+View.h"; sourceTree = "<group>"; };
-		CF33DC7B1E2F4AD800DD3E00 /* UITableViewCell+View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+View.m"; sourceTree = "<group>"; };
 		CF33DC7C1E2F4AD800DD3E00 /* UITextView+View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+View.h"; sourceTree = "<group>"; };
 		CF33DC7D1E2F4AD800DD3E00 /* UITextView+View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+View.m"; sourceTree = "<group>"; };
 		CF33DC7E1E2F4AD800DD3E00 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
@@ -107,17 +104,17 @@
 		CF565C261E4DA34800A7A5E8 /* JWTerm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWTerm.h; sourceTree = "<group>"; };
 		CF565C271E4DA34800A7A5E8 /* JWTerm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTerm.m; sourceTree = "<group>"; };
 		CF604BFC1E4AC15600F05296 /* JWCourseDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWCourseDataController.h; sourceTree = "<group>"; };
-		CF604BFD1E4AC15600F05296 /* JWCourseDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWCourseDataController.m; sourceTree = "<group>"; };
+		CF604BFD1E4AC15600F05296 /* JWCourseDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWCourseDataController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CF637F701E2E5A6400862C48 /* JWWeekCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWWeekCollectionViewCell.h; sourceTree = "<group>"; };
 		CF637F711E2E5A6400862C48 /* JWWeekCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWWeekCollectionViewCell.m; sourceTree = "<group>"; };
 		CF637F781E2E609F00862C48 /* JWNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWNavView.h; sourceTree = "<group>"; };
 		CF637F791E2E609F00862C48 /* JWNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWNavView.m; sourceTree = "<group>"; };
 		CF70C8471E3484CF00E25355 /* JWMainCourseFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWMainCourseFlowLayout.h; sourceTree = "<group>"; };
 		CF70C8481E3484CF00E25355 /* JWMainCourseFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWMainCourseFlowLayout.m; sourceTree = "<group>"; };
-		CF7199451E5ADE310074C69B /* JWTTermTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTTermTest.m; sourceTree = "<group>"; };
+		CF7199451E5ADE310074C69B /* JWTTermTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWTTermTest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CF7199621E5AE0930074C69B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		CF71996A1E5B120E0074C69B /* JWTNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTNetwork.m; sourceTree = "<group>"; };
-		CF71996C1E5B33530074C69B /* JWTPerformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWTPerformance.m; sourceTree = "<group>"; };
+		CF71996A1E5B120E0074C69B /* JWTNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWTNetwork.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CF71996C1E5B33530074C69B /* JWTPerformance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWTPerformance.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CF7C63CA1E0EA6290089F3E2 /* jw_cuc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = jw_cuc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF7C63CE1E0EA6290089F3E2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CF7C63D01E0EA6290089F3E2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -130,7 +127,7 @@
 		CF7EF1231E4C5828004EE007 /* JWCourseMO+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JWCourseMO+CoreDataClass.h"; sourceTree = "<group>"; };
 		CF7EF1241E4C5828004EE007 /* JWCourseMO+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JWCourseMO+CoreDataClass.m"; sourceTree = "<group>"; };
 		CF7EF1251E4C5828004EE007 /* JWCourseMO+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JWCourseMO+CoreDataProperties.h"; sourceTree = "<group>"; };
-		CF7EF1261E4C5828004EE007 /* JWCourseMO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JWCourseMO+CoreDataProperties.m"; sourceTree = "<group>"; };
+		CF7EF1261E4C5828004EE007 /* JWCourseMO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "JWCourseMO+CoreDataProperties.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CF9C59F31E2FC30F005FD285 /* REFSAN.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = REFSAN.TTF; sourceTree = "<group>"; };
 		CF9C59F51E2FC4F4005FD285 /* JWMainWeekCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWMainWeekCollectionView.h; sourceTree = "<group>"; };
 		CF9C59F61E2FC4F4005FD285 /* JWMainWeekCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWMainWeekCollectionView.m; sourceTree = "<group>"; };
@@ -151,10 +148,10 @@
 		CFCA744E1E574BD7004218C2 /* JWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWLoginViewController.h; sourceTree = "<group>"; };
 		CFCA744F1E574BD7004218C2 /* JWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWLoginViewController.m; sourceTree = "<group>"; };
 		CFCBEBA41E5C2CB6001B3BB3 /* JWCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWCalendar.h; sourceTree = "<group>"; };
-		CFCBEBA51E5C2CB6001B3BB3 /* JWCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWCalendar.m; sourceTree = "<group>"; };
+		CFCBEBA51E5C2CB6001B3BB3 /* JWCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWCalendar.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CFCBEBA71E5C4211001B3BB3 /* 201701.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = 201701.html; sourceTree = "<group>"; };
 		CFCCEEA41E2BADFB009732E7 /* JWMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWMainViewController.h; sourceTree = "<group>"; };
-		CFCCEEA51E2BADFB009732E7 /* JWMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWMainViewController.m; sourceTree = "<group>"; };
+		CFCCEEA51E2BADFB009732E7 /* JWMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWMainViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CFF77C6A1E51C4CB00C86648 /* jw_cucTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jw_cucTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFF77C6C1E51C4CB00C86648 /* jw_cucTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = jw_cucTests.m; sourceTree = "<group>"; };
 		CFF77C6E1E51C4CB00C86648 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -286,8 +283,6 @@
 				CF33DC771E2F4AD800DD3E00 /* NSArray+Plist.m */,
 				CF33DC781E2F4AD800DD3E00 /* NSString+Common.h */,
 				CF33DC791E2F4AD800DD3E00 /* NSString+Common.m */,
-				CF33DC7A1E2F4AD800DD3E00 /* UITableViewCell+View.h */,
-				CF33DC7B1E2F4AD800DD3E00 /* UITableViewCell+View.m */,
 				CF33DC7C1E2F4AD800DD3E00 /* UITextView+View.h */,
 				CF33DC7D1E2F4AD800DD3E00 /* UITextView+View.m */,
 				CF33DC7E1E2F4AD800DD3E00 /* Common.h */,
@@ -536,7 +531,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF33DC871E2F4AD800DD3E00 /* UITableViewCell+View.m in Sources */,
 				CF604BFE1E4AC15600F05296 /* JWCourseDataController.m in Sources */,
 				CF33DC8B1E2F4AD800DD3E00 /* UIView+size.m in Sources */,
 				CF637F731E2E5A6400862C48 /* JWWeekCollectionViewCell.m in Sources */,

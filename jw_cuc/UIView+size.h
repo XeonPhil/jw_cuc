@@ -8,6 +8,8 @@
 
 
 @interface UIView (size)
-@property (nonatomic,readonly) CGFloat frameHeight;
-@property (nonatomic,readonly) CGFloat frameWidth;
+@property (nonatomic,readwrite) CGFloat jw_frameHeight;
+@property (nonatomic,readwrite) CGFloat jw_frameWidth;
+@property (nonatomic,readwrite) CGFloat jw_frameX;
+@property (nonatomic,readwrite) CGFloat jw_frameY;
 @end

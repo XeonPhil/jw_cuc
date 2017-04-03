@@ -21,6 +21,16 @@
     obj.predicate = predicate;
     return obj;
 }
++ (NSComparator)comparator {
+    NSComparator JWCourseMO_Comparator = ^NSComparisonResult(JWCourseMO *course1,JWCourseMO *course2) {
+        if (course1.start < course2.start) {
+            return NSOrderedAscending;
+        }else {
+            return NSOrderedDescending;
+        }
+    };
+    return JWCourseMO_Comparator;
+}
 /**
  courseDic[@"date"] = @"2016-12-12";
  courseDic[@"day"] = @"星期四";

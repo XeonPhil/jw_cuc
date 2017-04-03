@@ -19,8 +19,11 @@
 - (BOOL)hasDownloadCourseInTerm:(JWTerm *)term;
 #pragma mark - data source
 @property (nonatomic,readonly)NSUInteger week;
-@property (nonatomic,strong,readonly)JWTerm *term;
-@property (nonatomic,strong,readonly)NSDictionary *courseDic;
-- (void)resetTerm:(JWTerm *)term andWeek:(NSUInteger)week;
-#pragma mark - layout 
+@property (nonatomic,strong,readwrite)JWTerm *term;
+//@property (nonatomic,strong,readonly)NSDictionary *courseDic;
+@property (nonatomic,strong,readonly)NSArray *allCourse;
+- (NSArray *)coursesAtWeek:(NSUInteger)week andWeekDay:(NSUInteger)day;
+- (JWCourseMO *)courseAtWeek:(NSUInteger)week andWeekDay:(NSUInteger)day andIndex:(NSUInteger)index;
+//- (void)resetTerm:(JWTerm *)term andWeek:(NSUInteger)week;
+#pragma mark - layout
 @end

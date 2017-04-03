@@ -12,6 +12,10 @@
 @property (nonatomic,assign,readwrite)BOOL isCurrentShownView;
 @end
 @implementation JWMainCollectionView
++ (instancetype)defaultCollectionView {
+    JWMainCollectionView *view = [[self alloc] initWithFrame:CGRectZero collectionViewLayout:[JWMainCourseFlowLayout new]];
+    return view;
+}
 - (void)makeViewShown {
     _isCurrentShownView = YES;
     self.leftView.isCurrentShownView = NO;

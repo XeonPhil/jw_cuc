@@ -8,13 +8,13 @@
 
 #import "JWCourseMO+CoreDataClass.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JWCourseMO (CoreDataProperties)
 
 + (NSFetchRequest<JWCourseMO *> *)fetchRequest;
 + (NSFetchRequest<JWCourseMO *> *)fetchRequestWithPredicate:(NSPredicate *)predicate;
++ (NSComparator)comparator;
 @property (nullable, nonatomic, copy) NSString *building;
 @property (nullable, nonatomic, copy) NSString *classroom;
 @property (nullable, nonatomic, copy) NSString *courseName;
@@ -29,11 +29,5 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int16_t end;
 //- (void)fillPropertyWithDictionary:(NSDictionary *)dic;
 @end
-const NSComparator JWCourseMO_Comparator = ^NSComparisonResult(JWCourseMO *course1,JWCourseMO *course2) {
-    if (course1.start < course2.start) {
-        return NSOrderedAscending;
-    }else {
-        return NSOrderedDescending;
-    }
-};
 NS_ASSUME_NONNULL_END
+
