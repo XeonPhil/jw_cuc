@@ -25,20 +25,22 @@ static NSString *kHeader = @"kHeader";
 @interface JWMainViewController()
 @property (strong, nonatomic)JWMainCollectionView *mainCollectionView;
 @property (strong, nonatomic) IBOutlet UIScrollView *rootView;
-
 @property (strong, nonatomic) IBOutlet JWNavView                *navView;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 @property (nonatomic,readonly) JWCourseDataController *dataController;
 @property (nonatomic,readonly) JWCalendar *calendar;
 @property (nonatomic,strong,readwrite)NSArray<JWMainCollectionView *> *mainViews;
+@property (nonatomic,assign,readwrite)NSUInteger currentWeekShown;
 @end
 @implementation JWMainViewController
 - (JWMainCollectionView *)loadMainView{
     JWMainCollectionView *view = [JWMainCollectionView defaultCollectionView];
     [_rootView addSubview:view];
-    
-    [view layout];
-    
+#warning layout
+    //[self.view addConstraints:[view layout]];
+    //[self.view layoutSubviews];
+    view.jw_frameWidth = self.view.jw_frameWidth;
+    view.jw_frameHeight = self.rootView.jw_frameHeight;
     view.dataSource = _dataController;
     view.delegate = _dataController;
     
@@ -52,10 +54,11 @@ static NSString *kHeader = @"kHeader";
     
     return view;
 }
--(void)viewDidLoad {
+- (void)viewDidLoad {
     [_indicator stopAnimating];
-    _rootView.contentSize = CGSizeMake(16*_rootView.jw_frameWidth,_rootView.jw_frameHeight);
     
+    _rootView.contentSize = CGSizeMake(16*_rootView.jw_frameWidth,_rootView.jw_frameHeight);
+    _rootView.delegate = self;
     _dataController = [JWCourseDataController defaultDateController];
     _calendar = [JWCalendar defaultCalendar];
     for (NSUInteger week = 1; week <= 16; week++) {
@@ -63,8 +66,6 @@ static NSString *kHeader = @"kHeader";
         view.jw_frameX = ( week - 1 ) * _rootView.jw_frameWidth;
         view.week = week;
         
-//        NSDictionary *courses = _dataController.allCourse[week];
-//        if (courses) {
         typeof(self) __weak weakself = self;
         view.myLayout.cellPositionY = ^(NSIndexPath *indexpath) {
             NSUInteger day = indexpath.section;
@@ -82,12 +83,13 @@ static NSString *kHeader = @"kHeader";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
+    //若未输入学号密码
     if (![JWKeyChainWrapper hasSavedStudentID]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         [self presentViewController:[storyboard instantiateViewControllerWithIdentifier:@"kJWLoginViewController"] animated:NO completion:nil];
         return;
     }
+    //根据时段下载课表
     if (!_indicator.isAnimating) {
         
         switch ([_calendar currentStage]) {
@@ -118,6 +120,8 @@ static NSString *kHeader = @"kHeader";
                 break;
         }
     }
+    _currentWeekShown = _calendar.currentWeek;
+    [self addObserver:_calendar forKeyPath:@"currentWeekShown" options:NSKeyValueObservingOptionNew context:nil];
 //    self.mainCollectionView.frame = CGRectMake((_calendar.currentWeek-1)*(kScreen_Width+20), 0, _rootView.jw_frameWidth, _rootView.jw_frameHeight);
     self.mainCollectionView = self.rootView.subviews[_calendar.currentWeek-1];
     [self.mainCollectionView makeViewShown];
@@ -142,5 +146,12 @@ static NSString *kHeader = @"kHeader";
     [self fetchCourseUsingBlock:^{
          weakself.navView.weekLabel.text = [NSString stringWithFormat:@"第%@周",[NSString chineseStringWithNumber:_calendar.currentWeek]];
     } failure:nil];
+}
+#pragma mark - scrollview delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    int week = self.rootView.contentOffset.x / self.rootView.jw_frameWidth + 1;
+    _navView.weekLabel.text = [NSString stringWithFormat:@"第%@周",[NSString chineseStringWithNumber:week]];
+    self.currentWeekShown = week;
+    [self.navView.weekCollectionView reloadData];
 }
 @end

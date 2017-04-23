@@ -18,5 +18,5 @@
 @property (nonatomic,weak,readwrite)JWMainCollectionView *rightView;
 + (instancetype)defaultCollectionView;
 - (void)makeViewShown;
-- (void)layout;
+- (NSArray <NSLayoutConstraint *> *)layout;
 @end

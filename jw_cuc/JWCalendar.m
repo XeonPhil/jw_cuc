@@ -12,6 +12,8 @@ static NSString *kJWFetchCourseNotification = @"JWFetchCourseNotification";
 static NSString *kWeekCellIdentifier = @"collection-cell-week";
 const static uint kYearMonthDayUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay);
 const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday);
+
+
 @interface NSCalendar(jw_common)
 - (BOOL)isDateComponents:(NSDateComponents *)date earlierThanComponents:(NSDateComponents *)anotherDate;
 @end
@@ -21,6 +23,8 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
     return compareResult.day >= 0 ? YES : NO;
 }
 @end
+
+
 @interface NSDateComponents(jw_common)
 + (instancetype)componentsWithYear:(NSUInteger)y month:(NSUInteger)m day:(NSUInteger)d;
 @end
@@ -37,11 +41,14 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
                               month:[dic[@"month"] integerValue]
                                 day:[dic[@"day"] integerValue]];
 }
-
 @end
+
+
+
 @interface JWCalendar()
 @property (nonatomic,strong,readonly)NSCalendar *calendar;
 @property (nonatomic,readonly)NSDateComponents *currentDateComponents;
+@property (nonatomic,assign,readwrite)NSUInteger weekShownOffset;
 @end
 @implementation JWCalendar
 + (instancetype)defaultCalendar {
@@ -89,6 +96,7 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
         NSDateComponents *currentDate = [_calendar components:kYearMonthDayWeekdayUnitFlags fromDate:[NSDate date]];
         NSUInteger year = currentDate.year;
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"cuc-calendar" ofType:@"plist"];
+        //加载校历判断时期
         NSDictionary *calendarPlistDictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
         NSDictionary *formerAcademicYearCalendar = calendarPlistDictionary[[NSString stringWithNumber:@(year-1)]];
         NSDictionary *latterAcademicYearCalendar = calendarPlistDictionary[[NSString stringWithNumber:@(year)]];
@@ -138,8 +146,14 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
                 break;
             }
         }
+        _weekShownOffset = 0;
     }
     return self;
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"currentWeekShown"]) {
+        _weekShownOffset = [change[NSKeyValueChangeNewKey] integerValue] - self.currentWeek;
+    }
 }
 - (NSString *)description  {
     return [NSString stringWithFormat:@"<%@: %p>%@",[self class],&self,@{
@@ -171,18 +185,19 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
         cell.activitied = YES;
     }
     if (!_beginDay) {
-        cell.dateLabel.text = @"12-21";
+        cell.dateLabel.text = @"xx-xx";
         return cell;
     }else {
         NSDateComponents *beginComponents = [_beginDay copy];
         beginComponents.hour = 1;
         beginComponents.minute = 1;
         beginComponents.second = 1;
+        
         NSDate *beginDate = [_calendar dateFromComponents:beginComponents];
         NSDateComponents *components = [NSDateComponents new];
         NSUInteger currentWeek = [self currentWeek];
         if (currentWeek) {
-            components.day = (currentWeek - 1) * 7 + indexPath.row;
+            components.day = (currentWeek - 1) * 7 + indexPath.row + _weekShownOffset * 7;
         }else {
             components.day = indexPath.row;
         }
