@@ -68,6 +68,10 @@
 - (instancetype)stringAtIndex:(NSUInteger)index {
     return [self substringWithRange:NSMakeRange(index, 1)];
 }
+- (NSUInteger)firstIndexOfString:(NSString *)stringToFind {
+    NSRange range = [self rangeOfString:stringToFind];
+    return range.location;
+}
 - (BOOL)isAlphanumeric {
     NSCharacterSet *s = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-"];
     s = [s invertedSet];

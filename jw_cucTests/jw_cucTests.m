@@ -31,43 +31,11 @@
     [super tearDown];
 }
 -(void)testCoreData {
-    JWTerm *term = [JWTerm termWithYear:2017 termSeason:JWTermSeasonSpring];
-    NSURL *url = [[NSBundle bundleForClass:[self class]] URLForResource:@"201701" withExtension:@"html"];
-    NSData *hData = [NSData dataWithContentsOfURL:url];
-    XCTAssertNotNil(hData);
-    [[JWCourseDataController defaultDateController] insertCoursesAtTerm:term withHTMLDataArray:@[hData]];
-    NSError *err = [[NSError alloc] initWithDomain:NSCocoaErrorDomain code:0 userInfo:nil];
-    [_controller.managedObjectiContext save:&err];
-    XCTAssertEqual(err.code,0);
-    NSFetchRequest *f = [[NSFetchRequest alloc] initWithEntityName:@"Course"];
-    NSArray *a = [_controller.managedObjectiContext executeFetchRequest:f error:nil];
-    XCTAssert(a.count > 0);
-    //    unsigned int count=0;
-    //    JWCourseMO *mo = a[0];
-    //    objc_property_t *props = class_copyPropertyList([mo class],&count);
-    //    for ( int i=0;i<count;i++ )
-    //    {
-    //        const char *name = property_getName(props[i]);
-    //        NSString *prop = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
-    //    }
-    for (JWCourseMO *mo in a) {
-        if ([mo.courseName isEqualToString:@"媒体内容安全技术"]) {
-            XCTAssert(mo.start == 1);
-            XCTAssert(mo.end == 4);
+    for (int i = 1; i<=16; i++) {
+        for (int j = 1; j<=5; i++) {
+            NSLog(@"%@",[_controller coursesAtWeek:i andWeekDay:j]);
         }
-//        unsigned int count=0;
-//        objc_property_t *props = class_copyPropertyList([mo class],&count);
-//        for ( int i=0;i<count;i++ )
-//        {
-//            const char *name = property_getName(props[i]);
-//            NSString *prop = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
-//            XCTAssertNotNil([mo valueForKey:prop]);
-//            XCTAssertNotEqual(0, (NSUInteger)[mo valueForKey:prop]);
-//        }
-//        NSLog(@"%@",[mo description]);
     }
-    XCTAssert([[JWCalendar defaultCalendar] daysRemain] == 5);
-    XCTAssert([[JWCalendar defaultCalendar] currentWeek] == 0);
 }
 - (void)testExample {
     JWTerm *st = [JWTerm termWithYear:2017 termSeason:JWTermSeasonSpring];
@@ -80,6 +48,9 @@
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
+    [self measureBlock:^{
+        _controller = [JWCourseDataController new];
+    }];
 }
 
 @end

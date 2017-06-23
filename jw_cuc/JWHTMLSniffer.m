@@ -10,41 +10,46 @@
 #import "Ono.h"
 #import "JWHTMLSniffer.h"
 #import "TesseractOCR/TesseractOCR.h"
+#import <SystemConfiguration/SystemConfiguration.h>
+#import "Reachability.h"
 
 //#define JW_DISPATCH_QUENE 233
 
 @interface JWHTMLSniffer()
-@property (nonatomic, strong) NSOperationQueue *operationQueue;
+@property (nonatomic, strong) NSOperationQueue *captchaRecognizeOperationQueue;
 @property (nonatomic,strong)  NSDictionary     *cookieHeader;
 @property (nonatomic,strong)  NSURLSession     *session;
 @property (nonatomic,readonly)dispatch_queue_t quene;
 @end
 @implementation JWHTMLSniffer
 #pragma mark - constuction
-+(instancetype)sharedSniffer {
-    static JWHTMLSniffer *sniffer = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sniffer = [JWHTMLSniffer new];
-    });
+//+ (instancetype)sharedSniffer {
+//    static JWHTMLSniffer *sniffer = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        sniffer = [JWHTMLSniffer new];
+//    });
+//    return sniffer;
+//}
++ (instancetype)newSniffer {
+    JWHTMLSniffer *sniffer = [JWHTMLSniffer new];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    configuration.timeoutIntervalForRequest = 2.0;
+    
+    sniffer.session = [NSURLSession sessionWithConfiguration:configuration];
+    sniffer.captchaRecognizeOperationQueue = [NSOperationQueue new];
+//    [NSURLSession sharedSession]
     return sniffer;
+}
++ (BOOL)hasConnected {
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    return reachability.currentReachabilityStatus != NotReachable;
 }
 - (void)requestDataWithUrl:(NSURL *)url andCompletionHandler:(void (^)(NSData *data,NSURLResponse *response,NSError *error))handler {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setAllHTTPHeaderFields:_cookieHeader];
     NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:handler];
     [task resume];
-}
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        configuration.timeoutIntervalForRequest = 2.0;
-        _session = [NSURLSession sessionWithConfiguration:configuration];
-        _operationQueue = [NSOperationQueue new];
-    }
-    return self;
 }
 - (void)getCourseWithStudentID:(NSString *)ID password:(NSString *)password term:(JWTerm *)term andBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
     void (^failureBlock)(JWLoginFailure) = ^(JWLoginFailure code){
@@ -53,17 +58,14 @@
                 [self getCourseWithStudentID:ID password:password term:term andBlock:block failure:failure];
                 break;
             default:
-                NSLog(@"failure code as %lu",(unsigned long)code);
                 failure(code);
                 break;
         };
     };
-    typeof(self) __weak weakself = self;
     [self requestCaptchaWithBlock:^(NSData *data){
         [self recognizeImage:[UIImage imageWithData:data] withBlock:^(G8Tesseract *tesseract) {
             [self requestLoginChallengeWithName:ID andPassword:password andCaptcha:tesseract.recognizedText success:^{
                 [self requestCourseHTMLWithTerm:term andBlock:^(NSArray<NSData *> *array){
-                    weakself.cookieHeader = nil;
                     BOOL success = [[JWCourseDataController defaultDateController] insertCoursesAtTerm:term withHTMLDataArray:array];
                     if (success) {
                         block();
@@ -86,26 +88,31 @@
 #pragma mark - 1.construct cookie and get captcha image
 
 -(void)getCookieWithBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
+    NSArray *oldCookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:INDEX_URL];
+    for (NSHTTPCookie *cookie in oldCookies) {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
     [self requestDataWithUrl:INDEX_URL andCompletionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error.code) {
-            NSLog(@"occur as %@",[error description]);
-            failure(JWLoginFailureUnknown);
+            NSLog(@"%@",[error description]);
+//            failure(JWLoginFailureUnknown);
         }
         if (data.length) {
             NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:INDEX_URL];
-            _cookieHeader = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
-            NSLog(@"%@\n%lu",_cookieHeader,(unsigned long)data.length);
+            
+            self.cookieHeader = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+            NSLog(@"%@\n",_cookieHeader);
             block();
         }
     }];
 }
 -(void)requestCaptchaWithBlock:(void (^)(NSData *))block failure:(void (^)(JWLoginFailure code))failure{
     void (^requestCaptchaBlock)(void) = ^{
-        NSAssert(_cookieHeader != nil, @"_header nil");
+        NSParameterAssert(_cookieHeader);
         [self requestDataWithUrl:CAPTCHA_URL andCompletionHandler:^(NSData *data,NSURLResponse *response,NSError *error){
             if (error.code) {
                 failure(JWLoginFailureUnknown);
-            }
+            } 
             block(data);
         }];
     };
@@ -134,7 +141,7 @@
         NSString *recognizedText = [tesseract.recognizedText trimWhitespace];
         NSLog(@"captcha recognized as %@",recognizedText);
     };
-    [_operationQueue addOperation:operation];
+    [self.captchaRecognizeOperationQueue addOperation:operation];
     
 }
 #pragma mark - 3.request login challenge
@@ -151,6 +158,9 @@
     [request setHTTPBody:postData];
     NSURLSessionDataTask *task = [_session dataTaskWithRequest:request completionHandler:^(NSData *data,NSURLResponse *response,NSError *error){
         if (error.code) {
+            if (error.code == -1001) {
+                failure(JWLoginFailureBadNetWork);
+            }
             failure(JWLoginFailureUnknown);
         }
         NSString *query = response.URL.query;
@@ -158,6 +168,9 @@
             ONOXMLDocument *document = [ONOXMLDocument HTMLDocumentWithData:data error:nil];
             NSString *xpath = @"//*[@id=\"error\"]";
             NSString *error = [[document firstChildWithXPath:xpath] stringValue];
+            if ([error containsString:@"关闭浏览器重新登录"]) {
+                @throw [NSException exceptionWithName:@"关闭浏览器重新登录" reason:@"e" userInfo:nil];
+            }
             if ([error containsString:@"验证码"] ) {
                 failure(JWLoginFailureErrorCaptcha);
             }else if ([error containsString:@"不存在"]) {
@@ -167,6 +180,7 @@
             }else {
                 failure(JWLoginFailureUnknown);
             }
+            
         }else {
             NSLog(@"login!");
             success();

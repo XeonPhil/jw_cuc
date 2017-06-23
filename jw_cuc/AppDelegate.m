@@ -25,30 +25,8 @@ void onUncaughtException(NSException *exception)
 #ifdef DEBUG
     NSSetUncaughtExceptionHandler(&onUncaughtException);
 #endif
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    //[JWKeyChainWrapper keyChainDeleteIDAndkey];
     self.dataController = [JWCourseDataController new];
-//    UINavigationController *rootNav = [storyboard instantiateViewControllerWithIdentifier:@"kRootNav"];
-//    self.window.rootViewController = rootNav;
-    
-//    [self.window makeKeyAndVisible];
-    
-//    [_dataController resetTerm:[[JWCalendar defaultCalendar] currentTerm]
-//                       andWeek:[[JWCalendar defaultCalendar] currentWeek]];
-//    if (_dataController.courseDic) {
-//        for (NSUInteger i = 1; i <= 5; i++) {
-//            JWCourseMO * course = [_dataController.courseDic[@(i)] firstObject];
-//            if (course) {
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"JWFetchCourseNotification"
-//                                                                    object:nil
-//                                                                  userInfo:@{
-//                                                                             @"date":course.dateComponents,
-//                                                                             @"day":@(course.dayNum)
-//                                                                             }];
-//                break;
-//            }
-//        }
-//    }
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *defaultSetting = @{

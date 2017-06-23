@@ -15,20 +15,20 @@
 @end
 @implementation JWTerm
 @synthesize enrolmentYear = _enrolmentYear;
-+ (instancetype)currentTerm {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    unsigned unitflags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
-    NSDateComponents *dateComponents = [calendar components:unitflags fromDate:[NSDate date]];
-    
-    
-    BOOL isTermSpring = dateComponents.month <=6 && dateComponents.month >= 1;
-    
-    JWTermSeason season = isTermSpring ? JWTermSeasonSpring : JWTermSeasonAutumn;
-    JWTerm *termObj = [[JWTerm alloc] initWithYear:dateComponents.year
-                                        termSeason:season
-                                     enrolmentYear:0];
-    return termObj;
-}
+//+ (instancetype)currentTerm {
+//    NSCalendar *calendar = [NSCalendar currentCalendar];
+//    unsigned unitflags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
+//    NSDateComponents *dateComponents = [calendar components:unitflags fromDate:[NSDate date]];
+//    
+//    
+//    BOOL isTermSpring = dateComponents.month <=6 && dateComponents.month >= 1;
+//    
+//    JWTermSeason season = isTermSpring ? JWTermSeasonSpring : JWTermSeasonAutumn;
+//    JWTerm *termObj = [[JWTerm alloc] initWithYear:dateComponents.year
+//                                        termSeason:season
+//                                     enrolmentYear:0];
+//    return termObj;
+//}
 + (instancetype)termWithYear:(NSUInteger)year termSeason:(JWTermSeason)termSeason {
     JWTerm *termObj = [[JWTerm alloc] initWithYear:year
                                         termSeason:termSeason

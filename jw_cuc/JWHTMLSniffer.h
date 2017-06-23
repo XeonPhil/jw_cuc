@@ -13,13 +13,13 @@ typedef NS_ENUM(NSUInteger, JWLoginFailure) {
     JWLoginFailureErrorCaptcha,
     JWLoginFailureWrongPassword,
     JWLoginFailureUnexistUser,
-    JWLoginFailureUnupdated
+    JWLoginFailureUnupdated,
+    JWLoginFailureBadNetWork
 };
 @interface JWHTMLSniffer : NSObject
-+ (instancetype) sharedSniffer;
-//-(void) getCaptchaWithBlock:(void (^)(NSData * data))block;
-//-(void) requestLoginChallengeWithName:(NSString *)name andPassword:(NSString *)pass andCaptcha:(NSString *)captcha success:(void (^)(void))success failure:(void (^)(void))failure;
-//-(void) requestCourseHTMLWithYear:(NSInteger)year term:(NSInteger)term andWeek:(NSInteger)week withBlock:(void (^)(NSArray<NSData *> *dataArray))block;
+//+ (instancetype)sharedSniffer;
++ (instancetype)newSniffer;
++ (BOOL)hasConnected;
 - (void)getCourseWithStudentID:(NSString *)ID password:(NSString *)password term:(JWTerm *)term andBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure;
 - (void)getCourseAtTerm:(JWTerm *)term andBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure;
 @end

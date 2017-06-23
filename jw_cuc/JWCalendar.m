@@ -59,6 +59,9 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
     });
     return calendar;
 }
+- (BOOL)isSchoolDay {
+    return _currentStage == JWStageAutumnTerm || _currentStage == JWStageSpringTerm;
+}
 - (NSDateComponents *)currentDateComponents {
     return [_calendar components:kYearMonthDayWeekdayUnitFlags fromDate:[NSDate date]];
 }
@@ -127,21 +130,24 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
                 switch (_currentStage) {
                     case JWStageSpringExam:
                     case JWStageSummerTerm:
-                    case JWStageSummerVacation:
+                    case JWStageSummerVacation: {
                         _currentAcademicYear +=1;
+                        _currentTerm = [JWTerm termWithYear:_currentAcademicYear termSeason:JWTermSeasonAutumn];
+                        _beginDay = [NSDateComponents componentsWithDateDictionary:[latterAcademicYearCalendar valueForKeyPath:@"start"]];
+                        break;
+                    }
                     case JWStageAutumnTerm: {
                         _currentTerm = [JWTerm termWithYear:_currentAcademicYear termSeason:JWTermSeasonAutumn];
+                        _beginDay = [NSDateComponents componentsWithDateDictionary:[currentAcademicYearCalendar valueForKeyPath:@"start"]];
                         break;
                     }
                     case JWStageAutumnExam:
                     case JWStageWinterVacation:
                     case JWStageSpringTerm: {
                         _currentTerm = [JWTerm termWithYear:_currentAcademicYear+1 termSeason:JWTermSeasonSpring];
+                        _beginDay = [NSDateComponents componentsWithDateDictionary:[periods valueForKeyPath:@"4-spring-term.start"]];
                         break;
                     }
-                }
-                if (_currentStage == JWStageSpringTerm || _currentStage == JWStageAutumnTerm) {
-                    _beginDay = startDateComponents;
                 }
                 break;
             }
@@ -177,13 +183,13 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     JWWeekCollectionViewCell  *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kWeekCellIdentifier forIndexPath:indexPath];
     cell.weekLabel.text = [self weekStringForIndex:indexPath.row];
-    if (indexPath.row == 6 && self.currentDateComponents.weekday == 1) {
-        cell.activitied = YES;
-    }
-    
-    if (indexPath.row + 1 == self.currentDateComponents.weekday - 1) {
-        cell.activitied = YES;
-    }
+//    if (indexPath.row == 6 && self.currentDateComponents.weekday == 1) {
+//        cell.activitied = YES;
+//    }
+//    
+//    if (indexPath.row + 1 == self.currentDateComponents.weekday - 1) {
+//        cell.activitied = YES;
+//    }
     if (!_beginDay) {
         cell.dateLabel.text = @"xx-xx";
         return cell;
@@ -202,9 +208,13 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
             components.day = indexPath.row;
         }
         NSDate *currentDate = [_calendar dateByAddingComponents:components toDate:beginDate options:0];
-        NSDateComponents *currentComponents = [_calendar components:kYearMonthDayUnitFlags fromDate:currentDate];
-        cell.dateLabel.text = [NSString stringWithFormat:@"%lu-%lu",(unsigned long)currentComponents.month,(unsigned long)currentComponents.day];
+        NSDateComponents *componentsToShown = [_calendar components:kYearMonthDayUnitFlags fromDate:currentDate];
+        cell.dateLabel.text = [NSString stringWithFormat:@"%lu-%lu",(unsigned long)componentsToShown.month,(unsigned long)componentsToShown.day];
         cell.weekLabel.text = [self weekStringForIndex:indexPath.row];
+        BOOL isComponentsToShownNow = componentsToShown.day == self.currentDateComponents.day && componentsToShown.month == self.currentDateComponents.month;
+        if (isComponentsToShownNow) {
+            cell.activitied = YES;
+        }
         return cell;
     }
     

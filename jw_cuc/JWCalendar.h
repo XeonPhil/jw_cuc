@@ -19,12 +19,13 @@ typedef NS_ENUM(NSUInteger,JWStage) {
 
 @interface JWCalendar : NSObject <UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (nonatomic,strong)JWTerm *currentTerm;
+@property (nonatomic,readonly)JWStage currentStage;
+@property (nonatomic,strong)NSDateComponents *beginDay;
 @property (nonatomic,readonly)NSUInteger daysRemain;
 @property (nonatomic,readonly)NSUInteger currentWeek;
 @property (nonatomic,readonly)NSUInteger enrolmentYear;
 @property (nonatomic,readonly)NSUInteger currentAcademicYear;
-@property (nonatomic,readonly)JWStage currentStage;
-@property (nonatomic,strong)NSDateComponents *beginDay;
+@property (nonatomic,assign,readonly)BOOL isSchoolDay;
 
 
 + (instancetype)defaultCalendar;

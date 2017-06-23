@@ -18,6 +18,7 @@
 //- (CGFloat)getWidthWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
 - (instancetype)trimWhitespace;
 - (instancetype)stringAtIndex:(NSUInteger)index;
+- (NSUInteger)firstIndexOfString:(NSString *)stringToFind;
 - (BOOL)isEmpty;
 - (BOOL)isAlphanumeric;
 @end

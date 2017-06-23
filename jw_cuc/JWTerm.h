@@ -31,7 +31,6 @@ typedef NS_ENUM(NSUInteger, JWTermSemester) {
 @property (nonatomic,readonly)JWTermSeason season;
 @property (nonatomic)NSUInteger year;
 @property (nonatomic,readonly)NSUInteger enrolmentYear;
-+ (instancetype)currentTerm;
 + (instancetype)termWithYear:(NSUInteger)year termSeason:(JWTermSeason)termSeason;
 + (instancetype)currentTermWithEnrolmentYear:(NSUInteger)enrolmentYear;
 - (void)jw_setGrade:(JWTermGrade)grade andSemester:(JWTermSemester)semester;

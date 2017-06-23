@@ -10,4 +10,5 @@
 
 @interface JWMainCourseFlowLayout : UICollectionViewFlowLayout
 @property (nonatomic,copy)CGFloat (^cellPositionY)(NSIndexPath *indexpath);
+@property (nonatomic,copy)NSUInteger (^cellPositionXOffsetNum)(NSIndexPath *indexpath);
 @end

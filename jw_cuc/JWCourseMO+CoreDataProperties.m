@@ -17,7 +17,7 @@
 	return [[NSFetchRequest alloc] initWithEntityName:@"Course"];
 }
 + (NSFetchRequest<JWCourseMO *> *)fetchRequestWithPredicate:(NSPredicate *)predicate {
-    NSFetchRequest *obj = [[NSFetchRequest alloc] initWithEntityName:@"Course"];
+    NSFetchRequest *obj = [self fetchRequest];
     obj.predicate = predicate;
     return obj;
 }

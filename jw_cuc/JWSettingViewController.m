@@ -40,9 +40,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (indexPath.row == 0 && indexPath.section == 1) {
-//    }
+    if (indexPath.row == 2 && indexPath.section == 1) {
+        [JWKeyChainWrapper keyChainDeleteIDAndkey];
+        [[JWCourseDataController defaultDateController] deleteAllOldCourses];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 - (void)switcherChanged {
     [[NSUserDefaults standardUserDefaults] setBool:_switcher.on forKey:@"kShowWeekendCourse"];

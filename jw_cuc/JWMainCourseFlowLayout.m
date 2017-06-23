@@ -29,6 +29,7 @@
         CGPoint origin = attribute.frame.origin;
         
         origin.y = self.cellPositionY(indexpath);
+        origin.x += size.width * self.cellPositionXOffsetNum(indexpath);
         attribute.frame = CGRectMake(origin.x, origin.y, size.width, size.height);
         [attributeArray addObject:attribute];
     }

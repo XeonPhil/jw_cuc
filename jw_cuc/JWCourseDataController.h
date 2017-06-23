@@ -16,7 +16,9 @@
 + (instancetype)defaultDateController;
 - (BOOL)insertCoursesAtTerm:(JWTerm *)term withHTMLDataArray:(NSArray *)htmlDataArray;
 - (void)insertCourseWithDic:(NSDictionary *)dic;
+- (void)deleteOldCoursesAtTerm:(JWTerm *)term;
 - (BOOL)hasDownloadCourseInTerm:(JWTerm *)term;
+- (void)deleteAllOldCourses;
 #pragma mark - data source
 @property (nonatomic,readonly)NSUInteger week;
 @property (nonatomic,strong,readwrite)JWTerm *term;

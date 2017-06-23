@@ -12,6 +12,9 @@
 		CF21FE1E1E6A8DA10031AA6C /* JWCalendarTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CF21FE1D1E6A8DA10031AA6C /* JWCalendarTest.m */; };
 		CF21FE211E6AA9980031AA6C /* JWKeyChainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CF21FE201E6AA9980031AA6C /* JWKeyChainWrapper.m */; };
 		CF21FE231E6AAA860031AA6C /* JWTDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = CF21FE221E6AAA860031AA6C /* JWTDemo.m */; };
+		CF2E160F1EB96B0C003110BB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2E160E1EB96B0C003110BB /* Reachability.m */; };
+		CF2E16121EBA0123003110BB /* JWLoginTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF2E16111EBA0123003110BB /* JWLoginTextField.xib */; };
+		CF2E16151EBA06B3003110BB /* JWLoginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2E16141EBA06B3003110BB /* JWLoginTextField.m */; };
 		CF2E2AA11E2393300036B4D9 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = CF2E2AA01E2393300036B4D9 /* tessdata */; };
 		CF2EF8F31E5E7B4D00D82E7F /* JWSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2EF8F21E5E7B4D00D82E7F /* JWSettingViewController.m */; };
 		CF2EF8F91E5F1E5A00D82E7F /* cuc-calendar.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF2EF8F81E5F1E5A00D82E7F /* cuc-calendar.plist */; };
@@ -43,7 +46,6 @@
 		CF7C63DD1E0EA6290089F3E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF7C63DB1E0EA6290089F3E2 /* LaunchScreen.storyboard */; };
 		CF7EF1271E4C5828004EE007 /* JWCourseMO+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7EF1241E4C5828004EE007 /* JWCourseMO+CoreDataClass.m */; };
 		CF7EF1281E4C5828004EE007 /* JWCourseMO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = CF7EF1261E4C5828004EE007 /* JWCourseMO+CoreDataProperties.m */; };
-		CF9C59F41E2FC30F005FD285 /* REFSAN.TTF in Resources */ = {isa = PBXBuildFile; fileRef = CF9C59F31E2FC30F005FD285 /* REFSAN.TTF */; };
 		CF9C59F71E2FC4F4005FD285 /* JWMainWeekCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9C59F61E2FC4F4005FD285 /* JWMainWeekCollectionView.m */; };
 		CFB326E51E8BE68900DFE8A5 /* JWCourseNumbersStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB326E41E8BE68900DFE8A5 /* JWCourseNumbersStaticTableViewController.m */; };
 		CFB781761E3A4732008E438B /* NSArray+common.m in Sources */ = {isa = PBXBuildFile; fileRef = CFB781751E3A4732008E438B /* NSArray+common.m */; };
@@ -77,6 +79,12 @@
 		CF21FE1F1E6AA9980031AA6C /* JWKeyChainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWKeyChainWrapper.h; sourceTree = "<group>"; };
 		CF21FE201E6AA9980031AA6C /* JWKeyChainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWKeyChainWrapper.m; sourceTree = "<group>"; };
 		CF21FE221E6AAA860031AA6C /* JWTDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = JWTDemo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CF2E160D1EB96B0C003110BB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		CF2E160E1EB96B0C003110BB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CF2E16101EB9A48B003110BB /* STHeiti Light.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "STHeiti Light.ttc"; sourceTree = "<group>"; };
+		CF2E16111EBA0123003110BB /* JWLoginTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JWLoginTextField.xib; sourceTree = "<group>"; };
+		CF2E16131EBA06B3003110BB /* JWLoginTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWLoginTextField.h; sourceTree = "<group>"; };
+		CF2E16141EBA06B3003110BB /* JWLoginTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWLoginTextField.m; sourceTree = "<group>"; };
 		CF2E2AA01E2393300036B4D9 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		CF2EF8F11E5E7B4D00D82E7F /* JWSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWSettingViewController.h; sourceTree = "<group>"; };
 		CF2EF8F21E5E7B4D00D82E7F /* JWSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWSettingViewController.m; sourceTree = "<group>"; };
@@ -130,7 +138,6 @@
 		CF7EF1241E4C5828004EE007 /* JWCourseMO+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JWCourseMO+CoreDataClass.m"; sourceTree = "<group>"; };
 		CF7EF1251E4C5828004EE007 /* JWCourseMO+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JWCourseMO+CoreDataProperties.h"; sourceTree = "<group>"; };
 		CF7EF1261E4C5828004EE007 /* JWCourseMO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "JWCourseMO+CoreDataProperties.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		CF9C59F31E2FC30F005FD285 /* REFSAN.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = REFSAN.TTF; sourceTree = "<group>"; };
 		CF9C59F51E2FC4F4005FD285 /* JWMainWeekCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWMainWeekCollectionView.h; sourceTree = "<group>"; };
 		CF9C59F61E2FC4F4005FD285 /* JWMainWeekCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWMainWeekCollectionView.m; sourceTree = "<group>"; };
 		CFA434D31E5199510081EB41 /* libOno.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOno.a; path = "../../Library/Developer/Xcode/DerivedData/jw_cuc-faixypckjzdnbrcuvxffxbdalznx/Build/Products/Debug-iphonesimulator/Ono/libOno.a"; sourceTree = "<group>"; };
@@ -211,6 +218,8 @@
 		CF1A01171E2C9DED00C130E2 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				CF2E160D1EB96B0C003110BB /* Reachability.h */,
+				CF2E160E1EB96B0C003110BB /* Reachability.m */,
 				CF7EF1231E4C5828004EE007 /* JWCourseMO+CoreDataClass.h */,
 				CF7EF1241E4C5828004EE007 /* JWCourseMO+CoreDataClass.m */,
 				CF7EF1251E4C5828004EE007 /* JWCourseMO+CoreDataProperties.h */,
@@ -264,6 +273,9 @@
 				CFD7602B1E92959300F7AE45 /* JWCourseCollectionViewCell.xib */,
 				CF70C8471E3484CF00E25355 /* JWMainCourseFlowLayout.h */,
 				CF70C8481E3484CF00E25355 /* JWMainCourseFlowLayout.m */,
+				CF2E16111EBA0123003110BB /* JWLoginTextField.xib */,
+				CF2E16131EBA06B3003110BB /* JWLoginTextField.h */,
+				CF2E16141EBA06B3003110BB /* JWLoginTextField.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -271,7 +283,7 @@
 		CF33DC721E2F49F400DD3E00 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				CF9C59F31E2FC30F005FD285 /* REFSAN.TTF */,
+				CF2E16101EB9A48B003110BB /* STHeiti Light.ttc */,
 			);
 			name = fonts;
 			sourceTree = "<group>";
@@ -465,12 +477,12 @@
 			files = (
 				CFD7602C1E92959300F7AE45 /* JWCourseCollectionViewCell.xib in Resources */,
 				CF4DD6B61E10DC0900505976 /* 900.html in Resources */,
-				CF9C59F41E2FC30F005FD285 /* REFSAN.TTF in Resources */,
 				CFD7602A1E92958500F7AE45 /* JWPeriodCollectionViewCell.xib in Resources */,
 				CF2EF8F91E5F1E5A00D82E7F /* cuc-calendar.plist in Resources */,
 				CF7C63DD1E0EA6290089F3E2 /* LaunchScreen.storyboard in Resources */,
 				CF7C63DA1E0EA6290089F3E2 /* Assets.xcassets in Resources */,
 				CF7C63D81E0EA6290089F3E2 /* Main.storyboard in Resources */,
+				CF2E16121EBA0123003110BB /* JWLoginTextField.xib in Resources */,
 				CF2E2AA11E2393300036B4D9 /* tessdata in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,10 +562,12 @@
 				CF7EF1271E4C5828004EE007 /* JWCourseMO+CoreDataClass.m in Sources */,
 				CFCCEEA61E2BADFB009732E7 /* JWMainViewController.m in Sources */,
 				CF4C73051E4816A6004B19FE /* JWCourseCollectionViewCell.m in Sources */,
+				CF2E160F1EB96B0C003110BB /* Reachability.m in Sources */,
 				CF0862CE1E0FD799008ECFEF /* JWHTMLSniffer.m in Sources */,
 				CF7EF1281E4C5828004EE007 /* JWCourseMO+CoreDataProperties.m in Sources */,
 				CF33DC8A1E2F4AD800DD3E00 /* UIImage+common.m in Sources */,
 				CF33DC841E2F4AD800DD3E00 /* UIColor+common.m in Sources */,
+				CF2E16151EBA06B3003110BB /* JWLoginTextField.m in Sources */,
 				CF7C63D21E0EA6290089F3E2 /* AppDelegate.m in Sources */,
 				CF33DC861E2F4AD800DD3E00 /* NSString+Common.m in Sources */,
 				CF7C63CF1E0EA6290089F3E2 /* main.m in Sources */,
