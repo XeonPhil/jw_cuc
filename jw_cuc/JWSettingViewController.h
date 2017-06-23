@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JWSettingViewController : UITableViewController
+@protocol JWSettingChangedProtocol <NSObject>
+- (void)dayNumberChange;
+- (void)courseNumberChange;
+@end
 
+@interface JWSettingViewController : UITableViewController
+@property (nonatomic,weak,readwrite)id<JWSettingChangedProtocol> delegate;
+@property (nonatomic,strong,readwrite)void (^courseNumChangeHandler)();
 @end

@@ -21,8 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.delegate = self.navigationController.viewControllers[0];
     [_switcher addTarget:self action:@selector(switcherChanged) forControlEvents:UIControlEventValueChanged];
+    typeof(self) __weak weakself = self;
+    self.courseNumChangeHandler = ^{
+        [weakself.delegate courseNumberChange];
+    };
     // Do any additional setup after loading the view.
 }
 
@@ -52,6 +56,7 @@
 - (void)switcherChanged {
     [[NSUserDefaults standardUserDefaults] setBool:_switcher.on forKey:@"kShowWeekendCourse"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.delegate dayNumberChange];
 }
 - (IBAction)unwindToSettingViewController:(UIStoryboardSegue *)segue {
     

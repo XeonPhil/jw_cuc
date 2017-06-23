@@ -74,10 +74,7 @@ static CGFloat originalBottomConstraintsConstant = 130.0;
 }
 - (void)keyboardWillChangeFrame:(NSNotification *)notification {
 }
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];

@@ -7,7 +7,7 @@
 //
 
 #import "JWCourseNumbersStaticTableViewController.h"
-
+#import "JWSettingViewController.h"
 @interface JWCourseNumbersStaticTableViewController ()
 
 @end
@@ -38,6 +38,8 @@
     [[NSUserDefaults standardUserDefaults] setValue:@(newNum) forKey:@"kCourseNumberShown"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self.navigationController popViewControllerAnimated:YES];
+    JWSettingViewController* settingVC = (JWSettingViewController*)self.navigationController.topViewController;
+    settingVC.courseNumChangeHandler();
 }
 //#pragma mark - Table view data source
 //

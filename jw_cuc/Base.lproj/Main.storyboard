@@ -21,7 +21,7 @@
         <!--Main View Controller-->
         <scene sceneID="jzJ-m7-QXU">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="y0Y-Ci-xrH" customClass="JWMainViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="kJWMainViewController" automaticallyAdjustsScrollViewInsets="NO" id="y0Y-Ci-xrH" customClass="JWMainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hkB-8a-eyt"/>
                         <viewControllerLayoutGuide type="bottom" id="e3i-Yg-6GK"/>
@@ -30,7 +30,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView verifyAmbiguity="ignoreSizes" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAL-eG-0BE">
+                            <scrollView verifyAmbiguity="ignoreSizes" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAL-eG-0BE">
                                 <rect key="frame" x="0.0" y="91" width="400" height="576"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>

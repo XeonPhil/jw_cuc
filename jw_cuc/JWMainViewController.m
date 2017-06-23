@@ -7,7 +7,7 @@
 //
 
 #import "JWMainViewController.h"
-
+#import "JWSettingViewController.h"
 #import "JWNavView.h"
 #import "JWMainCollectionView.h"
 
@@ -22,7 +22,7 @@
 
 static NSString *kHeader = @"kHeader";
 
-@interface JWMainViewController()
+@interface JWMainViewController() <JWSettingChangedProtocol>
 @property (strong, nonatomic)JWMainCollectionView *mainCollectionView;
 @property (strong, nonatomic) IBOutlet UIScrollView *rootView;
 @property (strong, nonatomic) IBOutlet JWNavView                *navView;
@@ -58,6 +58,7 @@ static NSString *kHeader = @"kHeader";
     [_indicator stopAnimating];
     _topLabel = self.navView.weekLabel;
     _rootView.jw_frameWidth = kScreen_Width + 25.0;
+    _rootView.jw_frameHeight = kScreen_Height - _navView.jw_frameHeight;
     _rootView.contentSize = CGSizeMake(16*_rootView.jw_frameWidth,_rootView.jw_frameHeight);
     _rootView.delegate = self;
     _dataController = [JWCourseDataController defaultDateController];
@@ -91,6 +92,9 @@ static NSString *kHeader = @"kHeader";
     _navView.weekCollectionView.dataSource = [JWCalendar defaultCalendar];
     _navView.weekCollectionView.delegate = [JWCalendar defaultCalendar];
     self.retryButton.hidden = YES;
+    
+    _currentWeekShown = _calendar.currentWeek;
+    [self addObserver:_calendar forKeyPath:@"currentWeekShown" options:NSKeyValueObservingOptionNew context:nil];
 }
 - (IBAction)retry:(id)sender {
     self.retryButton.hidden = YES;
@@ -102,8 +106,7 @@ static NSString *kHeader = @"kHeader";
     //若未输入学号密码
     [self popLoginifNeeded];
     [self downloadCourseIfNeeded];
-    _currentWeekShown = _calendar.currentWeek;
-    [self addObserver:_calendar forKeyPath:@"currentWeekShown" options:NSKeyValueObservingOptionNew context:nil];
+
     [self refreshTopString];
     
     if (_calendar.currentWeek) {
@@ -111,10 +114,29 @@ static NSString *kHeader = @"kHeader";
         [self.mainCollectionView makeViewShown];
         [self.rootView setContentOffset:CGPointMake(self.mainCollectionView.jw_frameX, 0)];
     }
-    for (JWMainCollectionView *view in self.rootView.subviews) {
-        [view reloadData];
-    }
-    [self.navView.weekCollectionView reloadData];
+//    for (JWMainCollectionView *view in self.rootView.subviews) {
+//        [view reloadData];
+//    }
+//    [self.navView.weekCollectionView reloadData];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+}
+- (void)bounceRootView {
+    CGPoint origin = self.rootView.contentOffset;
+    self.rootView.scrollEnabled = NO;
+    self.rootView.pagingEnabled = NO;
+    CGPoint bouncePoint = CGPointMake(origin.x - 25.0, origin.y);
+    [self.rootView setContentOffset:bouncePoint animated:YES];
+//    [self.rootView scrollRectToVisible:CGRectMake(420, 0, 20, 20) animated:YES];
+    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 0.2 * NSEC_PER_SEC);
+    dispatch_after(time, dispatch_get_main_queue(), ^{
+        [self.rootView setContentOffset:origin animated:YES];
+        self.rootView.pagingEnabled = YES;
+        self.rootView.scrollEnabled = YES;
+//        [self.rootView scrollRectToVisible:CGRectMake(0, 0, 20, 20) animated:YES];
+    });
 }
 - (void)popLoginifNeeded {
     if (![JWKeyChainWrapper hasSavedStudentID]) {
@@ -165,6 +187,7 @@ static NSString *kHeader = @"kHeader";
                         for (JWMainCollectionView *view in self.rootView.subviews) {
                             [view reloadData];
                         }
+                        [self bounceRootView];
                         [self.navView.weekCollectionView reloadData];
                     } failure:failureHandler];
                 }
@@ -180,6 +203,7 @@ static NSString *kHeader = @"kHeader";
                         for (JWMainCollectionView *view in self.rootView.subviews) {
                             [view reloadData];
                         }
+                        [self bounceRootView];
                     } failure:failureHandler];
                 }
             }
@@ -239,5 +263,14 @@ static NSString *kHeader = @"kHeader";
         [str appendString:end];
     }
     _navView.weekLabel.text = [NSString stringWithFormat:str,[NSString chineseStringWithNumber:self.currentWeekShown]];
+}
+#pragma mark - setting delegate
+- (void)courseNumberChange {
+    for (UICollectionView *view in self.rootView.subviews) {
+        [view reloadData];
+    }
+}
+- (void)dayNumberChange {
+    [self.navView.weekCollectionView reloadData];
 }
 @end

@@ -5,5 +5,5 @@ target "jw_cuc" do
 
 pod 'Ono'
 pod 'TesseractOCRiOS'
-
+pod 'Reveal-iOS-SDK', :configurations => ['Debug']
 end

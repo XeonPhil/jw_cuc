@@ -30,7 +30,6 @@
 		CF4C1B891E2F780100C91F45 /* JWPeriodCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4C1B881E2F780100C91F45 /* JWPeriodCollectionViewCell.m */; };
 		CF4C73051E4816A6004B19FE /* JWCourseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4C73041E4816A6004B19FE /* JWCourseCollectionViewCell.m */; };
 		CF4DD6B61E10DC0900505976 /* 900.html in Resources */ = {isa = PBXBuildFile; fileRef = CF4DD6B51E10DC0900505976 /* 900.html */; };
-		CF4DD6BB1E114E9D00505976 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4DD6BA1E114E9D00505976 /* Reveal.framework */; };
 		CF565C281E4DA34800A7A5E8 /* JWTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = CF565C271E4DA34800A7A5E8 /* JWTerm.m */; };
 		CF604BFE1E4AC15600F05296 /* JWCourseDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF604BFD1E4AC15600F05296 /* JWCourseDataController.m */; };
 		CF637F731E2E5A6400862C48 /* JWWeekCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CF637F711E2E5A6400862C48 /* JWWeekCollectionViewCell.m */; };
@@ -175,7 +174,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				730932E0F31F38D4F662CB58 /* libPods-jw_cuc.a in Frameworks */,
-				CF4DD6BB1E114E9D00505976 /* Reveal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,10 +735,6 @@
 					"-ObjC",
 					"-l\"Ono\"",
 					"-l\"xml2\"",
-					"-ObjC",
-					"-lz",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xeonphil.cucjw.jw-cuc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -770,10 +764,6 @@
 					"-ObjC",
 					"-l\"Ono\"",
 					"-l\"xml2\"",
-					"-ObjC",
-					"-lz",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xeonphil.cucjw.jw-cuc";
 				PRODUCT_NAME = "$(TARGET_NAME)";

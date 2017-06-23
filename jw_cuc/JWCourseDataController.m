@@ -13,8 +13,6 @@
 #import "JWKeyChainWrapper.h"
 #import <ONOXMLDocument.h>
 #import "JWCourseMO+CoreDataProperties.h"
-const static CGFloat kCommonCellWidth = 50.0;
-const static CGFloat kLargeCellWidth = 70.0;
 const static CGFloat kSmallCellWidth = 25.0;
 static NSString *kKeyChainIDKey = @"com.jwcuc.kKeyChainIDKey";
 static NSString *kKeyChainPassKey = @"com.jwcuc.kKeyChainPassKey";
@@ -344,6 +342,8 @@ typedef NSMutableDictionary<NSNumber *,NSArray<JWCourseMO *> *> JWWeeklyCourseDi
 }
 #pragma mark - layout
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat kCommonCellWidth = (kScreen_Width - kSmallCellWidth) / 7;
+    CGFloat kLargeCellWidth = (kScreen_Width - kSmallCellWidth) / 5;
     NSUInteger day = indexPath.section;
     NSUInteger index = indexPath.row;
     CGFloat width = collectionView.numberOfSections == 8 ? kCommonCellWidth : kLargeCellWidth;
