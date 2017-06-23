@@ -57,6 +57,7 @@ static NSString *kHeader = @"kHeader";
 - (void)viewDidLoad {
     [_indicator stopAnimating];
     _topLabel = self.navView.weekLabel;
+    _rootView.jw_frameWidth = kScreen_Width + 25.0;
     _rootView.contentSize = CGSizeMake(16*_rootView.jw_frameWidth,_rootView.jw_frameHeight);
     _rootView.delegate = self;
     _dataController = [JWCourseDataController defaultDateController];
