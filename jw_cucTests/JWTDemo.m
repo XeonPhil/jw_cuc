@@ -30,9 +30,7 @@ static NSString *kKeyChainPassKey = @"com.jwcuc.kKeyChainPassKey";
 }
 - (void)testExample {
     [JWKeyChainWrapper keyChainDeleteIDAndkey];
-//    XCTAssert(![_d hasSavedStudentID]);
-//    [JWKeyChainWrapper keyChainSaveData:@"201410513013" forKey:kKeyChainIDKey];
-//    [JWKeyChainWrapper keyChainSaveData:@"2014105130gc" forKey:kKeyChainPassKey];
+//    XCTAssert(![_d hasSavedStudentID])
 //    XCTAssert([_d hasSavedStudentID]);
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.

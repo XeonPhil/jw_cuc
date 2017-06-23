@@ -34,15 +34,7 @@
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
 //    XCTestExpectation *exp = [self expectationWithDescription:@"net"];
-    [self measureMetrics:@[XCTPerformanceMetric_WallClockTime] automaticallyStartMeasuring:NO forBlock:^{
-        [self startMeasuring];
-        [[JWHTMLSniffer sharedSniffer] getCourseWithStudentID:@"201410513013" password:@"2014105130gc" term:[JWTerm termWithYear:2017 termSeason:JWTermSeasonSpring] andBlock:^{
-            [self stopMeasuring];
-        }failure:^(JWLoginFailure code){
-            NSLog(@"%ld",code);
-            XCTAssert(false);
-        }];
-    }];
+
 }
 
 @end

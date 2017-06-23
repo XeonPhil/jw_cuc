@@ -9,10 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "JWTerm.h"
 #import "JWHTMLSniffer.h"
-#define kRightID @"201410513013"
-#define kRightPass @"2014105130gc"
-#define kWrongID @"201413223222"
-#define kWrongPass @"201413223222"
+
 @interface JWTNetwork : XCTestCase
 @property (nonatomic,strong,readonly)JWTerm *term;
 @end
@@ -32,28 +29,10 @@
 
 - (void)testRight {
 //    NSLog(@"%@\n%lu",[@[] description] ,(unsigned long)13);
-    XCTestExpectation *expectationTrue = [self expectationWithDescription:@"right"];
-    [[JWHTMLSniffer sharedSniffer] getCourseWithStudentID:kRightID password:kRightPass term:_term andBlock:^{
-        XCTAssert(true);
-        [expectationTrue fulfill];
-    }failure:^(JWLoginFailure code){
-        XCTAssert(false);
-        [expectationTrue fulfill];
-    }];
-    [self waitForExpectationsWithTimeout:300 handler:^(NSError * _Nullable error) {
-    }];
+
 }
 - (void)testWrong {
-    XCTestExpectation *expectationFalse = [self expectationWithDescription:@"wrong"];
-    [[JWHTMLSniffer sharedSniffer] getCourseWithStudentID:kWrongID password:kWrongID term:_term andBlock:^{
-        XCTAssert(false);
-        [expectationFalse fulfill];
-    }failure:^(JWLoginFailure code){
-        XCTAssert(true);
-        [expectationFalse fulfill];
-    }];
-    [self waitForExpectationsWithTimeout:300 handler:^(NSError * _Nullable error) {
-    }];
+
 }
 
 @end
