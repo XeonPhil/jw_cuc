@@ -33,6 +33,9 @@ static NSString *kHeader = @"kHeader";
 @property (nonatomic,strong,readwrite)NSArray<JWMainCollectionView *> *mainViews;
 @property (nonatomic,assign,readwrite)NSUInteger currentWeekShown;
 @property (nonatomic,strong,readwrite) UILabel *topLabel;
+
+@property (nonatomic,copy,readwrite)void (^wrongEnterHandler)(NSString* title);
+@property (nonatomic,copy,readwrite)void (^failureHandler)(JWLoginFailure);
 @end
 @implementation JWMainViewController
 - (JWMainCollectionView *)loadMainView{
@@ -55,6 +58,7 @@ static NSString *kHeader = @"kHeader";
     return view;
 }
 - (void)viewDidLoad {
+    [super viewDidLoad];
     [_indicator stopAnimating];
     _topLabel = self.navView.weekLabel;
     _rootView.jw_frameWidth = kScreen_Width + 25.0;
@@ -95,6 +99,34 @@ static NSString *kHeader = @"kHeader";
     
     _currentWeekShown = _calendar.currentWeek;
     [self addObserver:_calendar forKeyPath:@"currentWeekShown" options:NSKeyValueObservingOptionNew context:nil];
+    
+    
+    typeof(self) __weak weakself = self;
+    self.wrongEnterHandler = ^void(NSString* title){
+        UIAlertController* alt = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* gotoChange = [UIAlertAction actionWithTitle:@"goto" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [JWKeyChainWrapper keyChainDeleteIDAndkey];
+            [weakself popLoginifNeeded];
+        }];
+        [alt addAction:gotoChange];
+        [weakself presentViewController:alt animated:YES completion:nil];
+    };
+    self.failureHandler = ^(JWLoginFailure code) {
+        switch (code) {
+            case JWLoginFailureWrongPassword: weakself.wrongEnterHandler(@"pass");break;
+            case JWLoginFailureUnexistUser:weakself.wrongEnterHandler(@"user");break;
+            case JWLoginFailureUnupdated:
+                [weakself refreshTopString:@"教务未更新"];
+                weakself.retryButton.hidden = YES;
+                break;
+            case JWLoginFailureUnknown:
+            case JWLoginFailureBadNetWork:
+                [weakself refreshTopString:@"网络不佳"];
+                weakself.retryButton.hidden = YES;
+                break;
+            default:break;
+        }
+    };
 }
 - (IBAction)retry:(id)sender {
     self.retryButton.hidden = YES;
@@ -150,67 +182,79 @@ static NSString *kHeader = @"kHeader";
         self.retryButton.hidden = NO;
         return;
     }
+    
     [self refreshTopString];
     //根据时段下载课表
+//    void (^wrongEnterHandler)(NSString*) = ^void(NSString* title){
+//        UIAlertController* alt = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction* gotoChange = [UIAlertAction actionWithTitle:@"goto" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            [JWKeyChainWrapper keyChainDeleteIDAndkey];
+//            [self popLoginifNeeded];
+//        }];
+//        [alt addAction:gotoChange];
+//        [self presentViewController:alt animated:YES completion:nil];
+//    };
+//    void (^failureHandler)(JWLoginFailure) = ^(JWLoginFailure code) {
+//        switch (code) {
+//            case JWLoginFailureWrongPassword: wrongEnterHandler(@"pass");break;
+//            case JWLoginFailureUnexistUser:wrongEnterHandler(@"user");break;
+//            case JWLoginFailureUnupdated:
+//                [self refreshTopString:@"教务未更新"];
+//                self.retryButton.hidden = YES;
+//                break;
+//            case JWLoginFailureUnknown:
+//            case JWLoginFailureBadNetWork:
+//                [self refreshTopString:@"网络不佳"];
+//                self.retryButton.hidden = YES;
+//                break;
+//            default:break;
+//        }
+//    };
     if (!_indicator.isAnimating) {
-        void (^wrongEnterHandler)(NSString* title) = ^void(NSString* title){
-            UIAlertController* alt = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction* gotoChange = [UIAlertAction actionWithTitle:@"goto" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [JWKeyChainWrapper keyChainDeleteIDAndkey];
-                [self popLoginifNeeded];
-            }];
-            [alt addAction:gotoChange];
-            [self presentViewController:alt animated:YES completion:nil];
-        };
-        void (^failureHandler)(JWLoginFailure) = ^(JWLoginFailure code) {
-            switch (code) {
-                case JWLoginFailureWrongPassword: wrongEnterHandler(@"pass");break;
-                case JWLoginFailureUnexistUser:wrongEnterHandler(@"user");break;
-                case JWLoginFailureUnupdated:
-                    [self refreshTopString:@"教务未更新"];
-                    self.retryButton.hidden = YES;
-                    break;
-                case JWLoginFailureUnknown:
-                case JWLoginFailureBadNetWork:
-                    [self refreshTopString:@"网络不佳"];
-                    self.retryButton.hidden = YES;
-                    break;
-                default:break;
-            }
-        };
-        switch ([_calendar currentStage]) {
-            case JWStageSpringTerm:
-            case JWStageAutumnTerm:{
-                if (![_dataController hasDownloadCourseInTerm: _calendar.currentTerm]) {
-                    [self fetchCourseUsingBlock:^{
-                        [self refreshTopString];
-                        for (JWMainCollectionView *view in self.rootView.subviews) {
-                            [view reloadData];
-                        }
-                        [self bounceRootView];
-                        [self.navView.weekCollectionView reloadData];
-                    } failure:failureHandler];
+        if (![_dataController hasDownloadCourseInTerm: _calendar.currentTerm]) {
+            [self fetchCourseUsingBlock:^{
+                [self refreshTopString];
+                for (JWMainCollectionView *view in self.rootView.subviews) {
+                    [view reloadData];
                 }
-                break;
-            }
-            case JWStageAutumnExam:
-            case JWStageSpringExam:
-            case JWStageSummerVacation:
-            case JWStageWinterVacation:{
-                if (![_dataController hasDownloadCourseInTerm: _calendar.currentTerm]) {
-                    [self fetchCourseUsingBlock:^{
-                        [self refreshTopString];
-                        for (JWMainCollectionView *view in self.rootView.subviews) {
-                            [view reloadData];
-                        }
-                        [self bounceRootView];
-                    } failure:failureHandler];
-                }
-            }
-            case JWStageSummerTerm:
-                break;
+                [self bounceRootView];
+                [self.navView.weekCollectionView reloadData];
+            } failure:_failureHandler];
         }
+//        switch ([_calendar currentStage]) {
+//            case JWStageSpringTerm:
+//            case JWStageAutumnTerm:{
+//                if (![_dataController hasDownloadCourseInTerm: _calendar.currentTerm]) {
+//                    [self fetchCourseUsingBlock:^{
+//                        [self refreshTopString];
+//                        for (JWMainCollectionView *view in self.rootView.subviews) {
+//                            [view reloadData];
+//                        }
+//                        [self bounceRootView];
+//                        [self.navView.weekCollectionView reloadData];
+//                    } failure:_failureHandler];
+//                }
+//                break;
+//            }
+//            case JWStageAutumnExam:
+//            case JWStageSpringExam:
+//            case JWStageSummerVacation:
+//            case JWStageWinterVacation:{
+//                if (![_dataController hasDownloadCourseInTerm: _calendar.currentTerm]) {
+//                    [self fetchCourseUsingBlock:^{
+//                        [self refreshTopString];
+//                        for (JWMainCollectionView *view in self.rootView.subviews) {
+//                            [view reloadData];
+//                        }
+//                        [self bounceRootView];
+//                    } failure:_failureHandler];
+//                }
+//            }
+//            case JWStageSummerTerm:
+//                break;
+//        }
     }
+    return;
 }
 - (void)fetchCourseUsingBlock:(CommonEmptyBlock)block failure:(void (^)(JWLoginFailure code))failure{
     [_indicator startAnimating];
@@ -225,7 +269,6 @@ static NSString *kHeader = @"kHeader";
     }];
 }
 - (IBAction)unwindToMainViewController:(UIStoryboardSegue*)unwindSegue {
-    typeof(self) __weak weakself = self;
     [self.dataController deleteAllOldCourses];
     for (JWMainCollectionView *view in self.rootView.subviews) {
         [view reloadData];
@@ -238,6 +281,9 @@ static NSString *kHeader = @"kHeader";
     
     if ([JWHTMLSniffer hasConnected]) {
         int week = self.rootView.contentOffset.x / self.rootView.jw_frameWidth + 1;
+        if (week < 1 || week > 16) {
+            return;
+        }
         self.currentWeekShown = week;
         [self refreshTopString];
     }

@@ -26,9 +26,9 @@
     NSUInteger month = self.dateComponents.month;
     NSUInteger day   = self.dateComponents.day;
     if (month && day) {
-        return [NSString stringWithFormat:@"%ld-%ld",month,day];
+        return [NSString stringWithFormat:@"%ld-%ld",(unsigned long)month,day];
     }else {
-        return nil;
+        return [NSString string];
     }
     
 }

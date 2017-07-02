@@ -164,7 +164,7 @@ const static uint kYearMonthDayWeekdayUnitFlags = (NSCalendarUnitYear | NSCalend
 - (NSString *)description  {
     return [NSString stringWithFormat:@"<%@: %p>%@",[self class],&self,@{
                                                                          @"currentTerm":self.currentTerm,
-                                                                         @"beginDay":self.beginDay,
+                                                                         @"beginDay":self.beginDay ? self.beginDay : [NSDateComponents new],
                                                                          @"currentDateComponents":self.currentDateComponents,
                                                                          @"currentAcademicYear":@(self.currentAcademicYear),
                                                                          @"currentWeek":@(self.currentWeek),

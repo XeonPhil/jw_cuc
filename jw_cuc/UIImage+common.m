@@ -12,6 +12,7 @@
 -(UIImage *)cropTo:(CGRect)rect {
     CGImageRef CGImg = [self CGImage];
     CGImageRef cropppedImage = CGImageCreateWithImageInRect(CGImg, rect);
-    return [UIImage imageWithCGImage:cropppedImage];
+    CFAutorelease(cropppedImage);
+    return [UIImage imageWithCGImage:cropppedImage];   
 }
 @end

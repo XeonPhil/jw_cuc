@@ -27,6 +27,7 @@ static CGFloat originalBottomConstraintsConstant = 130.0;
     [super awakeFromNib];
 }
 - (void)viewDidLoad {
+    [super viewDidLoad];
     UIColor *white = [UIColor whiteColor];
     _loginButton.layer.cornerRadius = 25;
 //    [_loginButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
